@@ -1,0 +1,29 @@
+// -*- mode: java -*-
+//
+// fail-instanceof.toy    -- Test instanceof (failure)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 13-Dec-2017 16:31 (eg)
+// Last file update: 13-Dec-2017 17:13 (eg)
+//
+//ERRORS: 3
+
+class C1            { C1 init(){ return this;}}
+class C2 extends C1 { C2 init(){ return this;}}
+class C3 extends C2 { C3 init(){ return this;}}
+
+int main() {
+    C1 c = new C1.init();
+    int cpt = 0;
+
+    if (c instanceof C1) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C2) { print("FAILURE\n"); }
+    if (c instanceof C3) { print("FAILURE\n"); }
+    print("--------------\n");
+
+    if (cpt instanceof C1)   {cpt++;}   // first operand is not a an object
+    if (c instanceof cpt)    {cpt++;}   // second operand is not a an object
+    if (c instanceof string) {cpt++;}   // string is not an identifier
+
+    return 0;
+}

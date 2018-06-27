@@ -1,0 +1,10 @@
+#!/bin/sh
+#           Author: Erick Gallesio [eg@unice.fr]
+#    Creation date: 18-Dec-2017 11:50
+# Last file update: 18-Dec-2017 14:51 (eg)
+
+in=$(grep -c "<<" trace-objects.out)
+out=$(grep -c ">>" trace-objects.out)
+
+[ "$in" -eq 7 -a "$out" -eq 7 ] 
+

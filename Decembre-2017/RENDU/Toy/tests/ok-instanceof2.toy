@@ -1,0 +1,47 @@
+// -*- mode: java -*-
+//
+// ok-instanceof2.toy    -- Test instanceof (test dynamique)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 13-Dec-2017 16:31 (eg)
+// Last file update: 13-Dec-2017 17:27 (eg)
+//
+
+class C1            { C1 init(){ return this;}}
+class C2 extends C1 { C2 init(){ return this;}}
+class C3 extends C2 { C3 init(){ return this;}}
+
+
+int main() {
+    C1 c = new C1.init();
+    int cpt = 0;
+
+    if (c instanceof C1) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C2) { print("FAILURE\n"); cpt++; }
+    if (c instanceof C3) { print("FAILURE\n"); cpt++; }
+    print("--------------\n");
+
+    c = new C2.init();
+
+    if (c instanceof C1) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C2) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C3) { print("FAILURE\n"); cpt++; }
+    print("--------------\n");
+
+    c = new C3.init();
+
+    if (c instanceof C1) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C2) { print("SUCCESS\n"); cpt++; }
+    if (c instanceof C3) { print("SUCCESS\n"); cpt++; }
+    print("--------------\n");
+
+    C1 c1;
+    
+    if (new C1.init() instanceof C3) { print("FAILURE\n"); cpt++; }
+    if (new C1.init() instanceof C1) { print("SUCCESS\n"); cpt++; }
+    if (c1 instanceof C1)            { print("FAILURE\n"); cpt++; }
+    print("--------------\n");
+
+    print((cpt == 7) ? "SUCCESS\n" : "FAILURE\n");
+    return 0;
+}

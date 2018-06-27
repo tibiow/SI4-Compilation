@@ -1,0 +1,9 @@
+#!/bin/sh
+#           Author: Erick Gallesio [eg@unice.fr]
+#    Creation date: 18-Dec-2017 11:50
+# Last file update: 18-Dec-2017 12:20 (eg)
+
+in=$(grep -c "<<" trace-fact.out)
+out=$(grep -c ">>" trace-fact.out)
+
+[ "$in" -eq 52 -a "$out" -eq 52 ] 

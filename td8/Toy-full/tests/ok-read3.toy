@@ -1,0 +1,48 @@
+// -*- mode: java -*-
+//
+// ok-read2.toy         -- Test on the read statement (with classes)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 12-Dec-2015 11:47 (eg)
+// Last file update: 13-Dec-2017 20:05 (eg)
+//
+
+class Point {
+    int x, y;
+
+
+
+    void printobj() {
+        // Printing coordinates
+        print("(", this.x, ", ", this.y, ")");
+    }
+
+    Point init(int x, int y) {
+        this.x = x; this.y = y;
+        return this;
+    }
+
+    void readobj() {
+        // Reading coordinates
+        print("Value of x? "); read(this.x);
+        print("Value of y? "); read(this.y);
+    }
+}
+
+bool isatty(int fd);
+
+int main() {
+    Point p1 = new Point.init(1, 2);
+    Point p2 = new Point;
+
+    print("Point p1: ", p1, "\n");
+    print("Enter coordinates of point p2\n");
+    read(p2);
+
+    if (not isatty(0)) {
+        // We are not interactive (probably doing a "make tests")
+        print((p2.x == 12 and p2.y == 34)? "\nSUCCESS\n": "\nFAILURE\n");
+    }
+    print("Point p2: ", p2, "\n");
+    return 0;
+}

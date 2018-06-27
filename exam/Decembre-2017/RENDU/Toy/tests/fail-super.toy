@@ -1,0 +1,54 @@
+// -*- mode: java -*-
+//
+// fail-super.toy       -- Testing super (and failing)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 23-Sep-2015 16:46 (eg)
+// Last file update:  9-Dec-2015 17:20 (eg)
+//
+
+//ERRORS: 5
+
+
+class C {
+    int c = 1;
+    void foo(int n) {
+        print("\tfoo of C: ", n, "\n");
+        super.foo(10);                  // foo doesn't exist in Object
+        super.Ouch;                     // Ouch doesn't not exist in Object
+    }
+
+    void bar(int n) {
+        print("\tbar of C: ", n, "\n");
+    }
+}
+
+
+class D extends C {
+    int d = 2;
+
+    void foobar(int n) {
+        print("\tfoobar of D: ", n, "\n");
+        print("\t--> c = ", super.c, "\n");
+    }
+
+    void foo (int n) {
+        print("\tfoo of D: ", n, "\n");
+        super.z;                        // member C::z doesn't exists
+        super.c(1);                     // member C::c is not a method
+        super.c;                        // OK
+        super.d;                        // C::d doesn't not exists
+        this.d;                         // OK
+        super.bar(1);                   // OK
+        this.bar(2);                    // OK
+        this.foobar(3);                 // OK
+    }
+
+}
+
+
+
+int main() {
+
+    return 0;
+}

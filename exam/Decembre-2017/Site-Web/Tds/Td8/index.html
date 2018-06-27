@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 8: Extensions du langage Toy objet (Toy-full)</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 8: Extensions du langage Toy objet (Toy-full)</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de Td est <a href="sujet.html">ici</a>.</p>
+
+<p>Pour réaliser ce TD, vous devez charger l&#39;archive qui contient
+le <a href="Toy-full-student.tar.gz">compilateur du langage <em>Toy full</em></a>.</p>
+
+<h2 id="corrigé">Corrigé</h2>
+
+<h3 id="ajout-de-la-constante-null">Ajout de la constante <em>null</em></h3>
+
+<p>La constante <strong>null</strong> est l&#39;unique valeur possible pour le type null
+(on appelera ce type <em>null_type</em> dans le compilateur).</p>
+
+<p>Pour ajouter <code>null</code>, il faut: </p>
+
+<ol>
+<li><p>modifier le lexical pour accepter le mot clé null  </p>
+
+<pre><code class="hl c"><span class="hl str">&quot;null&quot;</span>          <span class="hl kwa">return</span> KNULL<span class="hl opt">;</span>
+</code></pre></li>
+<li><p>ajouter une règle dans les expressions pour accepter cette
+constante (comme les autres constantes du langage).</p>
+
+<pre><code class="hl c">expr<span class="hl opt">:</span>
+     <span class="hl opt">...</span>
+     <span class="hl opt">|</span>       KNULL                 <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_null_constant</span><span class="hl opt">(); }</span>
+     <span class="hl opt">...</span>
+</code></pre></li>
+<li><p>ajouter un nouveau type de nœud dans l&#39;arbre dans <code>ast.h</code>, (comme
+on l&#39;avait vu dans le TD précédent); mais surtout <strong>créer un
+nouveau type d&#39;objet</strong>: <code>null_type</code>. La création d&#39;un nouveau type
+d&#39;objet peut se faire dans la fonction d&#39;initialisation du module
+<code>ast.c</code>.</p>
+
+<pre><code class="hl c">null_type   <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;&quot;</span><span class="hl opt">);</span>
+</code></pre>
+
+<p>Ici, les chaîne ne seront pas utilisées puisqu&#39;on ne peut pas déclarer
+de variable de type <strong>null</strong>.</p></li>
+<li><p>modifier la fonction de compatibilité de types. Cette fonction doit
+maintenant renvoyer <code>true</code> si un des paramètres est un objet (c&#39;est
+donc un objet de type non standard) et l&#39;autre est <strong>null</strong> (son
+type est don <em>null_type</em>) . Le test à rajouter dans
+<code>compatible_types</code> est donc:  </p>
+
+<pre><code class="hl c"><span class="hl slc">// Testing a mix of an object and null</span>
+<span class="hl kwa">if</span> <span class="hl opt">((!</span><span class="hl kwd">TYPE_IS_STANDARD</span><span class="hl opt">(</span>t1<span class="hl opt">) &amp;&amp;</span> t2 <span class="hl opt">==</span> null_type<span class="hl opt">)         ||</span>
+   <span class="hl opt">(</span>t1 <span class="hl opt">==</span> null_type        <span class="hl opt">&amp;&amp; !</span><span class="hl kwd">TYPE_IS_STANDARD</span><span class="hl opt">(</span>t2<span class="hl opt">)))</span>
+   <span class="hl kwa">return true</span><span class="hl opt">;</span>
+</code></pre></li>
+<li><p>modifier la procédure de production de code pour qu&#39;elle émette 
+la valeur NULL. Cette procèdure devient:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">produce_code_constant</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">){</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> string_type<span class="hl opt">)</span>
+    <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_STRING_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+  <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> null_type<span class="hl opt">)</span>            <span class="hl slc">// ICI</span>
+    <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;NULL&quot;</span><span class="hl opt">);</span>                                  <span class="hl slc">// ICI</span>
+  <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> float_type<span class="hl opt">)</span>
+    <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%f&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_FLOAT_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+  <span class="hl kwa">else</span> <span class="hl slc">// Booleans are treated as integers</span>
+    <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%d&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_INT_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+<span class="hl opt">}</span>
+</code></pre></li>
+</ol>
+
+<h3 id="ajout-de-la-primitive-read">Ajout de la primitive read</h3>
+
+<p>Pour ajouter la primitive <code>read</code>, on peut s&#39;inspirer du code que l&#39;on
+a déjà pour la primitive <code>print</code>. La seule vraie différence est que
+<code>print</code> prend des listes d&#39;expressions, alors que <code>read</code> doit prendre
+des listes de variables. Comme il n&#39;existe pas déjà de règle
+syntaxique  pour les liste de variables, nous devons la créer:</p>
+
+<pre><code class="hl bison"><span class="hl kwd">var_list:</span>       var_list <span class="hl str">&apos;,&apos;</span> var       <span class="hl opt">{</span> list_append<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">,</span> FREE_NODE<span class="hl opt">);</span> $$ <span class="hl opt">=</span> <span class="hl kwc">$1</span><span class="hl opt">; }</span>
+        |       var                    <span class="hl opt">{</span> $$ <span class="hl opt">=</span> list_create<span class="hl opt">();</span>
+                                         list_append<span class="hl opt">(</span>$$<span class="hl opt">,</span> <span class="hl kwc">$1</span><span class="hl opt">,</span> FREE_NODE<span class="hl opt">); }</span>
+        |       <span class="hl com">/* empty */</span>            <span class="hl opt">{</span> $$ <span class="hl opt">=</span> list_create<span class="hl opt">(); }</span>
+        <span class="hl opt">;</span>
+</code></pre>
+
+<p>Ensuite, il faut rajouter une règle sur la lecture dans <code>stmt</code>:</p>
+
+<pre><code class="hl bison"><span class="hl kwd">stmt:</span>
+ ...
+ |       KREAD <span class="hl str">&apos;(&apos;</span> var_list <span class="hl str">&apos;)&apos;</span> <span class="hl str">&apos;;&apos;</span> <span class="hl opt">{</span> $$ <span class="hl opt">=</span> make_read_statement<span class="hl opt">(</span><span class="hl kwc">$3</span><span class="hl opt">); }</span>
+ ...
+</code></pre>
+
+<p>En ce qui concerne les modifications des fichiers <code>analysis.{c,h}</code> et
+<code>ast.{c,h}</code>, elle sont très simples puisqu&#39;elles se bornent à
+«calquer» le travail qui était fait sur la primitive <code>print</code>.<br>
+Elles ne seront pas détaillées ici.</p>
+
+<p>La production de code de <code>read</code> est donnée ci-dessous: </p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">produce_code_read_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwb">struct</span> s_read_statement <span class="hl opt">*</span>n <span class="hl opt">= (</span><span class="hl kwb">struct</span> s_read_statement <span class="hl opt">*)</span> node<span class="hl opt">;</span>
+  <span class="hl kwb">bool</span> first_parameter <span class="hl opt">=</span> <span class="hl kwa">true</span><span class="hl opt">;</span>
+
+  <span class="hl slc">// Note: all the read must be in the same block (think to &apos;if (C) read(a, b)&apos;</span>
+  <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;{</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span> <span class="hl kwd">indent</span><span class="hl opt">(+</span><span class="hl num">1</span><span class="hl opt">);</span>
+  <span class="hl kwd">FORLIST</span><span class="hl opt">(</span>p<span class="hl opt">,</span> n<span class="hl opt">-&gt;</span>parameters<span class="hl opt">) {</span>
+    ast_node <span class="hl opt">*</span>item <span class="hl opt">=</span> <span class="hl kwd">list_item_data</span><span class="hl opt">(</span>p<span class="hl opt">);</span>
+
+    <span class="hl kwa">if</span> <span class="hl opt">(!</span> first_parameter<span class="hl opt">)</span> <span class="hl kwd">indent</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">);</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>item<span class="hl opt">) ==</span> int_type<span class="hl opt">) {</span>                           <span class="hl slc">// int</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_read_int(&amp;&quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>item<span class="hl opt">) ==</span> float_type<span class="hl opt">) {</span>                  <span class="hl slc">// float</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_read_float(&amp;&quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>item<span class="hl opt">) ==</span> bool_type<span class="hl opt">) {</span>                   <span class="hl slc">// bool</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_read_bool(&amp;&quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>item<span class="hl opt">) ==</span> string_type<span class="hl opt">) {</span>                 <span class="hl slc">//string</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_read_string(&amp;&quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else</span> <span class="hl opt">{</span>                                                    <span class="hl slc">// object</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_read_object((Object) &quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+    <span class="hl kwd">code</span><span class="hl opt">(</span>item<span class="hl opt">);</span>
+    <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;);</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+    first_parameter <span class="hl opt">=</span> <span class="hl kwa">false</span><span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">indent</span><span class="hl opt">(-</span><span class="hl num">1</span><span class="hl opt">);</span> <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;}</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Ce code suffit pour faire passer les deux premiers tests qui
+n&#39;utilisent pas d&#39;objets . Par contre, il va falloir modifier un peu
+le code si on veut traiter les objets. </p>
+
+<p>La première chose à faire est de déclarer la fonction <code>readbj</code> lors de
+du «bootstrap» des objets, dans le fichier <code>objets.c</code>: </p>
+
+<pre><code class="hl c"><span class="hl slc">/// This function is in charge of bootstrapping the object system. It</span>
+<span class="hl slc">/// declares:</span>
+<span class="hl slc">///     * the Object class</span>
+<span class="hl slc">///     * the Object::printobj method</span>
+<span class="hl slc">///     * the Object::typename method</span>
+<span class="hl slc">///     * the Object::readobj  method</span>
+<span class="hl kwb">void</span> <span class="hl kwd">init_object</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  <span class="hl slc">// ---- Bootstrap the Object system by forging the pseudo Object class</span>
+  Object_class <span class="hl opt">=</span> <span class="hl kwd">make_class</span><span class="hl opt">(</span><span class="hl kwd">make_identifier</span><span class="hl opt">(</span><span class="hl str">&quot;Object&quot;</span><span class="hl opt">),</span> NULL<span class="hl opt">,</span> <span class="hl kwd">list_create</span><span class="hl opt">());</span>
+  <span class="hl kwd">symbol_table_declare_class</span><span class="hl opt">(</span><span class="hl str">&quot;Object&quot;</span><span class="hl opt">,</span> Object_class<span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+
+  <span class="hl slc">// ----  Create the methods Object::printobj() and Object::typename()</span>
+  ast_node <span class="hl opt">*</span>print_method <span class="hl opt">=</span> <span class="hl kwd">create_Object_method</span><span class="hl opt">(</span><span class="hl str">&quot;printobj&quot;</span><span class="hl opt">,</span> void_type<span class="hl opt">);</span>
+  ast_node <span class="hl opt">*</span>type_method  <span class="hl opt">=</span> <span class="hl kwd">create_Object_method</span><span class="hl opt">(</span><span class="hl str">&quot;typename&quot;</span><span class="hl opt">,</span> string_type<span class="hl opt">);</span>
+  ast_node <span class="hl opt">*</span>read_method  <span class="hl opt">=</span> <span class="hl kwd">create_Object_method</span><span class="hl opt">(</span><span class="hl str">&quot;readobj&quot;</span><span class="hl opt">,</span> void_type<span class="hl opt">);</span>
+
+  <span class="hl slc">// --- make a list of these methods and place it in the Object members and vtable</span>
+  List methods <span class="hl opt">=</span> <span class="hl kwd">list_create</span><span class="hl opt">();</span>
+
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>methods<span class="hl opt">,</span> print_method<span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>methods<span class="hl opt">,</span> type_method<span class="hl opt">,</span>  NULL<span class="hl opt">);</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>methods<span class="hl opt">,</span> read_method<span class="hl opt">,</span>  NULL<span class="hl opt">);</span>
+
+  <span class="hl kwd">CLASS_MEMBERS</span><span class="hl opt">(</span>Object_class<span class="hl opt">) =</span> <span class="hl kwd">CLASS_VTABLE</span><span class="hl opt">(</span>Object_class<span class="hl opt">) =</span> methods<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Cette fonction déclare 3 méthodes de base dans la classe <code>Object</code>. Ces
+méthodes seront numérotées, suivant leur ordre dans la liste des
+méthodes. On a donc:</p>
+
+<ul>
+<li><code>printobj</code> (à l&#39;indice 0)</li>
+<li><code>typename</code> (à l&#39;indice 1)</li>
+<li><code>readobj</code>  (à l&#39;indice 2)</li>
+</ul>
+
+<p>Maintenant que la méthode de lecture des objets est connue de la
+couche objet, il faut ajouter son implémentation dans le <em>runtime</em>.
+La fonction que l&#39;on doit écrire permet d&#39;appeler la méthode situé à
+l&#39;indice 2 de l&#39;objet qui lui est passé en paramètre. Cette fonction
+peut s&#39;écrire simplement: </p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">_toy_read_object</span><span class="hl opt">(</span>Object o<span class="hl opt">) {</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>o<span class="hl opt">)</span>
+    <span class="hl kwd">_TOY_INVOKE</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">,</span> o<span class="hl opt">,</span> <span class="hl num">2</span><span class="hl opt">,</span> _this<span class="hl opt">);</span>
+  <span class="hl kwa">else</span> <span class="hl opt">{</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;*** Error: trying to read a null object!&quot;</span><span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Cela termine l&#39;implémentation de la primitive <code>read</code>.</p>
+
+<h3 id="opérateur-instanceof">Opérateur instanceof</h3>
+
+<p>L&#39;opérateur <code>instanceof</code> est un opérateur binaire. Ici, nous voulons
+que ces deux opérandes soient des objets (c&#39;est à dire pas de types
+standard).</p>
+
+<p>Comme d&#39;habitude, il faut 
+  - modifier le fichier <code>lexical.l</code> (ajout du mot-clé <code>instanceof</code>
+  - modifier <code>ast.h</code> pour ajouter une nouvelle catégorie d&#39;expression
+    (appelée ici <code>isa</code>)</p>
+
+<p><strong>Analyse</strong>:</p>
+
+<p>Au niveau de l&#39;analyse, on ne peut pas passer par la fonction
+<code>compatible_type</code> puisque cette dernière regarde la compatibilité
+<strong>statique</strong> entre deux expressions, alors que l&#39;on veut ici regarder la
+compatibilité <strong>dynamique</strong>. En effet, si on a:</p>
+
+<pre><code class="hl java"><span class="hl kwa">class</span> A <span class="hl opt">{ ... }</span>
+<span class="hl kwa">class</span> B <span class="hl kwa">extends</span> A <span class="hl opt">{ ... }</span>
+
+<span class="hl kwa">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+    A a<span class="hl opt">;</span>
+    B b<span class="hl opt">;</span>
+
+    a <span class="hl opt">=</span> b<span class="hl opt">;</span>  <span class="hl slc">// compatibilité statique ⇒ true</span>
+    b <span class="hl opt">=</span> a<span class="hl opt">;</span>  <span class="hl slc">// compatibilité statique ⇒ false ⇒ erreur</span>
+
+    a <span class="hl kwa">instanceof</span> B<span class="hl opt">;</span> <span class="hl slc">// accepter et vérifier au runtime</span>
+    b <span class="hl kwa">instanceof</span> A<span class="hl opt">;</span> <span class="hl slc">// accepter et vérifier au runtime</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Ici, quand on a <code>b instanceof A</code>, la fonction <code>compatible_type</code>
+retournerait <code>false</code>, alors qu&#39;on ne peut vraiment savoir la valeur du
+test qu&#39;à l&#39;exécution. Par conséquent on va devoir tester spécialement
+les expressions binaires avec <code>instanceof</code>. Nous avons dans l&#39;analyse
+des expressions:</p>
+
+<pre><code class="hl c"> <span class="hl kwa">switch</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_ARITY</span><span class="hl opt">(</span>node<span class="hl opt">)) {</span>
+   <span class="hl kwa">case</span> <span class="hl num">1</span><span class="hl opt">: ...</span>
+
+   <span class="hl kwa">case</span> <span class="hl num">2</span><span class="hl opt">:</span> <span class="hl kwd">analysis</span><span class="hl opt">(</span>op1<span class="hl opt">);</span> <span class="hl kwd">analysis</span><span class="hl opt">(</span>op2<span class="hl opt">);</span>
+           <span class="hl kwa">if</span> <span class="hl opt">(!</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>op1<span class="hl opt">) || !</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>op2<span class="hl opt">))</span> <span class="hl slc">//</span>
+             <span class="hl slc">// if one of the types is NULL, we consider that this is compatible</span>
+             <span class="hl slc">// It arises generally when a variable is auto-declared</span>
+             <span class="hl kwa">break</span><span class="hl opt">;</span>
+
+           <span class="hl slc">// Special test for isa</span>
+           <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_KIND</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> isa<span class="hl opt">) {</span>
+             <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">TYPE_IS_STANDARD</span><span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>op1<span class="hl opt">))) {</span>
+               <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;first operand of instanceof is not an object&quot;</span><span class="hl opt">);</span>
+             <span class="hl opt">}</span>
+             <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">TYPE_IS_STANDARD</span><span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>op2<span class="hl opt">))) {</span>
+               <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;second operand of instanceof is not an object&quot;</span><span class="hl opt">);</span>
+             <span class="hl opt">}</span>
+
+             <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) =</span> bool_type<span class="hl opt">;</span>
+             <span class="hl kwa">break</span><span class="hl opt">;</span>
+           <span class="hl opt">}</span>
+
+           <span class="hl slc">// Ancien code pour les expressions binaires</span>
+           <span class="hl opt">...</span>
+
+   <span class="hl kwa">case</span> <span class="hl num">3</span><span class="hl opt">: ...</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><em>Rappel</em>: le test <code>TYPE_IS_STANDARD(AST_TYPE(x))</code> permet de savoir
+si x est un type standard (<code>int</code>, <code>float</code>, ...). Si ce test est
+négatif, <code>x</code> est soit une classe, soit un objet·</p>
+
+<p><strong>Production de code</strong>:</p>
+
+<p>Pour <code>prodcode.c</code>, nous produirons un appel à la fonction <code>_toy_isa</code>
+qui prend deux paramètres: l&#39;expression qui est à gauche de
+<code>instanceof</code> et une chaîne qui est le nom de la classe qui nous
+intéresse.  </p>
+
+<p>Si <code>node</code> est un nœud contenant un appel à <code>instanceof</code>, la production
+de code consiste simplement en:</p>
+
+<pre><code class="hl c">  ast_node <span class="hl opt">*</span> klass <span class="hl opt">=</span> <span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">);</span>
+  <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_isa((Object) (&quot;</span><span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+  <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;),</span> <span class="hl esc">\&quot;</span><span class="hl str">%s</span><span class="hl esc">\&quot;</span><span class="hl str">)&quot;</span><span class="hl opt">,</span> <span class="hl kwd">IDENT_VAL</span><span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>klass<span class="hl opt">)));</span>
+</code></pre>
+
+<p><strong>Runtime</strong>:</p>
+
+<p>Pour calculer si une instance descend d&#39;une classe dont on a lenom, il
+suffit de chercher dynamiquement ce nom dans la liste des métaclasses
+qui est accessible depuis le champ <code>instanceof</code> de cette instance. </p>
+
+<p>On peut donc faire cette recherche avec la fonction suivante: </p>
+
+<pre><code class="hl c"><span class="hl kwb">int</span> <span class="hl kwd">_toy_isa</span><span class="hl opt">(</span>Object <span class="hl kwa">this</span><span class="hl opt">,</span> _toy_string klass_name<span class="hl opt">) {</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">) {</span>
+    <span class="hl kwa">for</span> <span class="hl opt">(</span>_toy_metaclass <span class="hl opt">*</span>p <span class="hl opt">=</span> <span class="hl kwa">this</span><span class="hl opt">-&gt;</span>_instance_of<span class="hl opt">;</span> p<span class="hl opt">;</span> p <span class="hl opt">=</span> p<span class="hl opt">-&gt;</span>extends_meta<span class="hl opt">) {</span>
+      <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">strcmp</span><span class="hl opt">(</span>p<span class="hl opt">-&gt;</span>classname<span class="hl opt">,</span> klass_name<span class="hl opt">) ==</span> <span class="hl num">0</span><span class="hl opt">)</span> <span class="hl kwa">return</span> <span class="hl num">1</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h3 id="ajout-automatique-de-this-dans-les-accès-aux-champs">Ajout automatique de <em>this</em> dans les accès aux champs.</h3>
+
+<p>Le code de cette extension doit être ajouté dans l&#39;analyse des
+identificateurs puisqu&#39;on transforme (sous certaines conditions) un
+identificateur simple (e.g. <code>x</code>) en un identificateur préfixé
+(<code>this.x</code>). La modification doit donc être faite dans la fonction en
+charge de l&#39;analyse des identificateurs non préfixés, à savoir
+<code>simple_identifier_analysis</code>.</p>
+
+<p><strong>Conditions pour ajouter this</strong>:</p>
+
+<p>Il faut rajouter <em>this</em> à une variable simple <code>x</code> si:</p>
+
+<ol>
+<li>on est dans l&#39;analyse d&#39;une classe (dans ce cas, la variable
+<code>current_class</code> dans <code>analysis.c</code> est différente de NULL).</li>
+<li><code>x</code> est un membre de la classe courante, ce que l&#39;on peut savoir
+avec la fonction <code>symbol_table_search_member</code>.</li>
+<li><p><code>x</code> n&#39;est pas dans la portée de la méthode courante. En effet, dans
+la méthode  <code>M</code> suivante:</p>
+
+<pre><code class="hl java"><span class="hl kwa">class</span> C <span class="hl opt">{</span>
+   <span class="hl kwa">int</span> x <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> y <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+   <span class="hl kwa">int</span> <span class="hl kwd">M</span><span class="hl opt">() {</span>
+       <span class="hl kwa">int</span> x <span class="hl opt">=</span> <span class="hl num">100</span><span class="hl opt">;</span>
+       <span class="hl kwa">return</span> x <span class="hl opt">+</span> y<span class="hl opt">;</span>
+   <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>la variable <code>x</code> ne doit pas être remplacée par <code>this.x</code> puisqu&#39;il
+existe une variable locale <code>x</code> qui masque le champ <code>C::x</code>.</p></li>
+</ol>
+
+<p>Il faudra aussi faire attention aux variables globales (en effet si il
+existe une variable globale <code>y</code> celle-ci est dans la portée de M, mais
+elle devrait être masquée par le <code>y</code> de la classe courante. Pour
+chercher si une variable dans la portée, nous utiliserons la fonction
+<code>symbol_table_search_blocks</code>. Cette fonction est une variante de
+<code>symbol_table_search</code>: elle cherche dans tous les blocs accessibles de
+la portée courante, <strong>sauf</strong> les variables globales.</p>
+
+<p><strong>Comment ajouter <em>this</em> à un identificateur:</strong></p>
+
+<p>Si on regarde <code>syntax.h</code>, on voit que lorsque bison tombe sur le mot clé <strong>this</strong>:</p>
+
+<ol>
+<li>un nœud spécial est créé avec la fonction <code>make_this()</code></li>
+<li>ce nœud est ajouté à l&#39;identificateur courant avec <code>add_prefix_to_identifier</code>.</li>
+</ol>
+
+<p><strong>Et ensuite?</strong></p>
+
+<p>Une fois que l&#39;on a <em>greffé</em> un préfixe à l&#39;identificateur, on est en
+présence d&#39;un identificateur préfixé qui doit être analysé avec
+<code>prefix_analysis</code>.</p>
+
+<p><strong>Code:</strong></p>
+
+<p>On a donc le code suivant:</p>
+
+<pre><code class="hl c"><span class="hl kwb">static void</span> <span class="hl kwd">simple_identifier_analysis</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">,</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>id<span class="hl opt">){</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>current_class<span class="hl opt">) {</span>
+    <span class="hl kwb">char</span> <span class="hl opt">*</span> class_name <span class="hl opt">=</span> <span class="hl kwd">IDENT_VAL</span><span class="hl opt">(</span><span class="hl kwd">CLASS_NAME</span><span class="hl opt">(</span>current_class<span class="hl opt">));</span>
+    ast_node <span class="hl opt">*</span>member  <span class="hl opt">=</span> <span class="hl kwd">symbol_table_search_member</span><span class="hl opt">(</span>id<span class="hl opt">,</span> class_name<span class="hl opt">);</span>
+    ast_node <span class="hl opt">*</span>local   <span class="hl opt">=</span> <span class="hl kwd">symbol_table_search_blocks</span><span class="hl opt">(</span>id<span class="hl opt">);</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(!</span>local <span class="hl opt">&amp;&amp;</span> member<span class="hl opt">) {</span>
+      <span class="hl kwd">add_prefix_to_identifier</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl kwd">make_this</span><span class="hl opt">());</span>
+      <span class="hl kwd">prefix_analysis</span><span class="hl opt">(</span>node<span class="hl opt">,</span> id<span class="hl opt">);</span> <span class="hl slc">// A little bit overkill, but safer</span>
+      <span class="hl kwa">return</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+  <span class="hl opt">}</span>
+  <span class="hl opt">....</span> ancien code <span class="hl opt">....</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Note</strong>: dans le code distribué, il y avait une erreur lorsqu&#39;on
+rencontrait un identificateur de classe dans une expression (ce qui
+était normal, puisque ce cas ne pouvait pas arriver). Ce test a été
+enlevé ici puisque maintenant on peut avoir un nom de classe en partie
+droite de <code>instanceof</code>.</p>
+
+<h3 id="implementation-du-mot-clé-super">Implementation du mot-clé <em>super</em></h3>
+
+<p>L&#39;archive qui contient le corrigé comporte le code pour ajouter le
+mot-clé <code>super</code>. Comme cette question n&#39;a pas été abordée en TD, elle
+ne sera pas détaillée ici.</p>
+
+<p>Archive du compilateur complet corrigé est disponible dans 
+cette <a href="Toy-full-student-corrige.tar.gz">archive</a>.</p>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">16-Dec-2017 22:44 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

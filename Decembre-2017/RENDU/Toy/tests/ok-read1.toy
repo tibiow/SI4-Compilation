@@ -1,0 +1,24 @@
+// -*- mode: java -*-
+//
+// ok-read1.toy  -- Test of the read function
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 12-Dec-2015 09:56 (eg)
+// Last file update: 12-Dec-2015 13:05 (eg)
+//
+
+int main() {
+    int i;
+    float f;
+    bool b;
+    string s;
+
+    print("Testing read statement\n");
+    print("Enter an int, a float, a bool and a string\n");
+    read(i, f, b, s);
+    print("i = ", i, ", f = ", f, ", b =", b, ", s='", s, "'\n");
+
+    print("SUCCESS\n");
+    return 0;
+}
+

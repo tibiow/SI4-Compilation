@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 6: Extensions du langage Toy-base</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 6: Extensions du langage Toy-base</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de Td est <a href="sujet.html">ici</a>.</p>
+
+<p>Pour réaliser ce TD, vous devez charger l&#39;archive qui contient
+le <a href="Toy-base-student.tgz">compilateur du langage <em>Toy base</em></a>.</p>
+
+<h2 id="corrigé">Corrigé</h2>
+
+<h3 id="correction-n°1-conditions-booléennes">Correction n°1: Conditions booléennes</h3>
+
+<p>Cette correction est assez simple. Elle consiste à rajouter un
+test sur le type de la condition dans l&#39;expression de contrôle d&#39;un
+<code>if</code> ou d&quot;un <code>while</code>.</p>
+
+<ul>
+<li><p>Noter que <strong>seules les fonctions d&#39;analyse</strong> doivent être modifiées ici,
+puisque la correction consiste à ajouter un contrôle <strong>supplémentaire</strong>
+lors de la phase d&#39;analyse. </p></li>
+<li><p>Pour <code>if</code>, Cela se fait dans la fonction <code>analysis_if_statement</code> du
+fichier <code>analysis.c</code>. En fait il suffit de rajouter le code</p>
+
+<pre><code class="hl c"><span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">) !=</span> bool_type<span class="hl opt">)</span> <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;condition must be boolean&quot;</span><span class="hl opt">);</span>
+</code></pre>
+
+<p><strong>après</strong> l&#39;analyse de la condition. Le code de la fonction devient donc:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">analysis_if_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwb">struct</span> s_if_statement <span class="hl opt">*</span>n <span class="hl opt">= (</span><span class="hl kwb">struct</span> s_if_statement <span class="hl opt">*)</span> node<span class="hl opt">;</span>
+
+  <span class="hl slc">// Analyze condition</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">);</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">) !=</span> bool_type<span class="hl opt">)</span> <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;condition must be boolean&quot;</span><span class="hl opt">);</span>
+
+  <span class="hl slc">// Analyze if and then parts</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>then_stat<span class="hl opt">);</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>else_stat<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+ ```
+</code></pre></li>
+<li><p>pour <code>while</code> le code est très proche et la fonction à modifier est
+bien-sûr <code>analysis_while_statement</code>.</p></li>
+</ul>
+
+<p><strong>Remarque:</strong> Il est important de noter que le test sur le type de la
+condition doit se faire <strong>après</strong> l&#39;analyse de la condition du <code>if</code> ou
+du <code>while</code>.  En effet, lorsqu&#39;on entre dans une fonction d&#39;analyse les
+composants du nœud ne sont pas encore typés; C&#39;est l&#39;appel récursif
+sur l&#39;analyse de la condition qui permet (entre autres choses) de type
+cette dernière.</p>
+
+<h3 id="correction-n°2-comparaison-de-chaînes-de-caractères">Correction n°2: comparaison de chaînes de caractères</h3>
+
+<p>Ici la modification doit être faite dans la phase de production de
+code. En effet l&#39;analyse est correcte (on a bien vérifié que les
+opérandes de la comparaison sont des chaînes de caractères, que si il
+y a des variables, celles-ci sont bien déclarées, ...).</p>
+
+<p>Par contre, le code produit ici n&#39;est pas correct puisqu&#39;on produit un
+opérateur de comparaison arithmétique au lieu de l&#39;appel à la fonction
+<code>strcmp</code>. Il faut donc modifier la production de code des expressions
+binaires (et donc modifier <code>produce_code_expression</code> dans le fichier
+<code>prodcode.c</code>).</p>
+
+<p>Le code de production était:</p>
+
+<pre><code class="hl c"><span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+<span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot; %s &quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+<span class="hl kwd">code_expr_cast</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+</code></pre>
+
+<p>Il devient donc:</p>
+
+<pre><code class="hl c"><span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_KIND</span><span class="hl opt">(</span>node<span class="hl opt">)==</span>comp <span class="hl opt">&amp;&amp;</span> <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">))==</span>string_type<span class="hl opt">) {</span>
+   <span class="hl slc">// op2 is also a string (analysis has already verified that)</span>
+   <span class="hl slc">// ⇒ We are comparing strings, generate a strcmp</span>
+   <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;(strcmp(&quot;</span><span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+   <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;, &quot;</span><span class="hl opt">);</span>      <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+   <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;) %s 0)&quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+<span class="hl opt">}</span> <span class="hl kwa">else</span> <span class="hl opt">{</span>
+   <span class="hl slc">// simple binary operators</span>
+   <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+   <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot; %s &quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+   <span class="hl kwd">code_expr_cast</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Ainsi la comparaison <code>ch1 &gt;= ch2</code> sera traduite en
+<code>strcmp(ch1, ch2) &gt;= 0</code>, si ch1 et ch2 sont des chaînes de caractères.</p>
+
+<h3 id="extension-n°1-ajout-des-opérateurs--et---">Extension n°1: Ajout des opérateurs &#39;++&#39; et &#39;--&#39;</h3>
+
+<p>Ces deux opérateurs utilisant plus d&#39;un caractère, on va étendre
+l&#39;analyseur lexical et donc modifier <code>lexical.l</code> en y ajoutant:</p>
+
+<pre><code class="hl c"><span class="hl str">&quot;++&quot;</span>            <span class="hl kwa">return</span> PP<span class="hl opt">;</span>
+<span class="hl str">&quot;--&quot;</span>            <span class="hl kwa">return</span> MM<span class="hl opt">;</span>
+</code></pre>
+
+<p>Bien sûr pour que <code>PP</code> et <code>MM</code> soient connus, il faut les déclarer
+comme des <code>%token</code>s.</p>
+
+<p>Maintenant que ces unités sont rajoutées, il faut introduire des
+règles dans notre grammaire permettant de les utiliser. On peut donc
+ajouter 4 nouvelles expressions dans <code>syntax.y</code>:</p>
+
+<pre><code class="hl c"><span class="hl opt">|</span>       PP var                <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_expression</span><span class="hl opt">(</span><span class="hl str">&quot;++&quot;</span><span class="hl opt">,</span> preincr<span class="hl opt">,</span>  <span class="hl num">1</span><span class="hl opt">,</span> $<span class="hl num">2</span><span class="hl opt">); }</span>
+<span class="hl opt">|</span>       MM var                <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_expression</span><span class="hl opt">(</span><span class="hl str">&quot;--&quot;</span><span class="hl opt">,</span> preincr<span class="hl opt">,</span>  <span class="hl num">1</span><span class="hl opt">,</span> $<span class="hl num">2</span><span class="hl opt">); }</span>
+<span class="hl opt">|</span>       var PP                <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_expression</span><span class="hl opt">(</span><span class="hl str">&quot;++&quot;</span><span class="hl opt">,</span> postincr<span class="hl opt">,</span> <span class="hl num">1</span><span class="hl opt">,</span> $<span class="hl num">1</span><span class="hl opt">); }</span>
+<span class="hl opt">|</span>       var MM                <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_expression</span><span class="hl opt">(</span><span class="hl str">&quot;--&quot;</span><span class="hl opt">,</span> postincr<span class="hl opt">,</span> <span class="hl num">1</span><span class="hl opt">,</span> $<span class="hl num">1</span><span class="hl opt">); }</span>
+
+</code></pre>
+
+<p>On a décidé ici de construire deux nouvelles classes (<strong>kind</strong>)
+d&#39;opérateurs: <code>preincr</code> et <code>postincr</code>. Ces nouvelles classes
+d&#39;opérateurs doivent être déclarées dans le fichier <code>ast.h</code> (ajout
+dans le type énuméré <code>expr_kind</code>).</p>
+
+<p><strong>Phase d&#39;analyse</strong>: ces deux nouveaux types d&#39;opérateurs ne sont pas
+connus et produisent donc une erreur lors de l&#39;analyse. Les tests que
+l&#39;on doit faire:</p>
+
+<ul>
+<li>vérifier que les deux opérandes sont des entiers.</li>
+<li>décréter que l&#39;expression contenant une
+incrémentation/décrementation est de type entier.</li>
+</ul>
+
+<p>C&#39;est en fait ce que l&#39;on fait lorsqu&#39;on analyse une expression unaire
+arithmétique (une <code>uarith</code>).  Dans l&#39;analyse des expressions, on
+ajoute donc les <code>preincr</code> et <code>postincr</code> au test <code>uarith</code>. Le code
+d&#39;analyse des expressions devient donc:</p>
+
+<pre><code class="hl c"><span class="hl kwa">case</span> uarith<span class="hl opt">:</span>     <span class="hl slc">// Ajout</span>
+<span class="hl kwa">case</span> preincr<span class="hl opt">:</span>    <span class="hl slc">// Ajout</span>
+<span class="hl kwa">case</span> postincr<span class="hl opt">:</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>op1<span class="hl opt">) !=</span> int_type<span class="hl opt">)</span>
+     <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;operand of &apos;%s&apos; must be of type int&quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+  <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) =</span> int_type<span class="hl opt">;</span>
+  <span class="hl kwa">break</span><span class="hl opt">;</span>
+</code></pre>
+
+<p><strong>Phase de production de code:</strong> Là encore, il va falloir modifier le
+code de production des expressions (ici les expressions unaires).
+Après modification, on obtient: </p>
+
+<pre><code class="hl c"><span class="hl kwa">case</span> <span class="hl num">1</span><span class="hl opt">:</span> <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_KIND</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> preincr<span class="hl opt">) {</span>
+          <span class="hl kwd">emit</span><span class="hl opt">(</span>name<span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+        <span class="hl opt">}</span> <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_KIND</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> postincr<span class="hl opt">) {</span>
+          <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span> <span class="hl kwd">emit</span><span class="hl opt">(</span>name<span class="hl opt">);</span>
+        <span class="hl opt">}</span> <span class="hl kwa">else</span> <span class="hl opt">{</span>
+           <span class="hl kwa">switch</span><span class="hl opt">(</span>name<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]) {</span>
+             <span class="hl kwa">case</span> <span class="hl str">&apos;-&apos;</span><span class="hl opt">:</span>
+             <span class="hl kwa">case</span> <span class="hl str">&apos;!&apos;</span><span class="hl opt">:</span> <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span> <span class="hl slc">// NO BREAK HERE !!!!</span>
+             <span class="hl kwa">case</span> <span class="hl str">&apos;(&apos;</span><span class="hl opt">:</span> <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;(&quot;</span><span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span> <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;)&quot;</span><span class="hl opt">);</span> <span class="hl kwa">break</span><span class="hl opt">;</span>
+           <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+        <span class="hl kwa">break</span><span class="hl opt">;</span>
+</code></pre>
+
+<p>Noter que le code pour les autres opérateurs unaires à été légèrement
+modifiée pour ajouter la production de parenthèses. Cela permet de
+garantir que les expressions seront bien évaluées, indépendemment de
+leur contexte.  En effet si on lit <code>- --x</code> (noter l&#39;espace après le
+premier <code>-</code>), le code produit</p>
+
+<ul>
+<li>ne sera plus <code>---x</code> qui provoque une erreur (le lexical du
+compilateur C lit <code>--</code> puis <code>-</code> puis <code>x</code>, qui est une séquence
+grammaticalement erronée)</li>
+<li>mais <code>-(--x)</code> qui sera interprété correctement par le compilateur C.</li>
+</ul>
+
+<h3 id="extension-n°2-ajout-de-lénoncé-break">Extension n°2: Ajout de l&#39;énoncé break</h3>
+
+<p>Cette extension consiste à ajouter une <strong>nouvelle</strong> construction au
+langage (l&#39;extension précédente n&#39;était qu&#39;une variante d&#39;expression
+et ne nécessitait pas l&#39;introduction d&#39;un nouveau type de nœud dans
+l&#39;arbre).</p>
+
+<p>Les modifications à apporter au compilateur seront donc plus
+substantielles, et vont porter sur toutes les phases de l&#39;analyse:</p>
+
+<p><strong>Analyseur lexical</strong>: Reconnaître un nouveau token pour break (token
+<code>KBREAK</code>)</p>
+
+<p><strong>Analyseur syntaxique</strong>: Ajouter le token et une règle pour break
+dans les énoncés (<code>stmt</code>):</p>
+
+<pre><code class="hl c"><span class="hl opt">|</span>      KBREAK <span class="hl str">&apos;;&apos;</span>   <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_break_statement</span><span class="hl opt">(); }</span>
+</code></pre>
+
+<p><strong>Fichier ast.c/ast.h</strong>: On a besoin de définir un nouveau type de
+  nœud dans l&#39;arbre. Toutes les déclarations de types sont à faire
+  dans le fichier <code>ast.h</code>. On peut s&#39;inspirer de ce qui est fait pour
+  <code>return</code> pour déclarer un nouveau type <code>s_break_statement</code> (ne pas
+  oublier d&#39;ajouter <code>k_break_statement</code> au type énuméré <code>node_kind</code> au
+  début du fichier.</p>
+
+<p>On ajoute donc les déclarations suivantes:</p>
+
+<pre><code class="hl c"><span class="hl com">/* ---- BREAK ------------------------------------------------------------ */</span>
+<span class="hl kwb">struct</span> s_break_statement <span class="hl opt">{</span>
+  ast_node header<span class="hl opt">;</span>      <span class="hl slc">///&lt; AST header</span>
+<span class="hl opt">};</span>
+
+ast_node <span class="hl opt">*</span><span class="hl kwd">make_break_statement</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+</code></pre>
+
+<p>puis dans le fichier C, il faut ajouter le <em>constructeur</em>
+<code>make_break_statement</code> ainsi que le destructeur
+<code>free_break_statement</code>.</p>
+
+<pre><code class="hl c"><span class="hl com">/* ---- BREAK ------------------------------------------------------------ */</span>
+<span class="hl kwb">static void</span> <span class="hl kwd">free_break_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">){</span> <span class="hl kwd">free</span><span class="hl opt">(</span>node<span class="hl opt">); }</span>
+
+ast_node <span class="hl opt">*</span><span class="hl kwd">make_break_statement</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwd">DEF_AST</span><span class="hl opt">(</span>p<span class="hl opt">,</span> break_statement<span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl opt">(</span>ast_node <span class="hl opt">*)</span> p<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Phase d&#39;analyse</strong>: La seule difficulté ici consiste à savoir si on
+est dans une boucle ou pas. Comme l&#39;analyse sémantique se fait en
+descendant l&#39;arbre syntaxique, il est difficile de remonter l&#39;arbre
+pour savoir dans quel contexte se trouve un <code>break</code>. En fait, nous
+allons gérer un compteur global (<code>currentloop</code> initialisé à 0), qui
+s&#39;incrémentera quand on entrera dans l&#39;analyse du corps d&#39;une boucle
+<code>while</code> et qui se décrémentera quand on en sortira. On obtient donc:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">analysis_break_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(!</span> current_loop<span class="hl opt">)</span>
+    <span class="hl kwd">error_msg</span><span class="hl opt">(</span>node<span class="hl opt">,</span> <span class="hl str">&quot;break used outside a loop&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Du coup, le code de l&#39;analyse du <code>while</code> est légèrement modifié, pour
+gérer le compteur de boucle et devient:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">analysis_while_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwb">struct</span> s_while_statement <span class="hl opt">*</span>n <span class="hl opt">= (</span><span class="hl kwb">struct</span> s_while_statement <span class="hl opt">*)</span> node<span class="hl opt">;</span>
+
+  <span class="hl slc">// Analyze condition</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">);</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">) !=</span> bool_type<span class="hl opt">)</span> <span class="hl kwd">error_msg</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>cond<span class="hl opt">,</span> <span class="hl str">&quot;condition must be boolean&quot;</span><span class="hl opt">);</span>
+
+  <span class="hl slc">// Retain that we are in a loop (for breaks) and analyze loop body</span>
+  current_loop <span class="hl opt">+=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>body_stat<span class="hl opt">);</span>
+  current_loop <span class="hl opt">-=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Phase production de code</strong>: Pour la production de code, là, c&#39;est
+super simple; il suffit d&#39;ajouter la fonction suivante dans
+<code>prodcode.c</code>:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">produce_code_break_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;break;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h3 id="extension-n°-3-ajout-de-lopérateur-puissance">Extension n° 3: Ajout de l&#39;opérateur puissance</h3>
+
+<p>La première chose à faire est d&#39;ajouter la fonction <code>_toy_powint</code> dans
+le runtime Toy (on suppose ici que la fonction qui implémente la
+puissance s&#39;appelle <code>_toy_powint</code> en C). Une implémentation possible
+pour cette fonction pourrait être:</p>
+
+<pre><code class="hl c"><span class="hl kwb">int</span> <span class="hl kwd">_toy_powint</span><span class="hl opt">(</span><span class="hl kwb">int</span> a<span class="hl opt">,</span> <span class="hl kwb">int</span> b<span class="hl opt">) {</span>         <span class="hl slc">// a and b should be unsigned</span>
+  <span class="hl kwb">unsigned int</span> res <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+
+  <span class="hl kwa">while</span> <span class="hl opt">(</span>b<span class="hl opt">) {</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>b <span class="hl opt">&amp;</span> <span class="hl num">1</span><span class="hl opt">)</span> res <span class="hl opt">*=</span> a<span class="hl opt">;</span>
+    a <span class="hl opt">*=</span> a<span class="hl opt">;</span>
+    b <span class="hl opt">&gt;&gt;=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> res<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Cette version utilise la méthode dite de l&#39;exponentiation indienne qui
+est une méthode rapide de calcul de la puissance (mais on peut faire
+plus simple :-). Cette fonction peut-être écrite dans le fichier
+<code>runtime/toy-runtime.c</code>.</p>
+
+<p>Ce que l&#39;on veut, maintenant, c&#39;est que l&#39;expression <code>3**2</code> produise
+le code <code>_toy_powint(3,2)</code>.</p>
+
+<p>Les modifications à apporter au compilateur:</p>
+
+<ul>
+<li><p><strong>lexical</strong>: renvoyer un nouveau token pour <q>**</q> (<code>POW</code>)</p></li>
+<li><p><strong>syntaxe</strong>: ajouter la règle suivante dans les expressions</p>
+
+<pre><code class="hl c">expr POW expr         <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">make_expression</span><span class="hl opt">(</span><span class="hl str">&quot;**&quot;</span><span class="hl opt">,</span> barith<span class="hl opt">,</span> <span class="hl num">2</span><span class="hl opt">,</span> $<span class="hl num">1</span><span class="hl opt">,</span>$<span class="hl num">3</span><span class="hl opt">);}</span>
+</code></pre></li>
+<li><p><strong>analyse</strong>: Ici <code>POW</code> est vue comme une expression arithmétique
+classique, et les contrôles actuels sont suffisants; pas de
+modification du fichier <code>analysis.c</code>.</p></li>
+<li><p><strong>production de code</strong>: Il faut un peu modifier la production de
+code sur les expressions binaires pour produire un appel de fonction
+(un peu comme avec <code>strcmp</code>) Le code des expressions devient:</p>
+
+<pre><code class="hl c">  <span class="hl kwa">case</span> <span class="hl num">2</span><span class="hl opt">:</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">EXPRESSION_KIND</span><span class="hl opt">(</span>node<span class="hl opt">)==</span>comp <span class="hl opt">&amp;&amp;</span> <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">))==</span>string_type<span class="hl opt">) {</span>
+      <span class="hl slc">// op2 is also a string (analysis has verified that point)</span>
+      <span class="hl slc">// ⟹ We are comparing strings, generate a strcmp</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;(strcmp(&quot;</span><span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;, &quot;</span><span class="hl opt">);</span>      <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;) %s 0)&quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">strcmp</span><span class="hl opt">(</span>name<span class="hl opt">,</span> <span class="hl str">&quot;**&quot;</span><span class="hl opt">) ==</span> <span class="hl num">0</span><span class="hl opt">)  {</span>
+      <span class="hl slc">// power operator</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_powint(&quot;</span><span class="hl opt">);</span> <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;, &quot;</span><span class="hl opt">);</span>  <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;)&quot;</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span> <span class="hl kwa">else</span> <span class="hl opt">{</span>
+      <span class="hl slc">// simple binary operators</span>
+      <span class="hl kwd">code</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP1</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot; %s &quot;</span><span class="hl opt">,</span> name<span class="hl opt">);</span>
+      <span class="hl kwd">code_expr_cast</span><span class="hl opt">(</span><span class="hl kwd">EXPRESSION_OP2</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+    <span class="hl opt">}</span>
+    <span class="hl kwa">break</span><span class="hl opt">;</span>
+</code></pre></li>
+</ul>
+
+<h3 id="extension-n°-4-enoncé-for">Extension n° 4: Enoncé for</h3>
+
+<p>L&#39;énoncé <code>for</code> de Toy est similaire à l&#39;énoncé <code>for</code> de C. De façon
+générale, en C l&#39;énoncé:</p>
+
+<pre><code class="hl c"><span class="hl kwa">for</span> <span class="hl opt">(</span>expr1<span class="hl opt">;</span> expr2<span class="hl opt">;</span> expr3<span class="hl opt">)</span>
+   instruction<span class="hl opt">;</span>
+</code></pre>
+
+<p>est équivalent à</p>
+
+<pre><code class="hl c">expr1<span class="hl opt">;</span>
+<span class="hl kwa">while</span> <span class="hl opt">(</span>expr2<span class="hl opt">) {</span>
+  instruction<span class="hl opt">;</span>
+  expr3<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Nous pouvons implémenter <code>for</code> de deux façons:
+* en créant un nouveau type de nœud (dans <code>ast.h</code> on ajoute le
+  type<code>s_for_statement</code>) et en implémentant l&#39;analyse et la production
+  de code correspondantes.
+* en <em>injectant</em> dans l&#39;arbre d&#39;analyse le <code>while</code> correspondant au
+  <code>for</code> rencontré. Cette méthode a l&#39;avantage que l&#39;on n&#39;aura pas
+  besoin de modifier le compilateur ailleurs que dans le syntaxique
+  (puisqu&#39;on ajoute aucun nouveau nœud, on a pas à implémenter
+  d&#39;analyse et de génération de code). L&#39;inconvénient pour
+  l&#39;utilisateur est que si on a des erreurs à signaler, elles
+  parleront de <code>while</code> qui n&#39;apparaît pas dans le code source de
+  l&#39;utilisateur, et les numéros de ligne risquent d&#39;être fantaisistes.</p>
+
+<p>Bien-sûr, quelque soit la méthode choisie, il faut tout d&#39;abord
+modifier l&#39;analyseur lexical pour qu&#39;il accepte le mot clé <code>for</code>
+(simple) et l&#39;analyseur syntaxique. Cela donne.</p>
+
+<pre><code class="hl c">stmt<span class="hl opt">:</span>
+    <span class="hl opt">....</span>
+<span class="hl opt">|</span>   KFOR <span class="hl str">&apos;(&apos;</span> init_for <span class="hl str">&apos;;&apos;</span> expr_opt <span class="hl str">&apos;;&apos;</span>  expr_opt <span class="hl str">&apos;)&apos;</span> stmt <span class="hl opt">{ ... }</span>
+    <span class="hl opt">....</span>
+
+init_for         <span class="hl opt">:</span> declvars   <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span><span class="hl opt">; }</span>
+                 <span class="hl opt">|</span> expr_opt   <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span><span class="hl opt">; }</span>
+                 <span class="hl opt">;</span>
+</code></pre>
+
+<p>L&#39;introduction d&#39;un nouveau non-terminal <code>init_for</code>, implique que l&#39;on
+type ce dernier en haut du fichier <code>syntax.y</code>.</p>
+
+<h4 id="implémentation-n°-1">Implémentation n° 1</h4>
+
+<p>Tout d&#39;abord nous pouvons construire le nouveau type de nœud
+<code>s_for_statement</code> en s&#39;inspirant de <code>s_while_stat</code>.  Ajouter le code
+suivant dans <code>ast.h</code>:</p>
+
+<pre><code class="hl c"><span class="hl com">/* ---- FOR ------------------------------------------------------------ */</span>
+<span class="hl kwb">struct</span> s_for_statement <span class="hl opt">{</span>
+  ast_node header<span class="hl opt">;</span>      <span class="hl slc">///&lt; AST header</span>
+  ast_node <span class="hl opt">*</span>for1<span class="hl opt">,*</span>for2<span class="hl opt">,*</span>for3<span class="hl opt">;</span>   <span class="hl slc">///&lt; components of the &quot;condition&quot;</span>
+  ast_node <span class="hl opt">*</span>body_stat<span class="hl opt">;</span>      <span class="hl slc">///&lt; for body AST</span>
+<span class="hl opt">};</span>
+
+ast_node <span class="hl opt">*</span><span class="hl kwd">make_for_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>for1<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for2<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for3<span class="hl opt">,</span>
+                             ast_node <span class="hl opt">*</span>body<span class="hl opt">);</span>
+</code></pre>
+
+<p>Pour <code>ast.c</code> le code est assez direct. On a:</p>
+
+<pre><code class="hl c"><span class="hl com">/* ---- FOR ------------------------------------------------------------ */</span>
+<span class="hl kwb">static void</span> <span class="hl kwd">free_for_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">){</span>
+  <span class="hl kwb">struct</span> s_for_statement <span class="hl opt">*</span>n <span class="hl opt">= (</span><span class="hl kwb">struct</span> s_for_statement <span class="hl opt">*)</span>node<span class="hl opt">;</span>
+  <span class="hl kwd">free_node</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for1<span class="hl opt">);</span> <span class="hl kwd">free_node</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for2<span class="hl opt">);</span> <span class="hl kwd">free_node</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for3<span class="hl opt">);</span>
+  <span class="hl kwd">free_node</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>body_stat<span class="hl opt">);</span>
+  <span class="hl kwd">free</span><span class="hl opt">(</span>node<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+
+ast_node <span class="hl opt">*</span><span class="hl kwd">make_for_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>for1<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for2<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for3<span class="hl opt">,</span>
+                             ast_node <span class="hl opt">*</span>body<span class="hl opt">) {</span>
+  <span class="hl kwd">DEF_AST</span><span class="hl opt">(</span>p<span class="hl opt">,</span> for_statement<span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+  p<span class="hl opt">-&gt;</span>for1      <span class="hl opt">=</span> for1<span class="hl opt">;</span>
+  p<span class="hl opt">-&gt;</span>for2      <span class="hl opt">=</span> for2<span class="hl opt">;</span>
+  p<span class="hl opt">-&gt;</span>for3      <span class="hl opt">=</span> for3<span class="hl opt">;</span>
+  p<span class="hl opt">-&gt;</span>body_stat <span class="hl opt">=</span> body<span class="hl opt">;</span>
+  <span class="hl kwa">return</span> <span class="hl opt">(</span>ast_node <span class="hl opt">*)</span> p<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Phase analyse</strong>: On peut s&#39;inspirer de la fonction que l&#39;on a pour
+<code>while</code>. On obtient:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">analysis_for_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwb">struct</span> s_for_statement <span class="hl opt">*</span>n <span class="hl opt">= (</span><span class="hl kwb">struct</span> s_for_statement <span class="hl opt">*)</span> node<span class="hl opt">;</span>
+
+  <span class="hl slc">// Analyze the tree components of the &quot;condition&quot;</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for1<span class="hl opt">);</span> <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for2<span class="hl opt">);</span> <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for3<span class="hl opt">);</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for2 <span class="hl opt">&amp;&amp; (</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for2<span class="hl opt">) !=</span> bool_type<span class="hl opt">))</span>
+    <span class="hl kwd">error_msg</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>for2<span class="hl opt">,</span> <span class="hl str">&quot;condition must be boolean&quot;</span><span class="hl opt">);</span>
+
+  <span class="hl slc">// Retain that we are in a loop (for breaks) and analyze loop body</span>
+  current_loop <span class="hl opt">+=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+  <span class="hl kwd">analysis</span><span class="hl opt">(</span>n<span class="hl opt">-&gt;</span>body_stat<span class="hl opt">);</span>
+  current_loop <span class="hl opt">-=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Phase de production de code</strong>: Ici, on prend la précaution de mettre
+  tout le code produit pour <code>for</code> dans son propre bloc de façon à bien
+  déclarer les variables qui pourraient apparaître dans la première
+  partie de la condition dans son propre bloc. Ainsi le code toy:</p>
+
+<pre><code class="hl java"><span class="hl opt">{</span> <span class="hl kwa">int</span> i <span class="hl opt">=</span> <span class="hl num">5</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwa">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl num">10</span><span class="hl opt">;</span> i<span class="hl opt">++)</span>
+    <span class="hl opt">...;</span> <span class="hl slc">// ici i vaut 0 ⟶   9</span>
+  <span class="hl slc">// ici i vaut 5</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>sera traduit en C:</p>
+
+<pre><code class="hl c"><span class="hl opt">{</span> <span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">5</span><span class="hl opt">;</span>
+  <span class="hl opt">{</span>
+     <span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+     <span class="hl kwa">while</span> <span class="hl opt">(</span>i <span class="hl opt">&lt;</span> <span class="hl num">10</span><span class="hl opt">) {</span>
+        <span class="hl opt">...;</span>  <span class="hl slc">// ici i vaut 0 ⟶   9</span>
+        i<span class="hl opt">++</span>
+     <span class="hl opt">}</span>
+  <span class="hl opt">}</span>
+  <span class="hl slc">// ici i vaut 5</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Cela permet d&#39;avoir un <code>i</code> pour la boucle qui est est bien différent
+du <code>i</code> défini au niveau du bloc.</p>
+
+<h4 id="correction-de-limplémentation-n°-1">Correction de l&#39;implémentation n° 1</h4>
+
+<p>La version actuelle de notre implementation du <code>for</code> est
+<strong>incorrecte</strong>. En effet, si le code produit est correct, l&#39;analyse du
+<code>for</code> précédent va détecter une double déclaration de la variable <code>i</code>.
+En effet, lorsqu&#39;une variable est déclarée dans un énoncé <code>for</code>, sa
+portée doit être limitée à la boucle seulement.</p>
+
+<p>Par conséquent, si l&#39;on veut que des variables puissent être déclarées
+au sein d&#39;un <code>for</code>, il va falloir introduire un bloc. Ceci peut être
+fait tout simplement en entrant et en sortant d&#39;une portée lors de la
+phase d&#39;analyse d&#39;un <code>for</code> (avec <code>enter_scope</code> et
+<code>leave_scope</code>). L&#39;entrée dans le <code>for</code> créera donc une table des
+symboles vierge qui pourra accueillir les éventuelles variables
+déclarées. A la sortie de la l&#39;analyse du <code>for</code>, cette table sera
+détruite.</p>
+
+<p>Le code de l&#39;analyse du <code>for</code> est donc:</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">analysis_for_statement</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">) {</span>
+  <span class="hl kwd">enter_scope</span><span class="hl opt">();</span>
+  <span class="hl opt">...</span>   <span class="hl slc">// Code donné plus haut pour analysis_for_statement</span>
+  <span class="hl kwd">leave_scope</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="implémentation-n°2">Implémentation n°2</h4>
+
+<p>Ce que l&#39;on veut faire ici, c&#39;est implémenter la structure de commande
+<code>for</code> en injectant le <code>while</code> correspondant au for dans l&#39;arbre
+syntaxique. L&#39;avantage de cette solution est qu&#39;il n&#39;y aura que les
+fichier <code>lexical.l</code> (pour introduire le mot clé for) et <code>syntax.y</code> à
+modifier puisque nous n&#39;introduisons pas de nouvelle structure au
+compilateur.</p>
+
+<p>En fait la règle syntaxique introduite pour <code>for</code> devient:</p>
+
+<pre><code class="hl c"><span class="hl opt">|</span>       KFOR <span class="hl str">&apos;(&apos;</span> init_for <span class="hl str">&apos;;&apos;</span> expr_opt <span class="hl str">&apos;;&apos;</span> expr_opt <span class="hl str">&apos;)&apos;</span> stmt
+                                 <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwd">inject_while</span><span class="hl opt">(</span>$<span class="hl num">3</span><span class="hl opt">,</span> $<span class="hl num">5</span><span class="hl opt">,</span> $<span class="hl num">7</span><span class="hl opt">,</span> $<span class="hl num">9</span><span class="hl opt">); }</span>
+</code></pre>
+
+<p>La fonction <code>inject_while</code> peut être placée au début du fichier
+<code>syntax.y</code>.</p>
+
+<p>Voyons comment construire le <code>while</code>: il faut tout d&#39;abord construire
+un bloc pour ajouter la troisième partie du <code>for</code> après
+l&#39;instruction. Une fois que ce bloc est construit, il suffit de créer
+un <code>while</code> dont la condition est l&#39;expression du milieu du for (si
+elle existe, sinon, on la remplace par <code>true</code>.</p>
+
+<p>Une fois que le while est créé il suffit de créer un bloc formé de
+deux instructions: la première instruction est constituée de la
+première partie du <code>for</code> et la seconde instruction est le while
+construit précédemment.</p>
+
+<p>Le code complet de la fonction <code>inject_while</code> est donc:</p>
+
+<pre><code class="hl c"><span class="hl kwb">static</span> ast_node<span class="hl opt">*</span> <span class="hl kwd">inject_while</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>for1<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for2<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>for3<span class="hl opt">,</span>
+                              ast_node <span class="hl opt">*</span>stmt<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl slc">// for (F1; F2; F3) S  =&gt; { F1; while (F2) {S; F3;} }</span>
+
+  <span class="hl slc">// Build a list with &quot;S&quot; and &quot;F3;&quot;</span>
+  List l <span class="hl opt">=</span> <span class="hl kwd">list_create</span><span class="hl opt">();</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span> stmt<span class="hl opt">,</span> FREE_NODE<span class="hl opt">);</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span> <span class="hl kwd">make_expr_statement</span><span class="hl opt">(</span>for3<span class="hl opt">),</span> FREE_NODE<span class="hl opt">);</span>
+
+  <span class="hl slc">// make a block with the statements in l1 &quot;{S; F3;}&quot;</span>
+  ast_node <span class="hl opt">*</span>internal_block <span class="hl opt">=</span> <span class="hl kwd">make_block_statement</span><span class="hl opt">(</span>l<span class="hl opt">);</span>
+
+  <span class="hl slc">// If for2 is NULL replace it by true</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(!</span>for2<span class="hl opt">)</span> for2 <span class="hl opt">=</span> <span class="hl kwd">make_boolean_constant</span><span class="hl opt">(</span><span class="hl num">1</span><span class="hl opt">);</span>
+
+  <span class="hl slc">// make a the while statement &quot;while (F2) {S; F3}&quot;</span>
+  ast_node <span class="hl opt">*</span>while_stmt <span class="hl opt">=</span> <span class="hl kwd">make_while_statement</span><span class="hl opt">(</span>for2<span class="hl opt">,</span> internal_block<span class="hl opt">);</span>
+
+  <span class="hl slc">// Build a list with &quot;F1;&quot; and &quot;while (F2) {S; F3}&quot;</span>
+  l <span class="hl opt">=</span> <span class="hl kwd">list_create</span><span class="hl opt">();</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span> <span class="hl kwd">make_expr_statement</span><span class="hl opt">(</span>for1<span class="hl opt">),</span> FREE_NODE<span class="hl opt">);</span>
+  <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span> while_stmt<span class="hl opt">,</span> FREE_NODE<span class="hl opt">);</span>
+
+  <span class="hl slc">// make a block with &quot;F1&quot; and the while =&gt; { F1; while (F2) {S; F3;} }</span>
+  <span class="hl slc">// Bingo !!!</span>
+  <span class="hl kwa">return</span> <span class="hl kwd">make_block_statement</span><span class="hl opt">(</span>l<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Comme cela été dit avant, c&#39;est la seule modification à faire au
+niveau du compilateur, puisqu&#39;on retombe maintenant sur un bloc qui
+contient un while et que ces deux notions sont déjà présentes et
+implémentées dans notre compilateur.</p>
+
+<h3 id="extension-n°-5-ajout-du-type-float">Extension n° 5: Ajout du type float</h3>
+
+<p>Cette extension va toucher assez profondément le compilateur.</p>
+
+<p><strong>Analyseur lexical:</strong></p>
+
+<p>Il faut y faire deux choses:</p>
+
+<ul>
+<li>reconnaître des constantes réelles (<q>0.3</q>, <q>.45</q>, <q>3.1e-6</q>, ...)</li>
+<li>reconnaître le mot clé <strong>float</strong> pour pouvoir déclarer des variables
+réelles.</li>
+</ul>
+
+<p>On a donc:</p>
+
+<pre><code class="hl c">pointnum        <span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+</span>\<span class="hl opt">.[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]*|</span>\<span class="hl opt">.[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+</span>
+exponent        <span class="hl opt">[</span>Ee<span class="hl opt">][+-]?[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+</span>
+floatnum        <span class="hl opt">{</span>pointnum<span class="hl opt">}{</span>exponent<span class="hl opt">}?</span>
+
+<span class="hl opt">...</span>
+
+<span class="hl opt">{</span>floatnum<span class="hl opt">}              {</span>
+                           yylval<span class="hl opt">.</span>float_value <span class="hl opt">=</span> <span class="hl kwd">strtof</span><span class="hl opt">(</span>yytext<span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+                           <span class="hl kwa">return</span> FLOAT<span class="hl opt">;</span>
+                        <span class="hl opt">}</span>
+
+<span class="hl opt">...</span>
+
+<span class="hl str">&quot;float&quot;</span>         <span class="hl kwa">return</span> TFLOAT<span class="hl opt">;</span>
+</code></pre>
+
+<p><strong>Au niveau syntaxique:</strong></p>
+
+<p>Ajouter un champ de type float dans la déclaration de <strong>%union</strong> et
+indiquer que les constantes flottantes l&#39;utiliseront.</p>
+
+<pre><code class="hl bison">%<span class="hl kwb">union</span> <span class="hl opt">{</span>
+    <span class="hl kwb">int</span> int_value<span class="hl opt">;</span>      <span class="hl slc">// constant integer or boolean value</span>
+    <span class="hl kwb">float</span> float_value<span class="hl opt">;</span>  <span class="hl slc">// constant float value</span>
+    <span class="hl kwb">char</span> <span class="hl opt">*</span>string_value<span class="hl opt">;</span> <span class="hl slc">// constant string value</span>
+    <span class="hl kwb">char</span> <span class="hl opt">*</span>ident<span class="hl opt">;</span>        <span class="hl slc">// identifier</span>
+    List lst<span class="hl opt">;</span>           <span class="hl slc">// used for lists of parameters (formal or effective)</span>
+    ast_node <span class="hl opt">*</span>ast<span class="hl opt">;</span>      <span class="hl slc">// node pointer</span>
+<span class="hl opt">};</span>
+
+%token <span class="hl opt">&lt;</span>float_value<span class="hl opt">&gt;</span>  FLOAT
+</code></pre>
+
+<p>Il faut aussi ajouter le type TFLOAT et les constantes flottantes dans les règles:</p>
+
+<pre><code class="hl bison"><span class="hl kwd">type:</span>      TINT         <span class="hl opt">{</span> $$ <span class="hl opt">=</span> int_type<span class="hl opt">; }</span>
+   |       TFLOAT       <span class="hl opt">{</span> $$ <span class="hl opt">=</span> float_type<span class="hl opt">; }</span>
+   ...
+
+
+<span class="hl kwd">expr:</span>
+          INTEGER               <span class="hl opt">{</span> $$ <span class="hl opt">=</span> make_integer_constant<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">); }</span>
+  |       FLOAT                 <span class="hl opt">{</span> $$ <span class="hl opt">=</span> make_float_constant<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">); }</span>
+ ...
+</code></pre>
+
+<p><strong>Dans ast.c/ast.h:</strong></p>
+
+<ul>
+<li><p>ajouter la variable globale <code>float_type</code> qui représente le type
+float. Cette variable sera initialisée avec les autres descripteurs
+de type dans la fonction <code>init_ast</code> qui se trouve à la fin du
+fichier <code>ast.c</code>.</p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">init_ast</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  <span class="hl slc">// Initialization of standard types</span>
+  int_type    <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;int&quot;</span><span class="hl opt">,</span>         <span class="hl str">&quot;0&quot;</span><span class="hl opt">);</span>
+  float_type  <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;float&quot;</span><span class="hl opt">,</span>       <span class="hl str">&quot;0.0&quot;</span><span class="hl opt">);</span>
+  bool_type   <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;char&quot;</span><span class="hl opt">,</span>        <span class="hl str">&quot;0&quot;</span><span class="hl opt">);</span>
+  string_type <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;_toy_string&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;NULL&quot;</span><span class="hl opt">);</span>
+  void_type   <span class="hl opt">=</span> <span class="hl kwd">make_standard_type</span><span class="hl opt">(</span><span class="hl str">&quot;void&quot;</span><span class="hl opt">,</span>        <span class="hl str">&quot;&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre></li>
+<li><p>ajouter la fonction <code>make_float_constant</code>:</p>
+
+<pre><code class="hl c">ast_node <span class="hl opt">*</span><span class="hl kwd">make_float_constant</span><span class="hl opt">(</span><span class="hl kwb">float</span> value<span class="hl opt">) {</span>
+    <span class="hl kwd">DEF_AST</span><span class="hl opt">(</span>p<span class="hl opt">,</span> constant<span class="hl opt">,</span> float_type<span class="hl opt">);</span>
+    p<span class="hl opt">-&gt;</span>value<span class="hl opt">.</span>fvalue <span class="hl opt">=</span> value<span class="hl opt">;</span>
+    <span class="hl kwa">return</span> <span class="hl opt">(</span>ast_node <span class="hl opt">*)</span> p<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre></li>
+</ul>
+
+<p><strong>Analyse:</strong></p>
+
+<p>C&#39;est le fichier qui va être le plus profondément modifié. En effet,
+l&#39;introduction des flottants doit être prise en compte:</p>
+
+<ul>
+<li>dans les opération binaires arithmétiques. Avant, on disait que si
+les objets étaient de types différents, ils étaient
+incompatibles. Cela n&#39;est plus vrai: on peut ajouter un flottant et
+un entier.</li>
+<li>Le typage est une peu différent: ajouter un entier et un flottant
+donne une objet de type flottant.</li>
+<li>Les contrôles de types sur les entiers doibent être étendus au
+flottants (par exemple, on peut faire <code>f++</code> si <code>f</code> est un <code>float</code>.</li>
+</ul>
+
+<p>Pour trouver les modifications faites sur les fichiers <code>ast.{c,h}</code>, il
+suffit de chercher la chaîne <code>float</code>.  Seule la fonction de
+compatibilité de type est donnée ici.</p>
+
+<pre><code class="hl c"><span class="hl kwb">static bool</span> <span class="hl kwd">compatible_types</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>e1<span class="hl opt">,</span> ast_node <span class="hl opt">*</span>e2<span class="hl opt">) {</span>
+  ast_node <span class="hl opt">*</span>t1 <span class="hl opt">=</span> <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>e1<span class="hl opt">), *</span>t2 <span class="hl opt">=</span> <span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>e2<span class="hl opt">);</span>
+
+  <span class="hl kwa">if</span> <span class="hl opt">(!</span>t1 <span class="hl opt">|| !</span>t2<span class="hl opt">)</span> <span class="hl kwa">return true</span><span class="hl opt">;</span> <span class="hl slc">// to avoid error cascades =&gt; true</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>t1 <span class="hl opt">==</span> t2<span class="hl opt">)</span>   <span class="hl kwa">return true</span><span class="hl opt">;</span> <span class="hl slc">// same types =&gt; true</span>
+
+  <span class="hl slc">// Testing the mix of integer and float computations</span>
+  <span class="hl kwa">if</span> <span class="hl opt">((</span>t1 <span class="hl opt">==</span> int_type   <span class="hl opt">&amp;&amp;</span> t2 <span class="hl opt">==</span> float_type<span class="hl opt">) ||</span>
+      <span class="hl opt">(</span>t1 <span class="hl opt">==</span> float_type <span class="hl opt">&amp;&amp;</span> t2 <span class="hl opt">==</span> int_type<span class="hl opt">))</span>
+    <span class="hl kwa">return true</span><span class="hl opt">;</span>
+
+  <span class="hl kwa">return false</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p><strong>Production de code</strong></p>
+
+<p>Deux modifications à faire:</p>
+
+<ul>
+<li><p>permettre la production de constantes flottantes:</p>
+
+<pre><code class="hl c">      <span class="hl kwb">void</span> <span class="hl kwd">produce_code_constant</span><span class="hl opt">(</span>ast_node <span class="hl opt">*</span>node<span class="hl opt">){</span>
+        <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> string_type<span class="hl opt">)</span>
+          <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_STRING_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+        <span class="hl kwa">else if</span> <span class="hl opt">(</span><span class="hl kwd">AST_TYPE</span><span class="hl opt">(</span>node<span class="hl opt">) ==</span> float_type<span class="hl opt">)</span>
+          <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%f&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_FLOAT_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+        <span class="hl kwa">else</span>
+          <span class="hl kwd">emit</span><span class="hl opt">(</span><span class="hl str">&quot;%d&quot;</span><span class="hl opt">,</span> <span class="hl kwd">CONSTANT_INT_VALUE</span><span class="hl opt">(</span>node<span class="hl opt">));</span>
+      <span class="hl opt">}</span>
+</code></pre></li>
+<li><p>ajouter le code pour afficher des flottants dans la fonction de
+production de code associée à <code>print</code>.</p></li>
+</ul>
+
+<p>Le code complet du compilateur est donnée dans l&#39;archive
+<a href="Toy-base-corrige.tgz">Toy-base-corrige</a></p>
+
+<p><strong><center>THE END</center></strong></p>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">13-Dec-2017 21:52 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

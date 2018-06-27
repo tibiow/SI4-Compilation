@@ -1,0 +1,19 @@
+// -*- mode: java -*-
+//
+// ok-read3.toy         -- Another test on read
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 13-Dec-2015 17:33 (eg)
+// Last file update: 13-Dec-2015 17:37 (eg)
+//
+
+int main() {
+  int i1=1, i2=1;
+  bool b;
+
+  read(b);
+  if (b) read(i1, i2); else print("b was false\n");
+
+  print((i1 == 100 and i2 == 200) ? "SUCCESS\n" : "FAILURE\n");
+  return 0;
+}

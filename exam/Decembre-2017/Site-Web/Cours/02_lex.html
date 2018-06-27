@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    <!-- Slidy stuff -->
+    <meta name="copyright" content="Langages Formels et Automates -- 2017-2018" />
+    
+    <meta name="font-size-adjustment" content="-2" />
+    <style>
+      <!-- body{margin:0;padding:0;width:1e2%;height:1e2%;color:#000;background-color:#fff;font-family:gill sans mt,gill sans,gillsans,sans-serif;font-size:14pt}div.toolbar{position:fixed;z-index:200;top:auto;bottom:0;left:0;right:0;height:1.2em;text-align:right;padding-left:1em;padding-right:1em;font-size:60%;color:red;background-color:#f0f0f0;border-top:solid 1px #b4b4b4}div.toolbar span.copyright{color:#000;margin-left:.5em}div.initial_prompt{position:absolute;z-index:1000;bottom:1.2em;width:1e2%;background-color:rgb(2e2,2e2,2e2);opacity:.35;background-color:rgb(2e2,2e2,2e2,.35);cursor:pointer}div.initial_prompt p.help{text-align:center}div.initial_prompt p.close{text-align:right;font-style:italic}div.slidy_toc{position:absolute;z-index:300;width:60%;max-width:30em;height:30em;overflow:auto;top:auto;right:auto;left:4em;bottom:4em;padding:1em;background:#f0f0f0;border-style:solid;border-width:2px;font-size:60%}div.slidy_toc .toc_heading{text-align:center;width:1e2%;margin:0;margin-bottom:1em;border-bottom-style:solid;border-bottom-color:#b4b4b4;border-bottom-width:1px}div.slide{z-index:20;margin:0;padding-top:0;padding-bottom:0;padding-left:20px;padding-right:20px;border-width:0;clear:both;top:0;bottom:0;left:0;right:0;line-height:120%;background-color:transparent}div.background{display:none}div.handout{margin-left:20px;margin-right:20px}div.slide.titlepage{text-align:center}div.slide.titlepage h1{padding-top:10%;margin-right:0;background:red}div.slide h1{padding-left:0;padding-right:20pt;padding-top:4pt;padding-bottom:4pt;margin-top:0;margin-left:0;margin-right:60pt;margin-bottom:.5em;display:block;font-size:160%;line-height:1.2em;background:transparent}@media screen and (max-device-width:1024px){div.slide{font-size:1e2%}}@media screen and (max-device-width:800px){div.slide{font-size:2e2%}div.slidy_toc{top:1em;left:1em;right:auto;width:80%;font-size:180%}}div.toc-heading{width:1e2%;border-bottom:solid 1px #b4b4b4;margin-bottom:1em;text-align:center}img{image-rendering:optimize-quality}pre{font-size:80%;font-weight:700;line-height:120%}li pre{margin-left:0}blockquote{font-style:italic}img{background-color:transparent}p.copyright{font-size:smaller}.center{text-align:center}.footnote{font-size:smaller;margin-left:2em}a img{border-width:0;border-style:none}a:visited{color:navy}a:link{color:navy}a:hover{color:red;text-decoration:underline}a:active{color:red;text-decoration:underline}a{text-decoration:none}.toolbar a:link{color:blue}.toolbar a:visited{color:blue}.toolbar a:active{color:red}.toolbar a:hover{color:red}ul{list-style-type:square}ul ul{list-style-type:disc}ul ul ul{list-style-type:circle}ul ul ul ul{list-style-type:disc}li{margin-left:.5em;margin-top:.5em}li li{font-size:85%;font-style:italic}li li li{font-size:85%;font-style:normal}div dt{margin-left:0;margin-top:1em;margin-bottom:.5em;font-weight:700}div dd{margin-left:2em;margin-bottom:.5em}p,pre,ul,ol,blockquote,h2,h3,h4,h5,h6,dl,table{margin-left:1em;margin-right:1em}p.subhead{font-weight:700;margin-top:2em}.smaller{font-size:smaller}.bigger{font-size:130%}td,th{padding:.2em}ul{margin:.5em 1.5em;padding:0}ol{margin:.5em 1.5em;padding:0}ul{list-style-type:square}ul ul{list-style-type:disc}ul ul ul{list-style-type:circle}ul ul ul ul{list-style-type:disc}ul li{list-style:square;margin:.1em 0 .6em;padding:0;line-height:140%}ol li{margin:.1em 0 .6em 1.5em;padding:0;line-height:140%;list-style-type:decimal}li ul li{font-size:85%;font-style:italic;list-style-type:disc;background:transparent;padding:0}li li ul li{font-size:85%;font-style:normal;list-style-type:circle;background:transparent;padding:0}li li li ul li{list-style-type:disc;background:transparent;padding:0}li ol li{list-style-type:decimal}li li ol li{list-style-type:decimal}ol.outline li:hover{cursor:pointer}ol.outline li.nofold:hover{cursor:default}ul.outline li:hover{cursor:pointer}ul.outline li.nofold:hover{cursor:default}ol.outline{list-style:decimal}ol.outline ol{list-style-type:lower-alpha}ol.outline li.nofold{padding:0 0 0 20px;background:transparent url(../graphics/nofold-dim.gif) no-repeat 0 .5em}ol.outline li.unfolded{padding:0 0 0 20px;background:transparent url(../graphics/fold-dim.gif) no-repeat 0 .5em}ol.outline li.folded{padding:0 0 0 20px;background:transparent url(../graphics/unfold-dim.gif) no-repeat 0 .5em}ol.outline li.unfolded:hover{padding:0 0 0 20px;background:transparent url(../graphics/fold.gif) no-repeat 0 .5em}ol.outline li.folded:hover{padding:0 0 0 20px;background:transparent url(../graphics/unfold.gif) no-repeat 0 .5em}ul.outline li.nofold{padding:0 0 0 20px;background:transparent url(../graphics/nofold-dim.gif) no-repeat 0 .5em}ul.outline li.unfolded{padding:0 0 0 20px;background:transparent url(../graphics/fold-dim.gif) no-repeat 0 .5em}ul.outline li.folded{padding:0 0 0 20px;background:transparent url(../graphics/unfold-dim.gif) no-repeat 0 .5em}ul.outline li.unfolded:hover{padding:0 0 0 20px;background:transparent url(../graphics/fold.gif) no-repeat 0 .5em}ul.outline li.folded:hover{padding:0 0 0 20px;background:transparent url(../graphics/unfold.gif) no-repeat 0 .5em}a.titleslide{font-weight:700;font-style:italic}img.hidden{display:none;visibility:hidden}div.initial_prompt{display:none;visibility:hidden}div.slide{visibility:visible;position:inherit}div.handout{border-top-style:solid;border-top-width:thin;border-top-color:#000}@media screen{.hidden{display:none;visibility:visible}div.slide.hidden{display:block;visibility:visible}div.handout.hidden{display:block;visibility:visible}div.background{display:none;visibility:hidden}body.single_slide div.initial_prompt{display:block;visibility:visible}body.single_slide div.background{display:block;visibility:visible}body.single_slide div.background.hidden{display:none;visibility:hidden}body.single_slide .invisible{visibility:hidden}body.single_slide .hidden{display:none;visibility:hidden}body.single_slide div.slide{position:absolute}body.single_slide div.handout{display:none;visibility:hidden}}@media print{.hidden{display:block;visibility:visible}div.slide pre{font-size:60%;padding-left:.5em}div.toolbar{display:none;visibility:hidden}div.slidy_toc{display:none;visibility:hidden}div.background{display:none;visibility:hidden}div.slide{page-break-before:always}div.slide.first-slide{page-break-before:avoid}} -->
+    </style>
+    <script>var w3c_slidy={ns_pos:(typeof window.pageYOffset!='undefined'),khtml:((navigator.userAgent).indexOf("KHTML")>=0?true:false),opera:((navigator.userAgent).indexOf("Opera")>=0?true:false),ipad:((navigator.userAgent).indexOf("iPad")>=0?true:false),iphone:((navigator.userAgent).indexOf("iPhone")>=0?true:false),android:((navigator.userAgent).indexOf("Android")>=0?true:false),ie:(typeof document.all!="undefined"&&!this.opera),ie6:(!this.ns_pos&&navigator.userAgent.indexOf("MSIE 6")!=-1),ie7:(!this.ns_pos&&navigator.userAgent.indexOf("MSIE 7")!=-1),ie8:(!this.ns_pos&&navigator.userAgent.indexOf("MSIE 8")!=-1),ie9:(!this.ns_pos&&navigator.userAgent.indexOf("MSIE 9")!=-1),last_tap:0,prev_tap:0,start_x:0,start_y:0,delta_x:0,delta_y:0,is_xhtml:/xml/.test(document.contentType),slide_number:0,slide_number_element:null,slides:[],notes:[],backgrounds:[],observers:[],toolbar:null,title:null,last_shown:null,eos:null,toc:null,outline:null,selected_text_len:0,view_all:0,want_toolbar:true,mouse_click_enabled:false,scroll_hack:0,disable_slide_click:false,lang:"en",help_anchor:null,help_page:"http://www.w3.org/Talks/Tools/Slidy2/help/help.html",help_text:"Navigate with mouse click, space bar, Cursor Left/Right, "+"or Pg Up and Pg Dn. Use S and B to change font size.",size_index:0,size_adjustment:0,sizes:new Array("10pt","12pt","14pt","16pt","18pt","20pt","22pt","24pt","26pt","28pt","30pt","32pt"),last_width:0,last_height:0,objects:[],set_up:function(){var init=function(){w3c_slidy.init();};if(typeof window.addEventListener!="undefined")
+window.addEventListener("load",init,false);else
+window.attachEvent("onload",init);},hide_slides:function(){if(document.body&&!w3c_slidy.initialized)
+document.body.style.visibility="hidden";else
+setTimeout(w3c_slidy.hide_slides,50);},ie_hack:function(){window.resizeBy(0,-1);window.resizeBy(0,1);},init:function(){document.body.style.visibility="visible";this.init_localization();this.add_toolbar();this.wrap_implicit_slides();this.collect_slides();this.collect_notes();this.collect_backgrounds();this.objects=document.body.getElementsByTagName("object");this.patch_anchors();this.slide_number=this.find_slide_number(location.href);window.offscreenbuffering=true;this.size_adjustment=this.find_size_adjust();this.time_left=this.find_duration();this.hide_image_toolbar();this.init_outliner();this.title=document.title;this.keyboardless=(this.ipad||this.iphone||this.android);if(this.keyboardless)
+{w3c_slidy.remove_class(w3c_slidy.toolbar,"hidden")
+this.want_toolbar=0;}
+this.is_xhtml=(document.body.tagName=="BODY"?false:true);if(this.slides.length>0)
+{var slide=this.slides[this.slide_number];if(this.slide_number>0)
+{this.set_visibility_all_incremental("visible");this.last_shown=this.previous_incremental_item(null);this.set_eos_status(true);}
+else
+{this.last_shown=null;this.set_visibility_all_incremental("hidden");this.set_eos_status(!this.next_incremental_item(this.last_shown));}
+this.set_location();this.add_class(this.slides[0],"first-slide");w3c_slidy.show_slide(slide);}
+this.toc=this.table_of_contents();if(!this.keyboardless)
+{this.add_listener(document.body,"click",this.mouse_button_click);this.add_listener(document.body,"mousedown",this.mouse_button_down);}
+this.add_listener(document,"keydown",this.key_down);this.add_listener(document,"keypress",this.key_press);this.add_listener(window,"resize",this.resized);this.add_listener(window,"scroll",this.scrolled);this.add_listener(window,"unload",this.unloaded);this.add_listener(document,"gesturechange",function()
+{return false;});this.attach_touch_handers(this.slides);this.single_slide_view();this.resized();if(this.ie7)
+setTimeout(w3c_slidy.ie_hack,100);this.show_toolbar();setInterval(function(){w3c_slidy.check_location();},200);w3c_slidy.initialized=true;},table_of_contents:function(){var toc=this.create_element("div");this.add_class(toc,"slidy_toc hidden");var heading=this.create_element("div");this.add_class(heading,"toc-heading");heading.innerHTML=this.localize("Table of Contents");toc.appendChild(heading);var previous=null;for(var i=0;i<this.slides.length;++i)
+{var title=this.has_class(this.slides[i],"title");var num=document.createTextNode((i+1)+". ");toc.appendChild(num);var a=this.create_element("a");a.setAttribute("href","#("+(i+1)+")");if(title)
+this.add_class(a,"titleslide");var name=document.createTextNode(this.slide_name(i));a.appendChild(name);a.onclick=w3c_slidy.toc_click;a.onkeydown=w3c_slidy.toc_key_down;a.previous=previous;if(previous)
+previous.next=a;toc.appendChild(a);if(i==0)
+toc.first=a;if(i<this.slides.length-1)
+{var br=this.create_element("br");toc.appendChild(br);}
+previous=a;}
+toc.focus=function(){if(this.first)
+this.first.focus();}
+toc.onmouseup=w3c_slidy.mouse_button_up;toc.onclick=function(e){e||(e=window.event);if(w3c_slidy.selected_text_len<=0)
+w3c_slidy.hide_table_of_contents(true);w3c_slidy.stop_propagation(e);if(e.cancel!=undefined)
+e.cancel=true;if(e.returnValue!=undefined)
+e.returnValue=false;return false;};document.body.insertBefore(toc,document.body.firstChild);return toc;},is_shown_toc:function(){return!w3c_slidy.has_class(w3c_slidy.toc,"hidden");},show_table_of_contents:function(){w3c_slidy.remove_class(w3c_slidy.toc,"hidden");var toc=w3c_slidy.toc;toc.focus();if(w3c_slidy.ie7&&w3c_slidy.slide_number==0)
+setTimeout(w3c_slidy.ie_hack,100);},hide_table_of_contents:function(focus){w3c_slidy.add_class(w3c_slidy.toc,"hidden");if(focus&&!w3c_slidy.opera&&!w3c_slidy.has_class(w3c_slidy.toc,"hidden"))
+w3c_slidy.set_focus();},toggle_table_of_contents:function(){if(w3c_slidy.is_shown_toc())
+w3c_slidy.hide_table_of_contents(true);else
+w3c_slidy.show_table_of_contents();},toc_click:function(e){if(!e)
+e=window.event;var target=w3c_slidy.get_target(e);if(target&&target.nodeType==1)
+{var uri=target.getAttribute("href");if(uri)
+{var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=w3c_slidy.find_slide_number(uri);slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.last_shown=null;w3c_slidy.set_location();w3c_slidy.set_visibility_all_incremental("hidden");w3c_slidy.set_eos_status(!w3c_slidy.next_incremental_item(w3c_slidy.last_shown));w3c_slidy.show_slide(slide);try
+{if(!w3c_slidy.opera)
+w3c_slidy.set_focus();}
+catch(e)
+{}}}
+w3c_slidy.hide_table_of_contents(true);if(w3c_slidy.ie7)w3c_slidy.ie_hack();w3c_slidy.stop_propagation(e);return w3c_slidy.cancel(e);},toc_key_down:function(event){var key;if(!event)
+var event=window.event;if(window.event)
+key=window.event.keyCode;else if(event.which)
+key=event.which;else
+return true;if(!key)
+return true;if(event.ctrlKey||event.altKey)
+return true;if(key==13)
+{var uri=this.getAttribute("href");if(uri)
+{var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=w3c_slidy.find_slide_number(uri);slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.last_shown=null;w3c_slidy.set_location();w3c_slidy.set_visibility_all_incremental("hidden");w3c_slidy.set_eos_status(!w3c_slidy.next_incremental_item(w3c_slidy.last_shown));w3c_slidy.show_slide(slide);try
+{if(!w3c_slidy.opera)
+w3c_slidy.set_focus();}
+catch(e)
+{}}
+w3c_slidy.hide_table_of_contents(true);if(self.ie7)
+w3c_slidy.ie_hack();return w3c_slidy.cancel(event);}
+if(key==40&&this.next)
+{this.next.focus();return w3c_slidy.cancel(event);}
+if(key==38&&this.previous)
+{this.previous.focus();return w3c_slidy.cancel(event);}
+return true;},touchstart:function(e)
+{this.prev_tap=this.last_tap;this.last_tap=(new Date).getTime();var tap_delay=this.last_tap-this.prev_tap;if(tap_delay<=200)
+{}
+var touch=e.touches[0];this.pageX=touch.pageX;this.pageY=touch.pageY;this.screenX=touch.screenX;this.screenY=touch.screenY;this.clientX=touch.clientX;this.clientY=touch.clientY;this.delta_x=this.delta_y=0;},touchmove:function(e)
+{if(e.touches.length>1)
+return;e.preventDefault();var touch=e.touches[0];this.delta_x=touch.pageX-this.pageX;this.delta_y=touch.pageY-this.pageY;},touchend:function(e)
+{if(e.touches.length>1)
+return;var delay=(new Date).getTime()-this.last_tap;var dx=this.delta_x;var dy=this.delta_y;var abs_dx=Math.abs(dx);var abs_dy=Math.abs(dy);if(delay<500&&(abs_dx>100||abs_dy>100))
+{if(abs_dx>0.5*abs_dy)
+{e.preventDefault();if(dx<0)
+w3c_slidy.next_slide(true);else
+w3c_slidy.previous_slide(true);}
+else if(abs_dy>2*abs_dx)
+{e.preventDefault();w3c_slidy.toggle_table_of_contents();}}},before_print:function(){this.show_all_slides();this.hide_toolbar();alert("before print");},after_print:function(){if(!this.view_all)
+{this.single_slide_view();this.show_toolbar();}
+alert("after print");},print_slides:function(){this.before_print();window.print();this.after_print();},toggle_view:function(){if(this.view_all)
+{this.single_slide_view();this.show_toolbar();this.view_all=0;}
+else
+{this.show_all_slides();this.hide_toolbar();this.view_all=1;}},show_all_slides:function(){this.remove_class(document.body,"single_slide");this.set_visibility_all_incremental("visible");},single_slide_view:function(){this.add_class(document.body,"single_slide");this.set_visibility_all_incremental("visible");this.last_shown=this.previous_incremental_item(null);},hide_image_toolbar:function(){if(!this.ns_pos)
+{var images=document.getElementsByTagName("IMG");for(var i=0;i<images.length;++i)
+images[i].setAttribute("galleryimg","no");}},unloaded:function(e){},is_KHTML:function(){var agent=navigator.userAgent;return(agent.indexOf("KHTML")>=0?true:false);},slide_name:function(index){var name=null;var slide=this.slides[index];var heading=this.find_heading(slide);if(heading)
+name=this.extract_text(heading);if(!name)
+name=this.title+"("+(index+1)+")";name.replace(/\&/g,"&amp;");name.replace(/\</g,"&lt;");name.replace(/\>/g,"&gt;");return name;},find_heading:function(node){if(!node||node.nodeType!=1)
+return null;if(node.nodeName=="H1"||node.nodeName=="h1")
+return node;var child=node.firstChild;while(child)
+{node=this.find_heading(child);if(node)
+return node;child=child.nextSibling;}
+return null;},extract_text:function(node){if(!node)
+return"";if(node.nodeType==3)
+return node.nodeValue;if(node.nodeType==1)
+{node=node.firstChild;var text="";while(node)
+{text=text+this.extract_text(node);node=node.nextSibling;}
+return text;}
+return"";},find_copyright:function(){var name,content;var meta=document.getElementsByTagName("meta");for(var i=0;i<meta.length;++i)
+{name=meta[i].getAttribute("name");content=meta[i].getAttribute("content");if(name=="copyright")
+return content;}
+return null;},find_size_adjust:function(){var name,content,offset;var meta=document.getElementsByTagName("meta");for(var i=0;i<meta.length;++i)
+{name=meta[i].getAttribute("name");content=meta[i].getAttribute("content");if(name=="font-size-adjustment")
+return 1*content;}
+return 1;},find_duration:function(){var name,content,offset;var meta=document.getElementsByTagName("meta");for(var i=0;i<meta.length;++i)
+{name=meta[i].getAttribute("name");content=meta[i].getAttribute("content");if(name=="duration")
+return 60000*content;}
+return null;},replace_by_non_breaking_space:function(str){for(var i=0;i<str.length;++i)
+str[i]=160;},init_outliner:function(){var items=document.getElementsByTagName("li");for(var i=0;i<items.length;++i)
+{var target=items[i];if(!this.has_class(target.parentNode,"outline"))
+continue;target.onclick=this.outline_click;if(this.foldable(target))
+{target.foldable=true;target.onfocus=function(){w3c_slidy.outline=this;};target.onblur=function(){w3c_slidy.outline=null;};if(!target.getAttribute("tabindex"))
+target.setAttribute("tabindex","0");if(this.has_class(target,"expand"))
+this.unfold(target);else
+this.fold(target);}
+else
+{this.add_class(target,"nofold");target.visible=true;target.foldable=false;}}},foldable:function(item){if(!item||item.nodeType!=1)
+return false;var node=item.firstChild;while(node)
+{if(node.nodeType==1&&this.is_block(node))
+return true;node=node.nextSibling;}
+return false;},fold:function(item){if(item)
+{this.remove_class(item,"unfolded");this.add_class(item,"folded");}
+var node=item?item.firstChild:null;while(node)
+{if(node.nodeType==1&&this.is_block(node))
+{w3c_slidy.add_class(node,"hidden");}
+node=node.nextSibling;}
+item.visible=false;},unfold:function(item){if(item)
+{this.add_class(item,"unfolded");this.remove_class(item,"folded");}
+var node=item?item.firstChild:null;while(node)
+{if(node.nodeType==1&&this.is_block(node))
+{w3c_slidy.remove_class(node,"hidden");}
+node=node.nextSibling;}
+item.visible=true;},outline_click:function(e){if(!e)
+e=window.event;var rightclick=false;var target=w3c_slidy.get_target(e);while(target&&target.visible==undefined)
+target=target.parentNode;if(!target)
+return true;if(e.which)
+rightclick=(e.which==3);else if(e.button)
+rightclick=(e.button==2);if(!rightclick&&target.visible!=undefined)
+{if(target.foldable)
+{if(target.visible)
+w3c_slidy.fold(target);else
+w3c_slidy.unfold(target);}
+w3c_slidy.stop_propagation(e);e.cancel=true;e.returnValue=false;}
+return false;},add_toolbar:function(){var counter,page;this.toolbar=this.create_element("div");this.toolbar.setAttribute("class","toolbar");if(this.ns_pos||!this.ie6)
+{var right=this.create_element("div");right.setAttribute("style","float: right; text-align: right");counter=this.create_element("span")
+counter.innerHTML=this.localize("slide")+" n/m";right.appendChild(counter);this.toolbar.appendChild(right);var left=this.create_element("div");left.setAttribute("style","text-align: left");this.eos=this.create_element("span");this.eos.innerHTML="* ";left.appendChild(this.eos);var copyright=this.find_copyright();if(copyright)
+{var span=this.create_element("span");span.className="copyright";span.innerHTML=copyright;left.appendChild(span);}
+this.toolbar.setAttribute("tabindex","0");this.toolbar.appendChild(left);}
+else
+{this.toolbar.style.position=(this.ie7?"fixed":"absolute");this.toolbar.style.zIndex="200";this.toolbar.style.width="99.9%";this.toolbar.style.height="1.2em";this.toolbar.style.top="auto";this.toolbar.style.bottom="0";this.toolbar.style.left="0";this.toolbar.style.right="0";this.toolbar.style.textAlign="left";this.toolbar.style.fontSize="60%";this.toolbar.style.color="red";this.toolbar.borderWidth=0;this.toolbar.className="toolbar";this.toolbar.style.background="rgb(240,240,240)";var sp=this.create_element("span");sp.innerHTML="&nbsp;&nbsp;*&nbsp;";this.toolbar.appendChild(sp);this.eos=sp;var help=this.create_element("a");help.setAttribute("href",this.help_page);help.setAttribute("title",this.localize(this.help_text));help.innerHTML=this.localize("help?");this.toolbar.appendChild(help);this.help_anchor=help;var gap1=document.createTextNode(" ");this.toolbar.appendChild(gap1);var contents=this.create_element("a");contents.setAttribute("href","javascript:toggleTableOfContents()");contents.setAttribute("title",this.localize("table of contents".localize));contents.innerHTML=this.localize("contents?");this.toolbar.appendChild(contents);var gap2=document.createTextNode(" ");this.toolbar.appendChild(gap2);var copyright=this.find_copyright();if(copyright)
+{var span=this.create_element("span");span.innerHTML=copyright;span.style.color="black";span.style.marginLeft="0.5em";this.toolbar.appendChild(span);}
+counter=this.create_element("div")
+counter.style.position="absolute";counter.style.width="auto";counter.style.height="1.2em";counter.style.top="auto";counter.style.bottom=0;counter.style.right="0";counter.style.textAlign="right";counter.style.color="red";counter.style.background="rgb(240,240,240)";counter.innerHTML=this.localize("slide")+" n/m";this.toolbar.appendChild(counter);}
+this.toolbar.onclick=function(e){if(!e)
+e=window.event;var target=e.target;if(!target&&e.srcElement)
+target=e.srcElement;if(target&&target.nodeType==3)
+target=target.parentNode;w3c_slidy.stop_propagation(e);if(target&&target.nodeName.toLowerCase()!="a")
+w3c_slidy.mouse_button_click(e);};this.slide_number_element=counter;this.set_eos_status(false);document.body.appendChild(this.toolbar);},wrap_implicit_slides:function(){var i,heading,node,next,div;var headings=document.getElementsByTagName("h1");if(!headings)
+return;for(i=0;i<headings.length;++i)
+{heading=headings[i];if(heading.parentNode!=document.body)
+continue;node=heading.nextSibling;div=document.createElement("div");this.add_class(div,"slide");document.body.replaceChild(div,heading);div.appendChild(heading);while(node)
+{if(node.nodeType==1)
+{if(node.nodeName=="H1"||node.nodeName=="h1")
+break;if(node.nodeName=="DIV"||node.nodeName=="div")
+{if(this.has_class(node,"slide"))
+break;if(this.has_class(node,"handout"))
+break;}}
+next=node.nextSibling;node=document.body.removeChild(node);div.appendChild(node);node=next;}}},attach_touch_handers:function(slides)
+{var i,slide;for(i=0;i<slides.length;++i)
+{slide=slides[i];this.add_listener(slide,"touchstart",this.touchstart);this.add_listener(slide,"touchmove",this.touchmove);this.add_listener(slide,"touchend",this.touchend);}},collect_slides:function(){var slides=new Array();var divs=document.body.getElementsByTagName("div");for(var i=0;i<divs.length;++i)
+{div=divs.item(i);if(this.has_class(div,"slide"))
+{slides[slides.length]=div;this.add_class(div,"hidden");var node1=document.createElement("br");div.appendChild(node1);var node2=document.createElement("br");div.appendChild(node2);}
+else if(this.has_class(div,"background"))
+{div.style.display="block";}}
+this.slides=slides;},collect_notes:function(){var notes=new Array();var divs=document.body.getElementsByTagName("div");for(var i=0;i<divs.length;++i)
+{div=divs.item(i);if(this.has_class(div,"handout"))
+{notes[notes.length]=div;this.add_class(div,"hidden");}}
+this.notes=notes;},collect_backgrounds:function(){var backgrounds=new Array();var divs=document.body.getElementsByTagName("div");for(var i=0;i<divs.length;++i)
+{div=divs.item(i);if(this.has_class(div,"background"))
+{backgrounds[backgrounds.length]=div;this.add_class(div,"hidden");}}
+this.backgrounds=backgrounds;},patch_anchors:function(){var self=w3c_slidy;var handler=function(event){if(self.page_address(this.href)==self.page_address(location.href))
+{var newslidenum=self.find_slide_number(this.href);if(newslidenum!=self.slide_number)
+{var slide=self.slides[self.slide_number];self.hide_slide(slide);self.slide_number=newslidenum;slide=self.slides[self.slide_number];self.show_slide(slide);self.set_location();}}
+else
+w3c_slidy.stop_propagation(event);this.blur();self.disable_slide_click=true;};var anchors=document.body.getElementsByTagName("a");for(var i=0;i<anchors.length;++i)
+{if(window.addEventListener)
+anchors[i].addEventListener("click",handler,false);else
+anchors[i].attachEvent("onclick",handler);}},show_slide_number:function(){var timer=w3c_slidy.get_timer();w3c_slidy.slide_number_element.innerHTML=timer+w3c_slidy.localize("slide")+" "+
+(w3c_slidy.slide_number+1)+"/"+w3c_slidy.slides.length;},check_location:function(){var hash=location.hash;if(w3c_slidy.slide_number>0&&(hash==""||hash=="#"))
+w3c_slidy.goto_slide(0);else if(hash.length>2&&hash!="#("+(w3c_slidy.slide_number+1)+")")
+{var num=parseInt(location.hash.substr(2));if(!isNaN(num))
+w3c_slidy.goto_slide(num-1);}
+if(w3c_slidy.time_left&&w3c_slidy.slide_number>0)
+{w3c_slidy.show_slide_number();if(w3c_slidy.time_left>0)
+w3c_slidy.time_left-=200;}},get_timer:function(){var timer="";if(w3c_slidy.time_left)
+{var mins,secs;secs=Math.floor(w3c_slidy.time_left/1000);mins=Math.floor(secs/60);secs=secs%60;timer=(mins?mins+"m":"")+secs+"s ";}
+return timer;},set_location:function(){var uri=w3c_slidy.page_address(location.href);var hash="#("+(w3c_slidy.slide_number+1)+")";if(w3c_slidy.slide_number>=0)
+uri=uri+hash;if(typeof(history.pushState)!="undefined")
+{document.title=w3c_slidy.title+" ("+(w3c_slidy.slide_number+1)+")";history.pushState(0,document.title,hash);w3c_slidy.show_slide_number();w3c_slidy.notify_observers();return;}
+if(uri!=location.href)
+location.href=uri;if(this.khtml)
+hash="("+(w3c_slidy.slide_number+1)+")";if(!this.ie&&location.hash!=hash&&location.hash!="")
+location.hash=hash;document.title=w3c_slidy.title+" ("+(w3c_slidy.slide_number+1)+")";w3c_slidy.show_slide_number();w3c_slidy.notify_observers();},notify_observers:function()
+{var slide=this.slides[this.slide_number];for(var i=0;i<this.observers.length;++i)
+this.observers[i](this.slide_number+1,this.find_heading(slide).innerText,location.href);},add_observer:function(observer)
+{for(var i=0;i<this.observers.length;++i)
+{if(observer==this.observers[i])
+return;}
+this.observers.push(observer);},remove_observer:function(o)
+{for(var i=0;i<this.observers.length;++i)
+{if(observer==this.observers[i])
+{this.observers.splice(i,1);break;}}},page_address:function(uri){var i=uri.indexOf("#");if(i<0)
+i=uri.indexOf("%23");if(i<0)
+return uri;return uri.substr(0,i);},on_frame_loaded:function(hash){location.hash=hash;var uri=w3c_slidy.page_address(location.href);location.href=uri+hash;},push_hash:function(hash){},find_slide_number:function(uri){var i=uri.indexOf("#");if(i<0)
+return 0;var anchor=unescape(uri.substr(i+1));var target=document.getElementById(anchor);if(!target)
+{var re=/\((\d)+\)/;if(anchor.match(re))
+{var num=parseInt(anchor.substring(1,anchor.length-1));if(num>this.slides.length)
+num=1;if(--num<0)
+num=0;return num;}
+re=/\[(\d)+\]/;if(anchor.match(re))
+{var num=parseInt(anchor.substring(1,anchor.length-1));if(num>this.slides.length)
+num=1;if(--num<0)
+num=0;return num;}
+return 0;}
+while(true)
+{if(target.nodeName.toLowerCase()=="div"&&this.has_class(target,"slide"))
+{break;}
+target=target.parentNode;if(!target)
+{return 0;}};for(i=0;i<slides.length;++i)
+{if(slides[i]==target)
+return i;}
+return 0;},previous_slide:function(incremental){if(!w3c_slidy.view_all)
+{var slide;if((incremental||w3c_slidy.slide_number==0)&&w3c_slidy.last_shown!=null)
+{w3c_slidy.last_shown=w3c_slidy.hide_previous_item(w3c_slidy.last_shown);w3c_slidy.set_eos_status(false);}
+else if(w3c_slidy.slide_number>0)
+{slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=w3c_slidy.slide_number-1;slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.set_visibility_all_incremental("visible");w3c_slidy.last_shown=w3c_slidy.previous_incremental_item(null);w3c_slidy.set_eos_status(true);w3c_slidy.show_slide(slide);}
+w3c_slidy.set_location();if(!w3c_slidy.ns_pos)
+w3c_slidy.refresh_toolbar(200);}},next_slide:function(incremental){if(!w3c_slidy.view_all)
+{var slide,last=w3c_slidy.last_shown;if(incremental||w3c_slidy.slide_number==w3c_slidy.slides.length-1)
+w3c_slidy.last_shown=w3c_slidy.reveal_next_item(w3c_slidy.last_shown);if((!incremental||w3c_slidy.last_shown==null)&&w3c_slidy.slide_number<w3c_slidy.slides.length-1)
+{slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=w3c_slidy.slide_number+1;slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.last_shown=null;w3c_slidy.set_visibility_all_incremental("hidden");w3c_slidy.show_slide(slide);}
+else if(!w3c_slidy.last_shown)
+{if(last&&incremental)
+w3c_slidy.last_shown=last;}
+w3c_slidy.set_location();w3c_slidy.set_eos_status(!w3c_slidy.next_incremental_item(w3c_slidy.last_shown));if(!w3c_slidy.ns_pos)
+w3c_slidy.refresh_toolbar(200);}},first_slide:function(){if(!w3c_slidy.view_all)
+{var slide;if(w3c_slidy.slide_number!=0)
+{slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=0;slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.last_shown=null;w3c_slidy.set_visibility_all_incremental("hidden");w3c_slidy.show_slide(slide);}
+w3c_slidy.set_eos_status(!w3c_slidy.next_incremental_item(w3c_slidy.last_shown));w3c_slidy.set_location();}},last_slide:function(){if(!w3c_slidy.view_all)
+{var slide;w3c_slidy.last_shown=null;if(w3c_slidy.last_shown==null&&w3c_slidy.slide_number<w3c_slidy.slides.length-1)
+{slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=w3c_slidy.slides.length-1;slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.set_visibility_all_incremental("visible");w3c_slidy.last_shown=w3c_slidy.previous_incremental_item(null);w3c_slidy.show_slide(slide);}
+else
+{w3c_slidy.set_visibility_all_incremental("visible");w3c_slidy.last_shown=w3c_slidy.previous_incremental_item(null);}
+w3c_slidy.set_eos_status(true);w3c_slidy.set_location();}},set_eos_status:function(state){if(this.eos)
+this.eos.style.color=(state?"rgb(240,240,240)":"red");},goto_slide:function(num){var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.slide_number=num;slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.last_shown=null;w3c_slidy.set_visibility_all_incremental("hidden");w3c_slidy.set_eos_status(!w3c_slidy.next_incremental_item(w3c_slidy.last_shown));document.title=w3c_slidy.title+" ("+(w3c_slidy.slide_number+1)+")";w3c_slidy.show_slide(slide);w3c_slidy.show_slide_number();},show_slide:function(slide){this.sync_background(slide);this.remove_class(slide,"hidden");setTimeout("window.scrollTo(0,0);",1);},hide_slide:function(slide){this.add_class(slide,"hidden");},set_focus:function(element)
+{if(element)
+element.focus();else
+{w3c_slidy.help_anchor.focus();setTimeout(function(){w3c_slidy.help_anchor.blur();},1);}},sync_background:function(slide){var background;var bgColor;if(slide.currentStyle)
+bgColor=slide.currentStyle["backgroundColor"];else if(document.defaultView)
+{var styles=document.defaultView.getComputedStyle(slide,null);if(styles)
+bgColor=styles.getPropertyValue("background-color");else
+{bgColor="transparent";}}
+else
+bgColor=="transparent";if(bgColor=="transparent"||bgColor.indexOf("rgba")>=0||bgColor.indexOf("opacity")>=0)
+{var slideClass=this.get_class_list(slide);for(var i=0;i<this.backgrounds.length;i++)
+{background=this.backgrounds[i];var bgClass=this.get_class_list(background);if(this.matching_background(slideClass,bgClass))
+this.remove_class(background,"hidden");else
+this.add_class(background,"hidden");}}
+else
+this.hide_backgrounds();},hide_backgrounds:function(){for(var i=0;i<this.backgrounds.length;i++)
+{background=this.backgrounds[i];this.add_class(background,"hidden");}},matching_background:function(slideClass,bgClass){var i,count,pattern,result;pattern=/\w+/g;result=bgClass.match(pattern);for(i=count=0;i<result.length;i++)
+{if(result[i]=="hidden")
+continue;if(result[i]=="background")
+continue;++count;}
+if(count==0)
+return true;result=slideClass.match(pattern);for(i=count=0;i<result.length;i++)
+{if(result[i]=="hidden")
+continue;if(this.has_token(bgClass,result[i]))
+return true;}
+return false;},resized:function(){var width=0;if(typeof(window.innerWidth)=='number')
+width=window.innerWidth;else if(document.documentElement&&document.documentElement.clientWidth)
+width=document.documentElement.clientWidth;else if(document.body&&document.body.clientWidth)
+width=document.body.clientWidth;var height=0;if(typeof(window.innerHeight)=='number')
+height=window.innerHeight;else if(document.documentElement&&document.documentElement.clientHeight)
+height=document.documentElement.clientHeight;else if(document.body&&document.body.clientHeight)
+height=document.body.clientHeight;if(height&&(width/height>1.05*1024/768))
+{width=height*1024.0/768;}
+if(width!=w3c_slidy.last_width||height!=w3c_slidy.last_height)
+{if(width>=1100)
+w3c_slidy.size_index=5;else if(width>=1000)
+w3c_slidy.size_index=4;else if(width>=800)
+w3c_slidy.size_index=3;else if(width>=600)
+w3c_slidy.size_index=2;else if(width)
+w3c_slidy.size_index=0;if(0<=w3c_slidy.size_index+w3c_slidy.size_adjustment&&w3c_slidy.size_index+w3c_slidy.size_adjustment<w3c_slidy.sizes.length)
+w3c_slidy.size_index=w3c_slidy.size_index+w3c_slidy.size_adjustment;w3c_slidy.adjust_object_dimensions(width,height);if(document.body.style.fontSize!=w3c_slidy.sizes[w3c_slidy.size_index])
+{document.body.style.fontSize=w3c_slidy.sizes[w3c_slidy.size_index];}
+w3c_slidy.last_width=width;w3c_slidy.last_height=height;if(w3c_slidy.ns_pos)
+{var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.show_slide(slide);}
+w3c_slidy.refresh_toolbar(200);}},scrolled:function(){if(w3c_slidy.toolbar&&!w3c_slidy.ns_pos&&!w3c_slidy.ie7)
+{w3c_slidy.hack_offset=w3c_slidy.scroll_x_offset();w3c_slidy.toolbar.style.display="none";if(w3c_slidy.scrollhack==0&&!w3c_slidy.view_all)
+{setTimeout(function(){w3c_slidy.show_toolbar();},1000);w3c_slidy.scrollhack=1;}}},hide_toolbar:function(){w3c_slidy.add_class(w3c_slidy.toolbar,"hidden");window.focus();},refresh_toolbar:function(interval){if(!w3c_slidy.ns_pos&&!w3c_slidy.ie7)
+{w3c_slidy.hide_toolbar();setTimeout(function(){w3c_slidy.show_toolbar();},interval);}},show_toolbar:function(){if(w3c_slidy.want_toolbar)
+{w3c_slidy.toolbar.style.display="block";if(!w3c_slidy.ns_pos)
+{var xoffset=w3c_slidy.scroll_x_offset();w3c_slidy.toolbar.style.left=xoffset;w3c_slidy.toolbar.style.right=xoffset;w3c_slidy.toolbar.style.bottom=0;}
+w3c_slidy.remove_class(w3c_slidy.toolbar,"hidden");}
+w3c_slidy.scrollhack=0;try
+{if(!w3c_slidy.opera)
+w3c_slidy.set_focus();}
+catch(e)
+{}},toggle_toolbar:function(){if(!w3c_slidy.view_all)
+{if(w3c_slidy.has_class(w3c_slidy.toolbar,"hidden"))
+{w3c_slidy.remove_class(w3c_slidy.toolbar,"hidden")
+w3c_slidy.want_toolbar=1;}
+else
+{w3c_slidy.add_class(w3c_slidy.toolbar,"hidden")
+w3c_slidy.want_toolbar=0;}}},scroll_x_offset:function(){if(window.pageXOffset)
+return self.pageXOffset;if(document.documentElement&&document.documentElement.scrollLeft)
+return document.documentElement.scrollLeft;if(document.body)
+return document.body.scrollLeft;return 0;},scroll_y_offset:function(){if(window.pageYOffset)
+return self.pageYOffset;if(document.documentElement&&document.documentElement.scrollTop)
+return document.documentElement.scrollTop;if(document.body)
+return document.body.scrollTop;return 0;},optimize_font_size:function(){var slide=w3c_slidy.slides[w3c_slidy.slide_number];var dh=slide.scrollHeight;var wh=getWindowHeight();var u=100*dh/wh;alert("window utilization = "+u+"% (doc "
++dh+" win "+wh+")");},get_doc_height:function(doc){if(!doc)
+doc=document;if(doc&&doc.body&&doc.body.offsetHeight)
+return doc.body.offsetHeight;if(doc&&doc.body&&doc.body.scrollHeight)
+return doc.body.scrollHeight;alert("couldn't determine document height");},get_window_height:function(){if(typeof(window.innerHeight)=='number')
+return window.innerHeight;if(document.documentElement&&document.documentElement.clientHeight)
+return document.documentElement.clientHeight;if(document.body&&document.body.clientHeight)
+return document.body.clientHeight;},document_height:function(){var sh,oh;sh=document.body.scrollHeight;oh=document.body.offsetHeight;if(sh&&oh)
+{return(sh>oh?sh:oh);}
+return 0;},smaller:function(){if(w3c_slidy.size_index>0)
+{--w3c_slidy.size_index;}
+w3c_slidy.toolbar.style.display="none";document.body.style.fontSize=w3c_slidy.sizes[w3c_slidy.size_index];var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.show_slide(slide);setTimeout(function(){w3c_slidy.show_toolbar();},50);},bigger:function(){if(w3c_slidy.size_index<w3c_slidy.sizes.length-1)
+{++w3c_slidy.size_index;}
+w3c_slidy.toolbar.style.display="none";document.body.style.fontSize=w3c_slidy.sizes[w3c_slidy.size_index];var slide=w3c_slidy.slides[w3c_slidy.slide_number];w3c_slidy.hide_slide(slide);w3c_slidy.show_slide(slide);setTimeout(function(){w3c_slidy.show_toolbar();},50);},adjust_object_dimensions:function(width,height){for(var i=0;i<w3c_slidy.objects.length;i++)
+{var obj=this.objects[i];var mimeType=obj.getAttribute("type");if(mimeType=="image/svg+xml"||mimeType=="application/x-shockwave-flash")
+{if(!obj.initialWidth)
+obj.initialWidth=obj.getAttribute("width");if(!obj.initialHeight)
+obj.initialHeight=obj.getAttribute("height");if(obj.initialWidth&&obj.initialWidth.charAt(obj.initialWidth.length-1)=="%")
+{var w=parseInt(obj.initialWidth.slice(0,obj.initialWidth.length-1));var newW=width*(w/100.0);obj.setAttribute("width",newW);}
+if(obj.initialHeight&&obj.initialHeight.charAt(obj.initialHeight.length-1)=="%")
+{var h=parseInt(obj.initialHeight.slice(0,obj.initialHeight.length-1));var newH=height*(h/100.0);obj.setAttribute("height",newH);}}}},key_press:function(event){if(!event)
+event=window.event;if(!w3c_slidy.key_wanted)
+return w3c_slidy.cancel(event);return true;},key_down:function(event){var key,target,tag;w3c_slidy.key_wanted=true;if(!event)
+event=window.event;if(window.event)
+{key=window.event.keyCode;target=window.event.srcElement;}
+else if(event.which)
+{key=event.which;target=event.target;}
+else
+return true;if(!key)
+return true;if(!w3c_slidy.slidy_chrome(target)&&w3c_slidy.special_element(target))
+return true;if(event.ctrlKey||event.altKey||event.metaKey)
+return true;if(w3c_slidy.is_shown_toc()&&key!=9&&key!=16&&key!=38&&key!=40)
+{w3c_slidy.hide_table_of_contents(true);if(key==27||key==84||key==67)
+return w3c_slidy.cancel(event);}
+if(key==34)
+{if(w3c_slidy.view_all)
+return true;w3c_slidy.next_slide(false);return w3c_slidy.cancel(event);}
+else if(key==33)
+{if(w3c_slidy.view_all)
+return true;w3c_slidy.previous_slide(false);return w3c_slidy.cancel(event);}
+else if(key==32)
+{w3c_slidy.next_slide(true);return w3c_slidy.cancel(event);}
+else if(key==37)
+{w3c_slidy.previous_slide(!event.shiftKey);return w3c_slidy.cancel(event);}
+else if(key==36)
+{w3c_slidy.first_slide();return w3c_slidy.cancel(event);}
+else if(key==35)
+{w3c_slidy.last_slide();return w3c_slidy.cancel(event);}
+else if(key==39)
+{w3c_slidy.next_slide(!event.shiftKey);return w3c_slidy.cancel(event);}
+else if(key==13)
+{if(w3c_slidy.outline)
+{if(w3c_slidy.outline.visible)
+w3c_slidy.fold(w3c_slidy.outline);else
+w3c_slidy.unfold(w3c_slidy.outline);return w3c_slidy.cancel(event);}}
+else if(key==188)
+{w3c_slidy.smaller();return w3c_slidy.cancel(event);}
+else if(key==190)
+{w3c_slidy.bigger();return w3c_slidy.cancel(event);}
+else if(key==189||key==109)
+{w3c_slidy.smaller();return w3c_slidy.cancel(event);}
+else if(key==187||key==191||key==107)
+{w3c_slidy.bigger();return w3c_slidy.cancel(event);}
+else if(key==83)
+{w3c_slidy.smaller();return w3c_slidy.cancel(event);}
+else if(key==66)
+{w3c_slidy.bigger();return w3c_slidy.cancel(event);}
+else if(key==90)
+{w3c_slidy.last_slide();return w3c_slidy.cancel(event);}
+else if(key==70)
+{w3c_slidy.toggle_toolbar();return w3c_slidy.cancel(event);}
+else if(key==65)
+{w3c_slidy.toggle_view();return w3c_slidy.cancel(event);}
+else if(key==75)
+{w3c_slidy.mouse_click_enabled=!w3c_slidy.mouse_click_enabled;var alert_msg=(w3c_slidy.mouse_click_enabled?"enabled":"disabled")+" mouse click advance";alert(w3c_slidy.localize(alert_msg));return w3c_slidy.cancel(event);}
+else if(key==84||key==67)
+{if(w3c_slidy.toc)
+w3c_slidy.toggle_table_of_contents();return w3c_slidy.cancel(event);}
+else if(key==72)
+{window.location=w3c_slidy.help_page;return w3c_slidy.cancel(event);}
+return true;},create_element:function(name){if(this.xhtml&&(typeof document.createElementNS!='undefined'))
+return document.createElementNS("http://www.w3.org/1999/xhtml",name)
+return document.createElement(name);},get_element_style:function(elem,IEStyleProp,CSSStyleProp){if(elem.currentStyle)
+{return elem.currentStyle[IEStyleProp];}
+else if(window.getComputedStyle)
+{var compStyle=window.getComputedStyle(elem,"");return compStyle.getPropertyValue(CSSStyleProp);}
+return"";},has_token:function(str,token){if(str)
+{var pattern=/\w+/g;var result=str.match(pattern);for(var i=0;i<result.length;i++)
+{if(result[i]==token)
+return true;}}
+return false;},get_class_list:function(element){if(typeof element.className!='undefined')
+return element.className;return element.getAttribute("class");},has_class:function(element,name){if(element.nodeType!=1)
+return false;var regexp=new RegExp("(^| )"+name+"\W*");if(typeof element.className!='undefined')
+return regexp.test(element.className);return regexp.test(element.getAttribute("class"));},remove_class:function(element,name){var regexp=new RegExp("(^| )"+name+"\W*");var clsval="";if(typeof element.className!='undefined')
+{clsval=element.className;if(clsval)
+{clsval=clsval.replace(regexp,"");element.className=clsval;}}
+else
+{clsval=element.getAttribute("class");if(clsval)
+{clsval=clsval.replace(regexp,"");element.setAttribute("class",clsval);}}},add_class:function(element,name){if(!this.has_class(element,name))
+{if(typeof element.className!='undefined')
+element.className+=" "+name;else
+{var clsval=element.getAttribute("class");clsval=clsval?clsval+" "+name:name;element.setAttribute("class",clsval);}}},incremental_elements:null,okay_for_incremental:function(name){if(!this.incremental_elements)
+{var inclist=new Array();inclist["p"]=true;inclist["pre"]=true;inclist["li"]=true;inclist["blockquote"]=true;inclist["dt"]=true;inclist["dd"]=true;inclist["h2"]=true;inclist["h3"]=true;inclist["h4"]=true;inclist["h5"]=true;inclist["h6"]=true;inclist["span"]=true;inclist["address"]=true;inclist["table"]=true;inclist["tr"]=true;inclist["th"]=true;inclist["td"]=true;inclist["img"]=true;inclist["object"]=true;this.incremental_elements=inclist;}
+return this.incremental_elements[name.toLowerCase()];},next_incremental_item:function(node){var br=this.is_xhtml?"br":"BR";var slide=w3c_slidy.slides[w3c_slidy.slide_number];for(;;)
+{node=w3c_slidy.next_node(slide,node);if(node==null||node.parentNode==null)
+break;if(node.nodeType==1)
+{if(node.nodeName==br)
+continue;if(w3c_slidy.has_class(node,"incremental")&&w3c_slidy.okay_for_incremental(node.nodeName))
+return node;if(w3c_slidy.has_class(node.parentNode,"incremental")&&!w3c_slidy.has_class(node,"non-incremental"))
+return node;}}
+return node;},previous_incremental_item:function(node){var br=this.is_xhtml?"br":"BR";var slide=w3c_slidy.slides[w3c_slidy.slide_number];for(;;)
+{node=w3c_slidy.previous_node(slide,node);if(node==null||node.parentNode==null)
+break;if(node.nodeType==1)
+{if(node.nodeName==br)
+continue;if(w3c_slidy.has_class(node,"incremental")&&w3c_slidy.okay_for_incremental(node.nodeName))
+return node;if(w3c_slidy.has_class(node.parentNode,"incremental")&&!w3c_slidy.has_class(node,"non-incremental"))
+return node;}}
+return node;},set_visibility_all_incremental:function(value){var node=this.next_incremental_item(null);if(value=="hidden")
+{while(node)
+{w3c_slidy.add_class(node,"invisible");node=w3c_slidy.next_incremental_item(node);}}
+else
+{while(node)
+{w3c_slidy.remove_class(node,"invisible");node=w3c_slidy.next_incremental_item(node);}}},reveal_next_item:function(node){node=w3c_slidy.next_incremental_item(node);if(node&&node.nodeType==1)
+w3c_slidy.remove_class(node,"invisible");return node;},hide_previous_item:function(node){if(node&&node.nodeType==1)
+w3c_slidy.add_class(node,"invisible");return this.previous_incremental_item(node);},next_node:function(root,node){if(node==null)
+return root.firstChild;if(node.firstChild)
+return node.firstChild;if(node.nextSibling)
+return node.nextSibling;for(;;)
+{node=node.parentNode;if(!node||node==root)
+break;if(node&&node.nextSibling)
+return node.nextSibling;}
+return null;},previous_node:function(root,node){if(node==null)
+{node=root.lastChild;if(node)
+{while(node.lastChild)
+node=node.lastChild;}
+return node;}
+if(node.previousSibling)
+{node=node.previousSibling;while(node.lastChild)
+node=node.lastChild;return node;}
+if(node.parentNode!=root)
+return node.parentNode;return null;},previous_sibling_element:function(el){el=el.previousSibling;while(el&&el.nodeType!=1)
+el=el.previousSibling;return el;},next_sibling_element:function(el){el=el.nextSibling;while(el&&el.nodeType!=1)
+el=el.nextSibling;return el;},first_child_element:function(el){var node;for(node=el.firstChild;node;node=node.nextSibling)
+{if(node.nodeType==1)
+break;}
+return node;},first_tag:function(element,tag){var node;if(!this.is_xhtml)
+tag=tag.toUpperCase();for(node=element.firstChild;node;node=node.nextSibling)
+{if(node.nodeType==1&&node.nodeName==tag)
+break;}
+return node;},hide_selection:function(){if(window.getSelection)
+{var selection=window.getSelection();if(selection.rangeCount>0)
+{var range=selection.getRangeAt(0);range.collapse(false);}}
+else
+{var textRange=document.selection.createRange();textRange.collapse(false);}},get_selected_text:function(){try
+{if(window.getSelection)
+return window.getSelection().toString();if(document.getSelection)
+return document.getSelection().toString();if(document.selection)
+return document.selection.createRange().text;}
+catch(e)
+{}
+return"";},mouse_button_up:function(e){w3c_slidy.selected_text_len=w3c_slidy.get_selected_text().length;},mouse_button_down:function(e){w3c_slidy.selected_text_len=w3c_slidy.get_selected_text().length;w3c_slidy.mouse_x=e.clientX;w3c_slidy.mouse_y=e.clientY;},mouse_button_click:function(e){if(!e)
+var e=window.event;if(Math.abs(e.clientX-w3c_slidy.mouse_x)+
+Math.abs(e.clientY-w3c_slidy.mouse_y)>10)
+return true;if(w3c_slidy.selected_text_len>0)
+return true;var rightclick=false;var leftclick=false;var middleclick=false;var target;if(!e)
+var e=window.event;if(e.target)
+target=e.target;else if(e.srcElement)
+target=e.srcElement;if(target.nodeType==3)
+target=target.parentNode;if(e.which)
+{leftclick=(e.which==1);middleclick=(e.which==2);rightclick=(e.which==3);}
+else if(e.button)
+{if(e.button==4)
+middleclick=true;rightclick=(e.button==2);}
+else
+leftclick=true;if(w3c_slidy.selected_text_len>0)
+{w3c_slidy.stop_propagation(e);e.cancel=true;e.returnValue=false;return false;}
+w3c_slidy.hide_table_of_contents(false);var tag=target.nodeName.toLowerCase();if(w3c_slidy.mouse_click_enabled&&leftclick&&!w3c_slidy.special_element(target)&&!target.onclick)
+{w3c_slidy.next_slide(true);w3c_slidy.stop_propagation(e);e.cancel=true;e.returnValue=false;return false;}
+return true;},special_element:function(element){if(this.has_class(element,"non-interactive"))
+return false;var tag=element.nodeName.toLowerCase();return element.onkeydown||element.onclick||tag=="a"||tag=="embed"||tag=="object"||tag=="video"||tag=="audio"||tag=="svg"||tag=="canvas"||tag=="input"||tag=="textarea"||tag=="select"||tag=="option";},slidy_chrome:function(el){while(el)
+{if(el==w3c_slidy.toc||el==w3c_slidy.toolbar||w3c_slidy.has_class(el,"outline"))
+return true;el=el.parentNode;}
+return false;},get_key:function(e)
+{var key;if(typeof window.event!="undefined")
+key=window.event.keyCode;else if(e.which)
+key=e.which;return key;},get_target:function(e){var target;if(!e)
+e=window.event;if(e.target)
+target=e.target;else if(e.srcElement)
+target=e.srcElement;if(target.nodeType!=1)
+target=target.parentNode;return target;},is_block:function(elem){var tag=elem.nodeName.toLowerCase();return tag=="ol"||tag=="ul"||tag=="p"||tag=="dl"||tag=="li"||tag=="table"||tag=="pre"||tag=="h1"||tag=="h2"||tag=="h3"||tag=="h4"||tag=="h5"||tag=="h6"||tag=="blockquote"||tag=="address";},add_listener:function(element,event,handler){if(window.addEventListener)
+element.addEventListener(event,handler,false);else
+element.attachEvent("on"+event,handler);},stop_propagation:function(event){event=event?event:window.event;event.cancelBubble=true;if(event.stopPropagation)
+event.stopPropagation();return true;},cancel:function(event){if(event)
+{event.cancel=true;event.returnValue=false;if(event.preventDefault)
+event.preventDefault();}
+w3c_slidy.key_wanted=false;return false;},strings_es:{"slide":"pág.","help?":"Ayuda","contents?":"Índice","table of contents":"tabla de contenidos","Table of Contents":"Tabla de Contenidos","restart presentation":"Reiniciar presentación","restart?":"Inicio"},help_es:"Utilice el ratón, barra espaciadora, teclas Izda/Dcha, "+"o Re pág y Av pág. Use S y B para cambiar el tamaño de fuente.",strings_ca:{"slide":"pàg..","help?":"Ajuda","contents?":"Índex","table of contents":"taula de continguts","Table of Contents":"Taula de Continguts","restart presentation":"Reiniciar presentació","restart?":"Inici"},help_ca:"Utilitzi el ratolí, barra espaiadora, tecles Esq./Dta. "+"o Re pàg y Av pàg. Usi S i B per canviar grandària de font.",strings_cs:{"slide":"snímek","help?":"nápověda","contents?":"obsah","table of contents":"obsah prezentace","Table of Contents":"Obsah prezentace","restart presentation":"znovu spustit prezentaci","restart?":"restart"},help_cs:"Prezentaci můžete procházet pomocí kliknutí myši, mezerníku, "+"šipek vlevo a vpravo nebo kláves PageUp a PageDown. Písmo se "+"dá zvětšit a zmenšit pomocí kláves B a S.",strings_nl:{"slide":"pagina","help?":"Help?","contents?":"Inhoud?","table of contents":"inhoudsopgave","Table of Contents":"Inhoudsopgave","restart presentation":"herstart presentatie","restart?":"Herstart?"},help_nl:"Navigeer d.m.v. het muis, spatiebar, Links/Rechts toetsen, "+"of PgUp en PgDn. Gebruik S en B om de karaktergrootte te veranderen.",strings_de:{"slide":"Seite","help?":"Hilfe","contents?":"Übersicht","table of contents":"Inhaltsverzeichnis","Table of Contents":"Inhaltsverzeichnis","restart presentation":"Präsentation neu starten","restart?":"Neustart"},help_de:"Benutzen Sie die Maus, Leerschlag, die Cursortasten links/rechts oder "+"Page up/Page Down zum Wechseln der Seiten und S und B für die Schriftgrösse.",strings_pl:{"slide":"slajd","help?":"pomoc?","contents?":"spis treści?","table of contents":"spis treści","Table of Contents":"Spis Treści","restart presentation":"Restartuj prezentację","restart?":"restart?"},help_pl:"Zmieniaj slajdy klikając myszą, naciskając spację, strzałki lewo/prawo"+"lub PgUp / PgDn. Użyj klawiszy S i B, aby zmienić rozmiar czczionki.",strings_fr:{"slide":"page","help?":"Aide","contents?":"Index","table of contents":"table des matières","Table of Contents":"Table des matières","restart presentation":"Recommencer l'exposé","restart?":"Début"},help_fr:"Naviguez avec la souris, la barre d'espace, les flèches "+"gauche/droite ou les touches Pg Up, Pg Dn. Utilisez "+"les touches S et B pour modifier la taille de la police.",strings_hu:{"slide":"oldal","help?":"segítség","contents?":"tartalom","table of contents":"tartalomjegyzék","Table of Contents":"Tartalomjegyzék","restart presentation":"bemutató újraindítása","restart?":"újraindítás"},help_hu:"Az oldalak közti lépkedéshez kattintson az egérrel, vagy "+"használja a szóköz, a bal, vagy a jobb nyíl, illetve a Page Down, "+"Page Up billentyűket. Az S és a B billentyűkkel változtathatja "+"a szöveg méretét.",strings_it:{"slide":"pag.","help?":"Aiuto","contents?":"Indice","table of contents":"indice","Table of Contents":"Indice","restart presentation":"Ricominciare la presentazione","restart?":"Inizio"},help_it:"Navigare con mouse, barra spazio, frecce sinistra/destra o "+"PgUp e PgDn. Usare S e B per cambiare la dimensione dei caratteri.",strings_el:{"slide":"σελίδα","help?":"βοήθεια;","contents?":"περιεχόμενα;","table of contents":"πίνακας περιεχομένων","Table of Contents":"Πίνακας Περιεχομένων","restart presentation":"επανεκκίνηση παρουσίασης","restart?":"επανεκκίνηση;"},help_el:"Πλοηγηθείτε με το κλίκ του ποντικιού, το space, τα βέλη αριστερά/δεξιά, "+"ή Page Up και Page Down. Χρησιμοποιήστε τα πλήκτρα S και B για να αλλάξετε "+"το μέγεθος της γραμματοσειράς.",strings_ja:{"slide":"スライド","help?":"ヘルプ","contents?":"目次","table of contents":"目次を表示","Table of Contents":"目次","restart presentation":"最初から再生","restart?":"最初から"},help_ja:"マウス左クリック ・ スペース ・ 左右キー "+"または Page Up ・ Page Downで操作， S ・ Bでフォントサイズ変更",strings_zh:{"slide":"幻灯片","help?":"帮助?","contents?":"内容?","table of contents":"目录","Table of Contents":"目录","restart presentation":"重新启动展示","restart?":"重新启动?"},help_zh:"用鼠标点击, 空格条, 左右箭头, Pg Up 和 Pg Dn 导航. "+"用 S, B 改变字体大小.",strings_ru:{"slide":"слайд","help?":"помощь?","contents?":"содержание?","table of contents":"оглавление","Table of Contents":"Оглавление","restart presentation":"перезапустить презентацию","restart?":"перезапуск?"},help_ru:"Перемещайтесь кликая мышкой, используя клавишу пробел, стрелки"+"влево/вправо или Pg Up и Pg Dn. Клавиши S и B меняют размер шрифта.",strings_sv:{"slide":"sida","help?":"hjälp","contents?":"innehåll","table of contents":"innehållsförteckning","Table of Contents":"Innehållsförteckning","restart presentation":"visa presentationen från början","restart?":"börja om"},help_sv:"Bläddra med ett klick med vänstra musknappen, mellanslagstangenten, "+"vänster- och högerpiltangenterna eller tangenterna Pg Up, Pg Dn. "+"Använd tangenterna S och B för att ändra textens storlek.",strings:{},localize:function(src){if(src=="")
+return src;var s,lookup=w3c_slidy.strings[w3c_slidy.lang];if(lookup)
+{s=lookup[src];if(s)
+return s;}
+var lg=w3c_slidy.lang.split("-");if(lg.length>1)
+{lookup=w3c_slidy.strings[lg[0]];if(lookup)
+{s=lookup[src];if(s)
+return s;}}
+return src;},init_localization:function(){var i18n=w3c_slidy;var help_text=w3c_slidy.help_text;this.strings={"es":this.strings_es,"ca":this.strings_ca,"cs":this.strings_cs,"nl":this.strings_nl,"de":this.strings_de,"pl":this.strings_pl,"fr":this.strings_fr,"hu":this.strings_hu,"it":this.strings_it,"el":this.strings_el,"jp":this.strings_ja,"zh":this.strings_zh,"ru":this.strings_ru,"sv":this.strings_sv},i18n.strings_es[help_text]=i18n.help_es;i18n.strings_ca[help_text]=i18n.help_ca;i18n.strings_cs[help_text]=i18n.help_cs;i18n.strings_nl[help_text]=i18n.help_nl;i18n.strings_de[help_text]=i18n.help_de;i18n.strings_pl[help_text]=i18n.help_pl;i18n.strings_fr[help_text]=i18n.help_fr;i18n.strings_hu[help_text]=i18n.help_hu;i18n.strings_it[help_text]=i18n.help_it;i18n.strings_el[help_text]=i18n.help_el;i18n.strings_ja[help_text]=i18n.help_ja;i18n.strings_zh[help_text]=i18n.help_zh;i18n.strings_ru[help_text]=i18n.help_ru;i18n.strings_sv[help_text]=i18n.help_sv;w3c_slidy.lang=document.body.parentNode.getAttribute("lang");if(!w3c_slidy.lang)
+w3c_slidy.lang=document.body.parentNode.getAttribute("xml:lang");if(!w3c_slidy.lang)
+w3c_slidy.lang="en";}};w3c_slidy.set_up();setTimeout(w3c_slidy.hide_slides,50);</script>
+
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+      <!-- 
+          body.hl{background-color:#272822}code.hl{color:#f8f8f2;background-color:#272822;font-family:courier new,monospace}.hl.num{color:#ae81ff}.hl.esc{color:#66d9ef;font-style:italic}.hl.str{color:#e6db74}.hl.pps{color:#e6db74}.hl.slc{color:#75715e}.hl.com{color:#75715e}.hl.ppc{color:#defa25}.hl.opt{color:#f8f8f2}.hl.ipl{color:#66d9ef;font-style:italic}.hl.lin{color:#75715e}.hl.kwa{color:#f92672;font-weight:700}.hl.kwb{color:#66d9ef}.hl.kwc{color:#95f067}.hl.kwd{color:#25faac}  
+          body{color:#444}div.slide h1{color:#333;font-size:260%;font-family:helvetica,sans-serif;border-bottom:5px solid #ddd}div.slide h2{color:#333;font-size:180%;font-family:helvetica,sans-serif}div.slide.title{background:#0071b5;color:#fff}div.slide.title h1,div.slide.title h2,div.slide.title h3{color:#fff;margin-left:0}div.slide.title h1{padding-top:20%;border:0}div.slide.title h2{}div.slide.title h3{font-size:90%}ul,ol{padding-left:2em}ul ul{padding-left:1em}p{padding-left:0}code{font:normal 1rem droid sans mono,monaco,monospace;background-color:#ddd}pre code{border-radius:8px;box-shadow:8px 8px 12px #aaa;padding:10px;display:block}.Cblue{color:#5af}.center{text-align:center;margin:0 auto}@media print{body{font-size:16pt}div.handout{visibility:none}div.slide.title{background:#fff}div.slide.title h1,div.slide.title h2,div.slide.title h3{color:#ba0d20;margin-left:0}pre{font-size:1e2%;font-weight:400;line-height:120%}}  
+          div.slide h2{margin-left:0;padding-left:0;color:#7e8bd6;font-size:180%;font-family:helvetica,sans-serif}.mybox{margin:0 5%;box-shadow:8px 8px 12px #aaa;border-radius:8px;background:#ccc}table{border-collapse:collapse}.borderedtable th,.borderedtable td{border:2px solid #000;padding:1px 7px}.borderedtable th{background:#b5d6e9}table.col2,th.col2,td.col2{border:0 solid green;padding:0;font-size:80%}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}code.hl{font-family:monospace}.bigger{font-size:1.8;line-height:120%} 
+      -->
+    </style>
+    
+    <title>Analyse Lexicale</title>
+  </head>
+
+  <!-- ====================================================================== -->
+
+  <body>
+
+    <!-- Powerpoint like headers  -->
+    <!--
+    <div class="background"> 
+      <img id="head-icon" alt="Polytech logo"
+           src="http://www.polytechnice.fr/jahia/webdav/site/polytech/shared/PUBLIC/charte_graphique/LOGOTYPE_POLYTECH/POLYTECH_RVB.jpg"
+           width="100px"/> 
+      <object id="head-logo" title="W3C logo" type="image/svg+xml"
+              data="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.svg">
+        <img src="http://www.w3.org/Talks/Tools/Slidy2/graphics/w3c-logo-white.gif" 
+             alt="W3C logo" id="head-logo-fallback" />
+      </object>
+    </div>
+    -->
+
+
+    <!-- First slide -->
+    <div class="slide title"> 
+      <h1>Analyse Lexicale</h1>
+      <h2>Lex: un générateur d'analyseurs lexicaux</h2>
+      <h3>SI4 — 2017-2018</h3>
+      <br /><br />Erick Gallesio
+    </div>
+
+
+
+<h1 id="fonctionnement-dun-compilateur">Fonctionnement d&#39;un compilateur</h1>
+
+<p><strong>Principe de fonctionnement:</strong></p>
+
+<p><center> <img src="Figures/02-principe.png" width="58%"></center></p>
+
+<p><strong>Partie avant:</strong></p>
+
+<ul>
+<li>Analyseur lexical fournit des «tokens»</li>
+<li>Analyseur syntaxique construit un arbre</li>
+<li>Analyseur sémantique décore l&#39;arbre</li>
+</ul>
+
+<p><strong>Partie arrière:</strong></p>
+
+<ul>
+<li>Facultatif: optimisation  (non représentée ici)</li>
+<li>Production de code parcourt l&#39;arbre décoré</li>
+</ul>
+
+<h1 id="analyse-lexicale">Analyse lexicale</h1>
+
+<p>L&#39;analyse lexicale consiste à </p>
+
+<ul>
+<li>découper le texte en <em>lexèmes</em> (ou <em>tokens</em>)</li>
+<li>éliminer (éventuellement) certaines unités inutiles (espaces, commentaires)</li>
+</ul>
+
+<p>Dans la phrase en français:</p>
+
+<pre><code class="hl">La ligne comporte des mots
+</code></pre>
+
+<p>nous avons 5 lexèmes: <q>La</q>, <q>ligne</q>, <q>comporte</q>, <q>des</q> et  <q>mots</q>.</p>
+
+<p>Dans le programme C suivant, </p>
+
+<pre><code class="hl c">    <span class="hl kwa">if</span> <span class="hl opt">(</span>a1 <span class="hl opt">==</span> a2<span class="hl opt">)</span> a1 <span class="hl opt">=</span> a2<span class="hl opt">++ +</span> <span class="hl num">12</span><span class="hl opt">;</span> 
+</code></pre>
+
+<p>nous pouvons reconnaître les lexèmes suivants (dans le désordre)</p>
+
+<ul>
+<li>le mot réservé <q>if</q></li>
+<li>les identificateurs <q>a1</q> et  <q>a2</q></li>
+<li>la constante entère 12</li>
+<li>les symboles <q>(</q>, <q>)</q> et <q>;</q></li>
+<li>les opérateurs  <q>=</q> et <q>+</q></li>
+<li>l&#39;opérateur <q>==</q> (qui n&#39;est pas vu comme deux <q>=</q> successifs)</li>
+<li>l&#39;opérateur <q>++</q> (qui n&#39;est pas vu comme deux <q>+</q> successifs)</li>
+</ul>
+
+<h1 id="utilité-de-lanalyse-lexicale">Utilité de l&#39;analyse lexicale</h1>
+
+<ul>
+<li><p>Les programmes sources contiennent beaucoup d&#39;informations inutiles à l&#39;analyse</p>
+
+<ul>
+<li>commentaires</li>
+<li>indentations</li>
+<li>certains espaces non nécessaires <code>x = y ++ + 3</code> est équivalent à <code>x=y+++3</code></li>
+<li>pour certains langages la casse n&#39;est pas significative (<q>foo</q> ⇔ <q>FoO</q>)</li>
+</ul></li>
+<li><p>La classe des grammaires utilisées pour l&#39;analyse lexicale est généralement
+plus simple que celles nécessaires pour l&#39;analyse syntaxique
+(langages réguliers reconnaissables par des automates finis)</p></li>
+</ul>
+
+<p>L&#39;analyse lexicale va donc permettre de simplifier l&#39;écriture de l&#39;analyse syntaxique.</p>
+
+<h1 id="lexèmes-et-expression-régulières">Lexèmes et expression régulières</h1>
+
+<ul>
+<li><p>Les lexèmes (<em>tokens</em>) des langages de programmation sont souvent
+représentés par des expressions régulières.</p></li>
+<li><p>L&#39;ensemble des langages qui peuvent être exprimés sous la forme
+d&#39;expressions régulières est appelé l’ensemble des <em>langages réguliers</em>.</p></li>
+<li><p>Un langage régulier peut être reconnu par un automate fini.</p></li>
+<li><p>On peut facilement produire automatiquement un analyseur
+reconnaissant un langage régulier à partir d&#39;une expression régulière.</p></li>
+</ul>
+
+<h1 id="expression-régulière-→-dfa-14">Expression régulière → DFA (1/4)</h1>
+
+<p>Considérons l&#39;expression régulière suivante
+<code>l(l|c)*</code></p>
+
+<p>Cette expression régulière est une version simplifiée de l&#39;expression
+régulière permettant de reconnaître les identificateurs des langages
+de programmation (une lettre suivie d&#39;une suite de lettres ou de
+chiffres).</p>
+
+<p><strong>Comment construire l&#39;automate non déterministe à partir de
+cette expression régulière?</strong></p>
+
+<ul>
+<li>Pour reconnaître <code>(l | c)</code>, nous devons tout d&#39;abord reconnaître les langages <code>l</code> et <code>c</code>.</li>
+</ul>
+
+<p><center> <img src="Figures/02-regexp1.png"> </center></p>
+
+<h1 id="expression-régulière-→-dfa-24">Expression régulière → DFA (2/4)</h1>
+
+<ul>
+<li>Construisons maintenant le NFA pour <code>(l | c)</code>:</li>
+</ul>
+
+<p><center> <img src="Figures/02-regexp2.png"> </center></p>
+
+<ul>
+<li>Puis celui de <code>(l | c)*</code>:</li>
+</ul>
+
+<p><center> <img src="Figures/02-regexp3.png"> </center></p>
+
+<h1 id="expression-régulière-→-dfa-34">Expression régulière → DFA (3/4)</h1>
+
+<ul>
+<li>On peut maintenant ajouter <code>l</code> devant <code>(l | c)*</code>:</li>
+</ul>
+
+<p><center> <img src="Figures/02-regexp4.png"> </center></p>
+
+<h1 id="expression-régulière-→-dfa-44">Expression régulière → DFA (4/4)</h1>
+
+<p>Après <em>déterminisation</em> et <em>minimisation</em> de cet automate non
+déterministe (cf début du cours LFA), on obtient:</p>
+
+<p><center> <img src="Figures/02-regexp5.png"> </center></p>
+
+<p>Cet automate est donc <strong>l&#39;automate fini déterministe</strong> correspondant à <strong>l&#39;expression régulière</strong> <code>l(l |c)*</code></p>
+
+<h1 id="automate-représenté-par-une-table">Automate représenté par une table</h1>
+
+<p><center><img src="Figures/02-regexp5.png" width="18%"> </center>
+peut être représenté en mémoire par la table suivante:</p>
+
+<p><center></p>
+
+<table class="borderedtable">
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">l</th>
+<th style="text-align: center">c</th>
+<th style="text-align: center">autres</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">start</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">#</td>
+<td style="text-align: center">#</td>
+</tr>
+<tr>
+<td style="text-align: center">F</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">#</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h1 id="analyse-lexicale-à-partir-dune-table">Analyse lexicale à partir d&#39;une table</h1>
+
+<p>En partan de la table:
+<center></p>
+
+<table class="borderedtable">
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">l</th>
+<th style="text-align: center">c</th>
+<th style="text-align: center">autres</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">start</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">#</td>
+<td style="text-align: center">#</td>
+</tr>
+<tr>
+<td style="text-align: center">F</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">#</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>On peut construire un <strong>analyseur lexical</strong> avec l&#39;algorithme suivant</p>
+
+<pre><code class="hl C">state ← start
+c ← <span class="hl kwd">nextchar</span><span class="hl opt">();</span>
+<span class="hl kwa">while</span> <span class="hl opt">(</span>c ≠ EOF<span class="hl opt">) {</span>
+    state ← T<span class="hl opt">[</span>state<span class="hl opt">,</span> c<span class="hl opt">];</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>state is <span class="hl str">&quot;#&quot;</span><span class="hl opt">)</span> reject<span class="hl opt">;</span>
+    c <span class="hl opt">=</span> <span class="hl kwd">nextchar</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+<span class="hl kwa">if</span> <span class="hl opt">(</span>state ∈ Final<span class="hl opt">)</span> 
+    accept<span class="hl opt">;</span>
+<span class="hl kwa">else</span>
+    reject<span class="hl opt">;</span>
+</code></pre>
+
+<p><strong>Bilan:</strong> </p>
+
+<ul>
+<li>à partir de <code>l (l | c)*</code> → NFA → DFA → table d&#39;analyse.</li>
+<li>On peut donc construire automatiquement un analyseur lexical à partir
+d&#39;une (ou plusieurs) expression(s) régulière(s).</li>
+</ul>
+
+<h1 id="analyseur-lexical">Analyseur lexical</h1>
+
+<p>L&#39;analyseur lexical d&#39;un langage de programmation:</p>
+
+<ul>
+<li>est un automate fini déterministe (DFA) </li>
+<li>il reconnaît l&#39;union des langages des lexèmes</li>
+<li>un état terminal de cet automate correspond à la
+reconnaissance d’un mot d’un des langages des lexèmes</li>
+<li>reconnaît le lexème le plus long quand un lexème peut être le
+préfixe d&#39;un autre (<em>e.g.</em> &#39;--&#39;, &#39;-=&#39;, &#39;-&#39;)</li>
+<li>certaines classes de lexèmes nécessitent la construction
+d&#39;un <strong>attribut</strong>.</li>
+</ul>
+
+<h1 id="classes-de-lexèmes-12">Classes de lexèmes (1/2)</h1>
+
+<ul>
+<li>Un lexème reconnu par l&#39;analyseur appartient à une <em>classe</em> de lexèmes. </li>
+<li>Seule la classe du lexème est utile pour l&#39;analyse syntaxique.</li>
+<li>Classes de lexèmes courantes:
+<ul>
+<li>constantes numériques (entiers, flottants, ...)</li>
+<li>constantes chaînes</li>
+<li>identificateurs</li>
+<li>chaque mot clé du langages (<code>if</code>, <code>else</code>, ..)</li>
+<li>séparateurs (<code>,</code>, <code>;</code>, <code>(</code>, ...)</li>
+<li>identificateurs </li>
+</ul></li>
+</ul>
+
+<h1 id="classes-de-lexèmes-22">Classes de lexèmes (2/2)</h1>
+
+<p>Soit le code suivant: </p>
+
+<pre><code class="hl C"><span class="hl kwa">if</span> <span class="hl opt">(</span>a <span class="hl opt">&lt;=</span> <span class="hl num">0</span><span class="hl opt">) {</span>  <span class="hl com">/* On a un problème */</span>
+   <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;Ouch: a = %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> a<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Les lexèmes reconnus ici sont, dans l&#39;ordre: </p>
+
+<pre><code class="hl c">KIF LPAREN <span class="hl opt">[</span>ident<span class="hl opt">]</span> LE <span class="hl opt">[</span>integer<span class="hl opt">]</span> RPAREN LBRACE
+<span class="hl opt">[</span>ident<span class="hl opt">]</span> LPAREN <span class="hl opt">[</span>str<span class="hl opt">]</span> COMMA <span class="hl opt">[</span>ident<span class="hl opt">]</span> RPAREN SEMICOLON
+RBRACE
+</code></pre>
+
+<ul>
+<li>Les commentaires sont éliminés</li>
+<li>Chaque mot clé et chaque séparateur constitue sa propre classe de lexèmes</li>
+<li>Tous les identificateurs sont dans la classe <code>[ident]</code></li>
+<li>De même, toutes les chaînes (resp. entiers) sont dans la classe <code>[str]</code> (resp. <code>[integer]</code>)</li>
+</ul>
+
+<h1 id="attributs-de-lexèmes">Attributs de lexèmes</h1>
+
+<ul>
+<li>Les classes de lexèmes suffisent pour l&#39;analyse syntaxique</li>
+<li>Pour l&#39;analyse sémantique, par contre, on a besoin de connaître la valeurs des lexèmes.</li>
+<li>L&#39;analyseur ajoute donc un <strong>attribut</strong> à certain lexèmes:</li>
+</ul>
+
+<pre><code class="hl c">KIF LPAREN <span class="hl opt">[</span>ident<span class="hl opt">,</span> <span class="hl str">&quot;a&quot;</span><span class="hl opt">]</span> LE <span class="hl opt">[</span>integer<span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">]</span> RPAREN LBRACE
+<span class="hl opt">[</span>ident<span class="hl opt">,</span> <span class="hl str">&quot;printf&quot;</span><span class="hl opt">]</span> LPAREN <span class="hl opt">[</span>str<span class="hl opt">,</span> <span class="hl str">&quot;Ouch ...&quot;</span><span class="hl opt">]</span> COMMA <span class="hl opt">[</span>ident<span class="hl opt">,</span> <span class="hl str">&quot;a&quot;</span><span class="hl opt">]</span> RPAREN SEMICOLON
+RBRACE
+</code></pre>
+
+<p>Le type de l&#39;attribut dépend du lexème:</p>
+
+<ul>
+<li>chaîne pour les identificateurs  ou les chaînes, </li>
+<li>entier pour les constantes entières</li>
+<li>float (ou double) pour les constantes réelles</li>
+<li>...</li>
+</ul>
+
+<h1 id="générateur-danalyseur-lexical">Générateur d&#39;analyseur lexical</h1>
+
+<p>Les générateurs d&#39;analyseurs lexicaux utilisent les <em>expressions
+rationnelles</em> pour définir les lexèmes du langage.</p>
+
+<ul>
+<li><em>mots clés</em>: <code>if</code>, <code>else</code>, <code>while</code>, ...</li>
+<li><em>identificateurs</em>: <code>[a-zA-Z_][a-zA-Z_0-9]*</code></li>
+<li><em>entiers</em>: <code>([0-9]+)|(0x[0-9A-Fa-f]+)</code></li>
+<li><em>chaînes</em>: <code>\&quot;[^&quot;]*\&quot;</code></li>
+<li><em>opérateurs</em>: <code>-</code>, <code>--</code>, <code>-=</code>, ...</li>
+<li><em>symboles</em>: <code>;</code>, <code>(</code>, <code>)</code>, ...</li>
+</ul>
+
+<p>Ils permettent aussi de construire et passer des attributs aux phases suivantes. </p>
+
+<div class="slide title">
+
+<h1 id="lex">Lex</h1>
+
+<h2 id="un-générateur-danalyseurs-lexicaux">Un générateur d&#39;analyseurs lexicaux</h2>
+
+</div>
+
+<h1 id="lex--flex">Lex / Flex</h1>
+
+<p><strong>Lex</strong> est un générateur d&#39;analyseurs lexicaux. </p>
+
+<ul>
+<li>générateur <em>standard</em> Unix</li>
+<li>version originale définie en 1975 par Mike Lesk et Eric Schmidt</li>
+<li>prend en entrée la spécification de l&#39;analyseur lexical</li>
+<li>produit un programme qui implemente l&#39;analyseur en C</li>
+</ul>
+
+<p><strong>Flex</strong> est une version alternative de <em>lex</em></p>
+
+<ul>
+<li>capable de produire du C et du C++</li>
+<li>développé à partir de 1987 et encore (un peu) développé</li>
+</ul>
+
+<h1 id="structure-dun-fichier-lex">Structure d&#39;un fichier lex</h1>
+
+<p>Un fichier source est divisé en trois sections. </p>
+
+<pre><code class="hl bison"><span class="hl opt">&lt;</span>définitions<span class="hl opt">&gt;</span>
+
+%%
+<span class="hl opt">&lt;</span>règles<span class="hl opt">&gt;</span> 
+
+%%
+<span class="hl opt">&lt;</span>code<span class="hl opt">&gt;</span>
+</code></pre>
+
+<dl>
+<dt><strong>Définitions:</strong></dt>
+<dd>contient des macros et éventuellement du code C qui est recopié tel
+quel dans l&#39;analyseur produit.</dd>
+<dt><strong>Règles</strong>:</dt>
+<dd>association <em>regexp</em> → code C.</dd>
+<dt><strong>Code:</strong></dt>
+<dd>permet de mettre du code C qui recopié tel quel à la fin de
+l&#39;analyseur produit.</dd>
+</dl>
+
+<h1 id="exemple-1-13">Exemple 1 (1/3)</h1>
+
+<pre><code class="hl bison">lettres  <span class="hl opt">[</span>A<span class="hl opt">-</span>Za<span class="hl opt">-</span>z<span class="hl opt">]</span>
+chiffres <span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]</span>
+%option noyywrap
+
+%<span class="hl opt">{</span> <span class="hl com">/* Code C */</span>
+   <span class="hl kwb">int</span> cpt_mots <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> cpt_nombres <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+%<span class="hl opt">}</span>
+
+%%       <span class="hl com">/* début des régles */</span>
+
+<span class="hl opt">{</span>lettres<span class="hl opt">}+           {</span> cpt_mots <span class="hl opt">+=</span> <span class="hl num">1</span><span class="hl opt">; }</span>
+<span class="hl opt">{</span>chiffres<span class="hl opt">}+          {</span> cpt_nombres <span class="hl opt">+=</span> <span class="hl num">1</span><span class="hl opt">; }</span>
+
+.|<span class="hl esc">\n</span>                 <span class="hl opt">{</span> <span class="hl com">/* Ne rien faire */</span> <span class="hl opt">}</span>
+
+%%      <span class="hl com">/* début de la section code */</span>
+<span class="hl kwb">int</span> main<span class="hl opt">() {</span>
+    <span class="hl kwa">yylex</span><span class="hl opt">();</span>
+    printf<span class="hl opt">(</span><span class="hl str">&quot;Mots: %d Nombres: %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> cpt_mots<span class="hl opt">,</span> cpt_nombres<span class="hl opt">);</span>
+    return <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h1 id="exemple-1-23">Exemple 1 (2/3)</h1>
+
+<p><strong>Partie définitions</strong></p>
+
+<ul>
+<li><code>lettres</code> et <code>chiffres</code> sont des <strong>définitions</strong> </li>
+<li>utilisation de l&#39;option <code>noyywrap</code> qui indique que l&#39;on a pas besoin
+de la fonction <code>yywrap</code> (fonction appelée à la fin de l&#39;analyse).</li>
+<li>ajout de code C entre les balises <code>%{</code> et <code>%}</code></li>
+</ul>
+
+<p><strong>Partie règles</strong>:</p>
+
+<ul>
+<li>3 règles ici avec leur code associé</li>
+</ul>
+
+<p><strong>Partie code</strong>:</p>
+
+<ul>
+<li>définition de la fonction <code>main</code></li>
+<li>appel de la fonction <code>yylex</code> (fonction principale de l&#39;analyseur produit)</li>
+</ul>
+
+<h1 id="exemple-1-33">Exemple 1 (3/3)</h1>
+
+<p><strong>Construction de l&#39;analyseur</strong></p>
+
+<pre><code class="hl c">   $ lex <span class="hl opt">-</span>o simple_lex<span class="hl opt">.</span>c simple_lex<span class="hl opt">.</span>l
+   $ gcc <span class="hl opt">-</span>o simple simple<span class="hl opt">.</span>c 
+</code></pre>
+
+<ol>
+<li><p>Appeler lex (ou flex) pour passer de <em>simple_lex.l</em> →
+<em>simple_lex.c</em> (l&#39;option <code>-o</code> permet de spécifier le nom du
+fichier de sortie, sinon c&#39;est <code>lex.yy.c</code>)</p></li>
+<li><p>Appeler le compilateur C sur l&#39;analyseur produit par lex</p></li>
+</ol>
+
+<h1 id="exemple-2-13">Exemple 2 (1/3)</h1>
+
+<p>Dans les actions de l&#39;analyseur:</p>
+
+<ul>
+<li><strong>yytext</strong> contient le texte du lexème qui vient d&#39;être reconnu</li>
+<li><strong>yyleng</strong> contient la longueur de ce lexème.</li>
+<li><strong>yyin</strong> représente le fichier d&#39;entrée (<em>stdin</em> par défaut)</li>
+</ul>
+
+<pre><code class="hl bison">%<span class="hl opt">{</span> 
+  <span class="hl ppc">#include &lt;math.h&gt;</span>  <span class="hl com">/* pour atof() */</span><span class="hl ppc"> </span>
+%<span class="hl opt">}</span>
+
+DIGIT    <span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]</span>
+ID       <span class="hl opt">[</span>a<span class="hl opt">-</span>z<span class="hl opt">][</span>a<span class="hl opt">-</span>z0<span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]*</span>
+
+%%
+<span class="hl opt">{</span>DIGIT<span class="hl opt">}+</span>             printf<span class="hl opt">(</span><span class="hl str">&quot;An integer: %s (%d)\en&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">,</span> atoi<span class="hl opt">(</span>yytext<span class="hl opt">));</span> 
+<span class="hl opt">{</span>DIGIT<span class="hl opt">}+</span><span class="hl str">&quot;.&quot;</span><span class="hl opt">{</span>DIGIT<span class="hl opt">}*</span>  printf<span class="hl opt">(</span><span class="hl str">&quot;A float: %s (%g)\en&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">,</span> atof<span class="hl opt">(</span>yytext<span class="hl opt">));</span>
+
+</code></pre>
+
+<p>... / ...</p>
+
+<h1 id="exemple-2-23">Exemple 2 (2/3)</h1>
+
+<p>... / ...</p>
+
+<pre><code class="hl bison">if|then|begin|end|function     printf<span class="hl opt">(</span><span class="hl str">&quot;A keyword: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+
+<span class="hl opt">{</span>ID<span class="hl opt">}</span>                            printf<span class="hl opt">(</span><span class="hl str">&quot;An identifier: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+
+<span class="hl str">&quot;+&quot;</span>|<span class="hl str">&quot;-&quot;</span>|<span class="hl str">&quot;*&quot;</span>|<span class="hl str">&quot;/&quot;</span>                 printf<span class="hl opt">(</span><span class="hl str">&quot;An operator: %s\en&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+
+<span class="hl opt">[</span> <span class="hl esc">\t\n</span><span class="hl opt">]+</span>                        <span class="hl com">/* Eat up white space. */</span>
+
+.                               printf<span class="hl opt">(</span><span class="hl str">&quot;Unrecognized character: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+
+%%
+
+<span class="hl kwb">int</span> main<span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>argv<span class="hl opt">[]) {</span>
+    <span class="hl opt">++</span>argv<span class="hl opt">, --</span>argc<span class="hl opt">;</span>  <span class="hl com">/* Skip over program name. */</span>
+    if <span class="hl opt">(</span>argc <span class="hl opt">&gt;</span> <span class="hl num">0</span><span class="hl opt">)</span>
+        yyin <span class="hl opt">=</span> fopen<span class="hl opt">(</span>argv<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">],</span> <span class="hl str">&quot;r&quot;</span><span class="hl opt">);</span>
+    
+    return <span class="hl kwa">yylex</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h1 id="exemple-2-33">Exemple 2 (3/3)</h1>
+
+<p>L&#39;ordre des règles est important: </p>
+
+<ul>
+<li>si deux règles peuvent reconnaître un même lexème, celle qui est
+déclarée en premier est appliquée. </li>
+</ul>
+
+<p>Ainsi, </p>
+
+<pre><code class="hl bison">if        printf<span class="hl opt">(</span><span class="hl str">&quot;A if keyword</span><span class="hl esc">\n</span><span class="hl str">n&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+<span class="hl opt">{</span>ID<span class="hl opt">}</span>      printf<span class="hl opt">(</span><span class="hl str">&quot;An identifier: %s\en&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+</code></pre>
+
+<ul>
+<li>permet bien de reconnaître <code>if</code> comme un mot-clé (même si la règle
+<code>{ID}</code> marcherait aussi)</li>
+<li>si on inverse ces deux règles, <code>if</code> est vu comme un identificateur standard.</li>
+</ul>
+
+<h1 id="notion-de-contexte-gauche">Notion de contexte gauche</h1>
+
+<p>Dans certains cas, il est plus simple de décrire une règle en
+limitant la règle à un certain contexte. </p>
+
+<p>Supposons que l&#39;on veuille supprimer des commentaires C et recopier tout le reste. </p>
+
+<ul>
+<li>Inutile de construire la chaîne <strong>yytext</strong> </li>
+<li>on recopie tous les caractères si on est en dehors d&#39;un commentaire</li>
+<li>on ne recopie pas les caractères si on est dans un commentaire. </li>
+</ul>
+
+<p>Au départ, on est dans le contexte pré-défini <code>INITIAL</code></p>
+
+<pre><code class="hl bison">%x IN_COMMENT <span class="hl com">/* déclaration d&apos;un nouveau contexte */</span>
+
+%%
+<span class="hl str">&quot;/*&quot;</span>                    BEGIN IN_COMMENT<span class="hl opt">;</span>
+<span class="hl opt">&lt;</span>IN_COMMENT<span class="hl opt">&gt;</span><span class="hl str">&quot;*/&quot;</span>        BEGIN INITIAL<span class="hl opt">;</span>
+<span class="hl opt">&lt;</span>IN_COMMENT<span class="hl opt">&gt;</span>.|<span class="hl esc">\n</span>        <span class="hl com">/* rien */</span><span class="hl opt">;</span> 
+.|<span class="hl esc">\n</span>                    ECHO<span class="hl opt">;</span>
+%%
+</code></pre>
+
+<dl>
+<dt><strong>Remarque:</strong></dt>
+<dd><strong>BEGIN</strong> permet de changer de contexte gauche</dd>
+</dl>
+
+<h1 id="propriétés-de-l’analyseur-produit-12">Propriétés de l’analyseur produit (1/2)</h1>
+
+<p>L&#39;analyseur lexical produit par <em>lex</em>:</p>
+
+<ul>
+<li><p>linéaire en temps sur le nombre de caractères du texte d’entrée.</p></li>
+<li><p>sa taille peut parfois être source de problème (si embarqué par
+exemple).</p>
+
+<ul>
+<li><p>une source d&#39;optimisation consiste à reconnaître les mots-clés
+comme des identificateurs et à discriminer ensuite.</p></li>
+<li><p>comme les mots-clés sont connus à l&#39;avance, on les range dans une table  </p>
+
+<pre><code class="hl c"><span class="hl kwa">if</span> yytext ∈ tokens
+    <span class="hl kwa">return</span> tokens<span class="hl opt">[</span>yytext<span class="hl opt">]</span>
+<span class="hl kwa">else</span> 
+    <span class="hl kwa">return</span> <span class="hl opt">&lt;</span>ident<span class="hl opt">,</span> yytext<span class="hl opt">&gt;</span>
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h1 id="propriétés-de-l’analyseur-produit-23">Propriétés de l’analyseur produit (2/3)</h1>
+
+<p>Si on a</p>
+
+<pre><code class="hl bison"><span class="hl str">&quot;do&quot;</span>       printf<span class="hl opt">(</span><span class="hl str">&quot;Keyword: do</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl str">&quot;if&quot;</span>       printf<span class="hl opt">(</span><span class="hl str">&quot;Keyword: if</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">[</span>a<span class="hl opt">-</span>z<span class="hl opt">]+</span>     printf<span class="hl opt">(</span><span class="hl str">&quot;Ident: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+</code></pre>
+
+<p>L&#39;automate est (avec seulement 2 mots-clés)</p>
+
+<p><center> <img src="Figures/02-do-if-ident.png"></center></p>
+
+<h1 id="propriétés-de-l’analyseur-produit-33">Propriétés de l’analyseur produit (3/3)</h1>
+
+<p>Par contre, le code</p>
+
+<pre><code class="hl c"><span class="hl kwb">char</span><span class="hl opt">*</span> key<span class="hl opt">[] = {</span> <span class="hl str">&quot;if&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;do&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;while&quot;</span><span class="hl opt">, ...}</span>
+
+<span class="hl kwb">char</span><span class="hl opt">*</span> <span class="hl kwd">find_keyword</span><span class="hl opt">(</span><span class="hl kwb">char</span> <span class="hl opt">*</span>id<span class="hl opt">) {</span>
+    <span class="hl opt">....</span> 
+<span class="hl opt">}</span>
+
+<span class="hl opt">%%</span>
+<span class="hl opt">[</span>a<span class="hl opt">-</span>z<span class="hl opt">]+     {</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>k <span class="hl opt">=</span> <span class="hl kwd">find_keyword</span><span class="hl opt">(</span>yytext<span class="hl opt">);</span> 
+             <span class="hl kwa">if</span> <span class="hl opt">(</span>k<span class="hl opt">)</span> 
+                <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;Keyword: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> k<span class="hl opt">);</span>
+             <span class="hl kwa">else</span>
+                <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;Ident: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);</span>
+           <span class="hl opt">}</span>
+</code></pre>
+
+<p>permet d&#39;obtenir un automate beaucoup plus simple:</p>
+
+<p><center> <img src="Figures/02-ident.png"></center></p>
+
+<h1 id="la-fonction-yylex">La fonction yylex()</h1>
+
+<p>L&#39;utilisation faite jusqu&#39;à présent de <strong>yylex()</strong> ne correspond pas à
+son utilisation <q>classique</q>.</p>
+
+<ul>
+<li>dans nos exemples, elle ne se termine que lorsqu&#39;on a parcouru tout
+le fichier</li>
+<li>dans un compilateur, elle permet de renvoyer le prochain lexème du
+fichier d&#39;entrée (utilsation de <strong>return</strong>).</li>
+</ul>
+
+<p>Généralement, le code <em>lex</em> ressemble plutôt à:</p>
+
+<pre><code class="hl bison"><span class="hl str">&quot;if&quot;</span>                 return KIF<span class="hl opt">;</span>
+<span class="hl opt">[</span>a<span class="hl opt">-</span>z<span class="hl opt">][</span>a<span class="hl opt">-</span>z0<span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]*       {</span> curid <span class="hl opt">=</span> strdup<span class="hl opt">(</span>yytex<span class="hl opt">);</span> return KIDENT<span class="hl opt">; }</span>
+<span class="hl str">&quot;(&quot;</span>                  return KLPAREN<span class="hl opt">;</span>
+</code></pre>
+
+<p>La fonction <em>yylex()</em> est donc appelée par l&#39;analyseur syntaxique
+lorsqu&#39;il a besoin de la prochaine unité lexicale.</p>
+   <!-- ========== SLIDE ==========  (pseudo-slide to circumvent a bug in slidy.js)-->
+   <div class="handout">
+     
+   </div>
+
+
+    
+    <script>
+      hljs.initHighlighting();
+    </script>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+  </body>
+</html>

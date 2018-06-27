@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 4: Utilisation de Yacc sur des grammaires simples.</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 4: Utilisation de Yacc sur des grammaires simples.</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de Td est <a href="sujet.html">ici</a>.</p>
+
+<h2 id="corrigés">Corrigés</h2>
+
+<h3 id="exercice-1-une-grammaire-simple">Exercice 1: Une grammaire simple</h3>
+
+<p>Pour les questions 1 à 6, chaque solution tient dans un fichier unique. </p>
+
+<h4 id="question-1">Question 1:</h4>
+
+<p>Dans cette version, on a mis des actions sur chacune de règles pour
+voire les réduction opérées. Par ailleurs, on a rajouté un non
+terminal, pour pouvoir afficher un message lorsque l&#39;analyse est
+correcte. Le <a href="exo1_1.y">fichier yacc <span class='fa fa-file-o'></span></a> est donné ci-dessous:</p>
+
+<pre><code class="hl bison">%<span class="hl opt">{</span>
+  <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+  <span class="hl ppc">#include &lt;ctype.h&gt;</span>
+
+  <span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> <span class="hl kwa">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+%<span class="hl opt">}</span>
+
+%%
+<span class="hl kwd">G:</span>              S                       <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Analyse OK</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">;</span>
+
+<span class="hl kwd">S:</span>              S <span class="hl str">&apos;a&apos;</span>                   <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; Sa (r1)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       <span class="hl str">&apos;x&apos;</span>                     <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; x  (r2)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       <span class="hl str">&apos;y&apos;</span>                     <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; y  (r3)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">;</span>
+
+%%
+<span class="hl kwb">int</span> main<span class="hl opt">() {</span> return <span class="hl kwa">yyparse</span><span class="hl opt">(); }</span>
+
+<span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span> fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Erreur: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">); }</span>
+
+<span class="hl kwb">int</span> <span class="hl kwa">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+    <span class="hl kwb">int</span> c<span class="hl opt">;</span>
+
+    do  c <span class="hl opt">=</span>getchar<span class="hl opt">();</span> while <span class="hl opt">(</span>isspace<span class="hl opt">(</span>c<span class="hl opt">));</span>
+    return c<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="question-2">Question 2:</h4>
+
+<blockquote>
+<p><strong>Pas de corrigé.</strong></p>
+</blockquote>
+
+<h4 id="question-3">Question 3:</h4>
+
+<p>Il suffit ici de modifier la règle G pour que l&#39;on reconnaisse une
+suite de mots de G séparés par des <code>&#39;\n&#39;</code>. Cette règle devient:</p>
+
+<pre><code class="hl bison"><span class="hl kwd">G:</span>              G S <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>                <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Analyse OK</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+
+</code></pre>
+
+<p>Bien sûr, il faut maintenant que le lexical laisse «échapper» le
+caractère <code>&#39;\n&#39;</code> puisque c&#39;est devenu désormais un terminal.</p>
+
+<p>La fonction yylex devient donc <a href="exo1_3.y"><span class='fa fa-file-o'></span></a>: </p>
+
+<pre><code class="hl c"><span class="hl kwb">int</span> <span class="hl kwd">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+    <span class="hl kwb">int</span> c<span class="hl opt">;</span>
+
+    <span class="hl kwa">do</span>  c <span class="hl opt">=</span><span class="hl kwd">getchar</span><span class="hl opt">();</span> <span class="hl kwa">while</span> <span class="hl opt">(</span>c <span class="hl opt">==</span> <span class="hl str">&apos; &apos;</span> <span class="hl opt">||</span> c <span class="hl opt">==</span> <span class="hl str">&apos;</span><span class="hl esc">\t</span><span class="hl str">&apos;</span><span class="hl opt">);</span>
+    <span class="hl kwa">return</span> c<span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="question-4">Question 4:</h4>
+
+<p>Pour cette question, on écrit une fonction <code>prompt</code> qui se charge de
+l&#39;affichage du prompt. Cette fonction est appelée quand on a vu une
+fin de ligne, c&#39;est a dire dans l&#39;action associée à la règle G.  Quand
+au numéro de ligne, il est incrémenté dans le lexical
+<a href="exo1_4.y"><span class='fa fa-file-o'></span></a>.:</p>
+
+<pre><code class="hl bison">%<span class="hl opt">{</span>
+  <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+  <span class="hl ppc">#include &lt;ctype.h&gt;</span>
+
+  <span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> <span class="hl kwa">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+  <span class="hl kwb">void</span> prompt<span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+
+  <span class="hl kwb">int</span> lineno <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+%<span class="hl opt">}</span>
+
+%%
+<span class="hl kwd">G:</span>              G S <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>                <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Analyse OK</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span> prompt<span class="hl opt">();}</span>
+        |       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+
+<span class="hl kwd">S:</span>              S <span class="hl str">&apos;a&apos;</span>                   <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; Sa (r1)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       <span class="hl str">&apos;x&apos;</span>                     <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; x  (r2)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       <span class="hl str">&apos;y&apos;</span>                     <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; y  (r3)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">;</span>
+
+%%
+<span class="hl kwb">int</span> main<span class="hl opt">() {</span>
+    prompt<span class="hl opt">();</span>
+    return <span class="hl kwa">yyparse</span><span class="hl opt">();</span> 
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span> fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Erreur: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">); }</span>
+
+<span class="hl kwb">int</span> <span class="hl kwa">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+    <span class="hl kwb">int</span> c<span class="hl opt">;</span>
+
+    do
+        c <span class="hl opt">=</span>getchar<span class="hl opt">();</span>
+    while <span class="hl opt">(</span>c <span class="hl opt">==</span> <span class="hl str">&apos; &apos;</span> || c <span class="hl opt">==</span> <span class="hl str">&apos;</span><span class="hl esc">\t</span><span class="hl str">&apos;</span><span class="hl opt">);</span>
+
+    if <span class="hl opt">(</span>c <span class="hl opt">==</span> <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span><span class="hl opt">)</span> lineno <span class="hl opt">+=</span><span class="hl num">1</span><span class="hl opt">;</span>
+    return c<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> prompt<span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  printf<span class="hl opt">(</span><span class="hl str">&quot;[%d] &quot;</span><span class="hl opt">,</span> lineno<span class="hl opt">);</span>
+  fflush<span class="hl opt">(</span>stdout<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="question-5">Question 5:</h4>
+
+<p>Dans cet exercice, seule la fonction <code>yyerror</code> change. Elle devient: </p>
+
+<pre><code class="hl c"><span class="hl kwb">void</span> <span class="hl kwd">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span>
+    <span class="hl slc">// Ici le token est toujours un caractère (càd un entier &lt; 256) </span>
+    <span class="hl slc">// puisque nous n&apos;avons pas encore utilisé de directive %token</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Erreur: ligne %d. Token: %c&quot;</span><span class="hl opt">,</span> lineno<span class="hl opt">,</span> yychar<span class="hl opt">);</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="question-6">Question 6:</h4>
+
+<p>Ici on essaie de se «rattraper» sur une fin de ligne. Il suffit donc
+de modifier un peu la règle sur <code>G</code>. Celle-ci devient: </p>
+
+<pre><code class="hl bison"><span class="hl kwd">G:</span>              G S <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>                <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Analyse OK</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span> prompt<span class="hl opt">();}</span>
+        |       <span class="hl kwa">error</span> <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>              <span class="hl opt">{</span> <span class="hl kwa">yyerrok</span><span class="hl opt">; }</span>
+        |       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+</code></pre>
+
+<p>Ainsi si une erreur se produit, <em>yacc</em> sautera tout le texte jusqu&#39;à une fin de ligne 
+et pourra reprendre l&#39;analyse normallement <a href="exo1_6.y"><span class='fa fa-file-o'></span></a>.</p>
+
+<h4 id="question-7">Question 7:</h4>
+
+<p>Dans cette version, on utilise deux fichiers:</p>
+
+<ul>
+<li>un fichier de définitions pour <em>lex/flex</em> (<code>exo1_7.l</code>) et </li>
+<li>un fichier de  définitions pour la
+grammaire du langage (<code>exo1_7.y</code>).</li>
+</ul>
+
+<p>Pour compiler le tout, il faut faire:</p>
+
+<pre><code class="hl bash">$ bison <span class="hl kwb">-g -v -d -o</span> exo1_7.c exo1_7.y
+$ flex  <span class="hl kwb">-o</span> exo1_7.<span class="hl kwc">lex</span>.c exo1_7.l
+$ gcc <span class="hl kwb">-o</span> exo1_7 exo1_7.c exo1_7.<span class="hl kwc">lex</span>.c
+</code></pre>
+
+<p>La première ligne permet de construire l&#39;analyseur syntaxique dans <code>exo1_7.c</code>, 
+mais aussi, grâce à l&#39;option <code>-d</code>, le fichier <code>exo1_7.h</code>.   </p>
+
+<p>On peut ensuite (seconde ligne) construire l&#39;analyseur lexical (qui
+importe bien sûr le fichier <code>exo1_7.h</code>).  </p>
+
+<p>Enfin, la dernière ligne construit l&#39;exécutable <code>exo1_7</code> à partir
+des deux fichiers C précédents.</p>
+
+<p><strong>Note</strong>: On pourra voir ici une version assez complète de la fonction <code>yyerror</code>.</p>
+
+<ul>
+<li><p>le source <em>lex</em> <a href="exo1_7.l"><span class='fa fa-file-o'></span></a></p>
+
+<pre><code class="hl bison">%<span class="hl opt">{</span>
+   <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+   <span class="hl ppc">#include</span> <span class="hl pps">&quot;exo1_7.h&quot;</span><span class="hl ppc"></span>
+%<span class="hl opt">}</span>
+%option noyywrap
+%option yylineno
+
+%%
+
+<span class="hl opt">[</span> <span class="hl esc">\t</span><span class="hl opt">]           {</span> <span class="hl com">/* skip  */</span> <span class="hl opt">}</span>
+<span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span>            <span class="hl opt">{</span> return <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span><span class="hl opt">; }</span>
+<span class="hl opt">[</span>aA<span class="hl opt">]            {</span> return TOK_A<span class="hl opt">;}</span>
+<span class="hl opt">[</span>xX<span class="hl opt">]            {</span> return TOK_X<span class="hl opt">;}</span>
+<span class="hl opt">[</span>yY<span class="hl opt">]            {</span> return TOK_Y<span class="hl opt">;}</span>
+.               <span class="hl opt">{</span> return yytext<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]; }</span> <span class="hl com">/* cela provoquera une erreur syntaxique */</span>
+%%
+</code></pre></li>
+<li><p>le source <em>yacc</em>: <a href="exo1_7.y"><span class='fa fa-file-o'></span></a></p>
+
+<pre><code class="hl bison">%<span class="hl opt">{</span>
+  <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+  <span class="hl ppc">#include &lt;ctype.h&gt;</span>
+  <span class="hl ppc">#include &lt;unistd.h&gt;</span>
+
+  <span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> <span class="hl kwa">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+  <span class="hl kwb">void</span> prompt<span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+
+  <span class="hl ppc">#define  YYERROR_VERBOSE 1</span>
+  extern <span class="hl kwb">int</span> yylineno<span class="hl opt">,</span> <span class="hl kwa">yylval</span><span class="hl opt">;</span>
+%<span class="hl opt">}</span>
+
+%token TOK_A TOK_X TOK_Y
+
+%%
+<span class="hl kwd">gram:</span>           gram s <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>             <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Analyse OK</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span> prompt<span class="hl opt">();}</span>
+        |       <span class="hl kwa">error</span> <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>              <span class="hl opt">{</span> <span class="hl kwa">yyerrok</span><span class="hl opt">; }</span>
+        |       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+
+<span class="hl kwd">s:</span>              s TOK_A                 <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; Sa (r1)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       TOK_X                   <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; x  (r2)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        |       TOK_Y                   <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;Règle S -&gt; y  (r3)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">;</span>
+
+%%
+<span class="hl kwb">int</span> main<span class="hl opt">() {</span>
+    prompt<span class="hl opt">();</span>
+    return <span class="hl kwa">yyparse</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwa">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span>
+    fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Erreur: ligne %d. Token: &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+    <span class="hl slc">// afficher la valeur de yychar. L&apos;affichage se fait sous forme de</span>
+    <span class="hl slc">// caractère si yychar est &lt; 256, sous la forme d&apos;une chaîne</span>
+    <span class="hl slc">// (après conversion) sinon</span>
+    if  <span class="hl opt">(</span><span class="hl kwa">yychar</span> <span class="hl opt">&lt;</span> <span class="hl num">256</span><span class="hl opt">)</span>
+        fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;&apos;%c&apos; (soit 0x%x)&quot;</span><span class="hl opt">,</span> <span class="hl kwa">yychar</span><span class="hl opt">,</span> <span class="hl kwa">yychar</span><span class="hl opt">);</span>
+    else
+        switch<span class="hl opt">(</span><span class="hl kwa">yychar</span><span class="hl opt">) {</span>
+            case TOK_A<span class="hl opt">:</span> fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;&apos;A&apos; ou &apos;a&apos;&quot;</span><span class="hl opt">);</span> break<span class="hl opt">;</span>
+            case TOK_X<span class="hl opt">:</span> fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;&apos;X&apos; ou &apos;x&apos;&quot;</span><span class="hl opt">);</span> break<span class="hl opt">;</span>
+            case TOK_Y<span class="hl opt">:</span> fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;&apos;Y&apos; ou &apos;y&apos;&quot;</span><span class="hl opt">);</span> break<span class="hl opt">;</span>
+        <span class="hl opt">}</span>
+    fprintf<span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">msg=&apos;%s&apos;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">);</span>
+    prompt<span class="hl opt">();</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> prompt<span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  printf<span class="hl opt">(</span><span class="hl str">&quot;[%d] &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+  fflush<span class="hl opt">(</span>stdout<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</code></pre></li>
+</ul>
+
+<h3 id="exercice-2-expressions">Exercice 2: Expressions</h3>
+
+<h4 id="une-première-version">Une première version</h4>
+
+<p>Cette version est proche de celle du cours. Elle est constituée de deux
+fichiers (un fichier <em>lex</em> et un fichier <em>yacc</em>).</p>
+
+<p>Le fichier <a href="exo2_etf.l"><em>lex</em> <span class='fa fa-file-o'></span></a>:</p>
+
+<pre><code class="hl c"><span class="hl opt">%{</span>
+   <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+   <span class="hl ppc">#include</span> <span class="hl pps">&quot;exo2_etf.h&quot;</span><span class="hl ppc"></span>
+<span class="hl opt">%}</span>
+
+<span class="hl opt">%</span>option noyywrap
+<span class="hl opt">%</span>option yylineno
+
+<span class="hl opt">%%</span>
+<span class="hl opt">[</span> <span class="hl esc">\t</span><span class="hl opt">]           {</span>  <span class="hl com">/* skip  */</span>  <span class="hl opt">}</span>
+<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+          {</span> yylval <span class="hl opt">=</span> <span class="hl kwd">atoi</span><span class="hl opt">(</span>yytext<span class="hl opt">);</span> <span class="hl kwa">return</span> NUMBER<span class="hl opt">; }</span>
+<span class="hl opt">.|</span><span class="hl esc">\n</span>            <span class="hl opt">{</span> <span class="hl kwa">return</span> yytext<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]; }</span>
+<span class="hl opt">%%</span>
+</code></pre>
+
+<p>La grammaire utilisée ici est basée sur la grammaire vue en
+cours. Noter l&#39;utilisation du non terminal <code>sfactor</code> pour implémenter
+le <strong>moins unaire</strong>.</p>
+
+<p>Le fichier <a href="exo2_etf.y"><em>yacc</em> <span class='fa fa-file-o'></span></a> est donc:</p>
+
+<pre><code class="hl c"><span class="hl opt">%{</span>
+  <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+  <span class="hl ppc">#include &lt;ctype.h&gt;</span>
+  <span class="hl ppc">#include &lt;unistd.h&gt;</span>
+
+  <span class="hl kwb">void</span> <span class="hl kwd">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> <span class="hl kwd">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+  <span class="hl kwb">void</span> <span class="hl kwd">prompt</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+
+  <span class="hl ppc">#define  YYERROR_VERBOSE 1</span>
+  <span class="hl kwc">extern</span> <span class="hl kwb">int</span> yylineno<span class="hl opt">,</span> yylval<span class="hl opt">;</span>
+<span class="hl opt">%}</span>
+
+<span class="hl opt">%</span>token NUMBER
+
+<span class="hl opt">%%</span>
+
+lines<span class="hl opt">:</span>          lines expr <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>         <span class="hl opt">{</span> <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;==&gt; %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> $<span class="hl num">2</span><span class="hl opt">);</span> <span class="hl kwd">prompt</span><span class="hl opt">();}</span>
+        <span class="hl opt">|</span>       lines <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>
+        <span class="hl opt">|</span>       error <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>              <span class="hl opt">{</span> yyerrok<span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+
+expr<span class="hl opt">:</span>           expr <span class="hl str">&apos;+&apos;</span> term           <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">+</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       expr <span class="hl str">&apos;-&apos;</span> term           <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">-</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       term
+        <span class="hl opt">;</span>
+
+term<span class="hl opt">:</span>           term <span class="hl str">&apos;*&apos;</span> sfactor        <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">*</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       term <span class="hl str">&apos;/&apos;</span> sfactor        <span class="hl opt">{</span> <span class="hl kwa">if</span> <span class="hl opt">(</span>$<span class="hl num">3</span><span class="hl opt">)</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">/</span> $<span class="hl num">3</span><span class="hl opt">;</span>
+                                          <span class="hl kwa">else</span> <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;division by 0</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">|</span>       sfactor
+        <span class="hl opt">;</span>
+
+sfactor  <span class="hl opt">:</span>      <span class="hl str">&apos;-&apos;</span> factor              <span class="hl opt">{</span> $$ <span class="hl opt">= -</span>$<span class="hl num">2</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       factor                  <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span><span class="hl opt">; }</span>
+        <span class="hl opt">;</span>
+
+factor<span class="hl opt">:</span>         <span class="hl str">&apos;(&apos;</span> expr <span class="hl str">&apos;)&apos;</span>            <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">2</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       NUMBER
+        <span class="hl opt">;</span>
+
+
+
+
+<span class="hl opt">%%</span>
+<span class="hl kwb">void</span> <span class="hl kwd">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Error: Line %d. Token: &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">, (</span>yychar <span class="hl opt">&lt;</span> <span class="hl num">256</span><span class="hl opt">) ?</span> <span class="hl str">&quot;&apos;%c&apos;&quot;</span><span class="hl opt">:</span> <span class="hl str">&quot;[%d]&quot;</span><span class="hl opt">,</span> yychar<span class="hl opt">);</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">);</span>
+    <span class="hl kwd">prompt</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">prompt</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;[%d] &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+  <span class="hl kwd">fflush</span><span class="hl opt">(</span>stdout<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+    <span class="hl kwd">prompt</span><span class="hl opt">();</span>
+    <span class="hl kwa">return</span> <span class="hl kwd">yyparse</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<h4 id="utilisation-des-priorités-dans-yacc">Utilisation des priorités dans yacc</h4>
+
+<p>La seconde version de notre calculatrice utilise une grammaire où les
+priorités sont exprimées avec les directives <code>%left</code> ou
+<code>%right</code>. Une telle grammaire est aussi présentée dans le cours.</p>
+
+<p>La version suivante ne manipule que des nombres entiers. Le fichier de
+spécifications pour <em>lex</em> est identique au précédent (si ce n&#39;est le
+nom du fichier <code>h</code> qui est inclus). Quand au fichier <em>yacc</em>, il est
+défini ci-dessous:</p>
+
+<pre><code class="hl c"><span class="hl opt">%{</span>
+  <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+  <span class="hl ppc">#include &lt;ctype.h&gt;</span>
+  <span class="hl ppc">#include &lt;unistd.h&gt;</span>
+
+  <span class="hl kwb">void</span> <span class="hl kwd">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> <span class="hl kwd">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+  <span class="hl kwb">void</span> <span class="hl kwd">prompt</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+
+  <span class="hl ppc">#define  YYERROR_VERBOSE 1</span>
+  <span class="hl kwc">extern</span> <span class="hl kwb">int</span> yylineno<span class="hl opt">,</span> yylval<span class="hl opt">;</span>
+<span class="hl opt">%}</span>
+
+<span class="hl opt">%</span>token NUMBER
+
+<span class="hl opt">%</span>left <span class="hl str">&apos;+&apos;</span> <span class="hl str">&apos;-&apos;</span>
+<span class="hl opt">%</span>left <span class="hl str">&apos;*&apos;</span> <span class="hl str">&apos;/&apos;</span>
+<span class="hl opt">%</span>right UMINUS
+
+<span class="hl opt">%%</span>
+
+lines<span class="hl opt">:</span>          lines expr <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>         <span class="hl opt">{</span> <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;==&gt; %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> $<span class="hl num">2</span><span class="hl opt">);</span> <span class="hl kwd">prompt</span><span class="hl opt">();}</span>
+        <span class="hl opt">|</span>       lines <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>
+        <span class="hl opt">|</span>       error <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span>              <span class="hl opt">{</span> yyerrok<span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       <span class="hl com">/* empty */</span>
+        <span class="hl opt">;</span>
+
+expr<span class="hl opt">:</span>           expr <span class="hl str">&apos;+&apos;</span> expr           <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">+</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       expr <span class="hl str">&apos;-&apos;</span> expr           <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">-</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       expr <span class="hl str">&apos;*&apos;</span> expr           <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">*</span> $<span class="hl num">3</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       expr <span class="hl str">&apos;/&apos;</span> expr           <span class="hl opt">{</span> <span class="hl kwa">if</span> <span class="hl opt">(</span>$<span class="hl num">3</span><span class="hl opt">)</span> $$ <span class="hl opt">=</span> $<span class="hl num">1</span> <span class="hl opt">/</span> $<span class="hl num">3</span><span class="hl opt">;</span>
+                                          <span class="hl kwa">else</span> <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;division by 0</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">); }</span>
+        <span class="hl opt">|</span>       <span class="hl str">&apos;(&apos;</span> expr <span class="hl str">&apos;)&apos;</span>            <span class="hl opt">{</span> $$ <span class="hl opt">=</span> $<span class="hl num">2</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       <span class="hl str">&apos;-&apos;</span> expr <span class="hl opt">%</span>prec UMINUS   <span class="hl opt">{</span> $$ <span class="hl opt">= -</span>$<span class="hl num">2</span><span class="hl opt">; }</span>
+        <span class="hl opt">|</span>       NUMBER
+        <span class="hl opt">;</span>
+
+<span class="hl opt">%%</span>
+<span class="hl kwb">void</span> <span class="hl kwd">yyerror</span><span class="hl opt">(</span><span class="hl kwb">const char</span><span class="hl opt">*</span> msg<span class="hl opt">) {</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Error: Line %d. Token: &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">, (</span>yychar <span class="hl opt">&lt;</span> <span class="hl num">256</span><span class="hl opt">) ?</span> <span class="hl str">&quot;&apos;%c&apos;&quot;</span><span class="hl opt">:</span> <span class="hl str">&quot;[%d]&quot;</span><span class="hl opt">,</span> yychar<span class="hl opt">);</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> msg<span class="hl opt">);</span>
+    <span class="hl kwd">prompt</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">prompt</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;[%d] &quot;</span><span class="hl opt">,</span> yylineno<span class="hl opt">);</span>
+  <span class="hl kwd">fflush</span><span class="hl opt">(</span>stdout<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+    <span class="hl kwd">prompt</span><span class="hl opt">();</span>
+    <span class="hl kwa">return</span> <span class="hl kwd">yyparse</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<ul>
+<li><a href="exo2_int.l">Source <em>lex</em> <span class='fa fa-file-o'></span></a></li>
+<li><a href="exo2_int.y">Source <em>yacc</em> <span class='fa fa-file-o'></span></a></li>
+</ul>
+
+<h4 id="version-avec-des-nombres-réels">Version avec des nombres réels</h4>
+
+<p>Cette dernière version est identique à la précédente, si ce n&#39;est que
+les nombres manipulés sont des réels en double précision.</p>
+
+<p>Au niveau du code, la seule différence est l&#39;utilisation de la macro
+<code>YYSTYPE</code> qui permet de changer le type de la variable <code>yylval</code> (et
+bien sûr le passage de <code>%d</code> à <code>%g</code> pour l&#39;affichage du résultat).</p>
+
+<ul>
+<li><a href="exo2_double.l">Source <em>lex</em> <span class='fa fa-file-o'></span></a></li>
+<li><a href="exo2_double.y">Source <em>yacc</em> <span class='fa fa-file-o'></span></a></li>
+</ul>
+
+<h3 id="exercice-3-etf-→-xml">Exercice 3: ETF → XML</h3>
+
+<p>La difficulté dans cet exercice tirnt principalement à la construction
+de chaînes de caractères formatées. Par exemple, </p>
+
+<ul>
+<li>pour le nombre <code>2</code> il faut construire la chaîne <code>&lt;number&gt;2&lt;/number&gt;</code></li>
+<li>pour le produit <code>2*3</code> la chaîne à construire est<br>
+<code>&lt;mul op=&#39;*&#39;&gt; &lt;number&gt;2&lt;/number&gt; &lt;number&gt;3&lt;/number&gt; &lt;/mul&gt;</code></li>
+</ul>
+
+<h3 id="première-implémentation-allocation-statique">Première implémentation (allocation statique)</h3>
+
+<p>Le plus simple (mais pas le plus joli) est de déclarer l&#39;attribut
+d&#39;une expression comme un chaîne de taille fixe et de construire le
+résultat avec la primitive <code>snprintf</code>. On obtient donc des règles qui
+ressemblent à:</p>
+
+<pre><code class="hl bison"><span class="hl kwd">expr:</span>  expr <span class="hl str">&apos;+&apos;</span> term    <span class="hl opt">{</span> snprintf<span class="hl opt">(</span>$$<span class="hl opt">,</span> MAXBUF<span class="hl opt">,</span> <span class="hl str">&quot;&lt;add op=&apos;+&apos;&gt;%s%s&lt;/add&gt;&quot;</span><span class="hl opt">,</span> <span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">) ; }</span>
+    |  expr <span class="hl str">&apos;-&apos;</span> term    <span class="hl opt">{</span> snprintf<span class="hl opt">(</span>$$<span class="hl opt">,</span> MAXBUF<span class="hl opt">,</span> <span class="hl str">&quot;&lt;add op=&apos;-&apos;&gt;%s%s&lt;/add&gt;&quot;</span><span class="hl opt">,</span> <span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">) ; }</span>
+    |       term        <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwc">$1</span><span class="hl opt">; }</span>
+    <span class="hl opt">;</span>
+</code></pre>
+
+<p>Une solution complète avec cette technique:</p>
+
+<ul>
+<li><a href="exo3.l">Source <em>lex</em> <span class='fa fa-file-o'></span></a></li>
+<li><a href="exo3.y">Source <em>yacc</em> <span class='fa fa-file-o'></span></a></li>
+</ul>
+
+<h3 id="seconde-implémentation-allocation-dynamique">Seconde implémentation (allocation dynamique)</h3>
+
+<p>L&#39;inconvénient de notre première implémentation est que chaque nœud de
+l&#39;arbre occupe beaucoup de place et que le résultat final ne peut pas
+faire plus de <code>MAXBUF</code> caractères. L&#39;idéal serait d&#39;avoir un résultat
+alloué dynamiquement qui fasse juste la bonne taille (l&#39;attribut
+serait alors non plus un tableau de caractères de taille fixe, mais un
+pointeur sur un caractère). </p>
+
+<p>Pour cela nous allons définir la fonction <code>make_string</code> suivante (une
+telle fonction apparaît dans la page de manuel de <code>vsnprintf</code>, que
+vous pouvez consulter pour plus de détails):</p>
+
+<pre><code class="hl c"><span class="hl kwb">char</span> <span class="hl opt">*</span><span class="hl kwd">make_string</span><span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">*</span>fmt<span class="hl opt">, ...) {</span>
+  <span class="hl kwb">int</span> size <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwb">char</span> <span class="hl opt">*</span>p <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+  <span class="hl kwb">va_list</span> ap<span class="hl opt">;</span>
+
+  <span class="hl com">/* Determine required size */</span>
+  <span class="hl kwd">va_start</span><span class="hl opt">(</span>ap<span class="hl opt">,</span> fmt<span class="hl opt">);</span>
+  size <span class="hl opt">=</span> <span class="hl kwd">vsnprintf</span><span class="hl opt">(</span>p<span class="hl opt">,</span> size<span class="hl opt">,</span> fmt<span class="hl opt">,</span> ap<span class="hl opt">);</span>
+  <span class="hl kwd">va_end</span><span class="hl opt">(</span>ap<span class="hl opt">);</span>
+
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>size <span class="hl opt">&lt;</span> <span class="hl num">0</span><span class="hl opt">)</span>
+    <span class="hl kwa">return</span> NULL<span class="hl opt">;</span>
+
+  size<span class="hl opt">++;</span>             <span class="hl com">/* For &apos;\0&apos; */</span>
+  p <span class="hl opt">=</span> <span class="hl kwd">malloc</span><span class="hl opt">(</span>size<span class="hl opt">);</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>p <span class="hl opt">==</span> NULL<span class="hl opt">)</span>
+    <span class="hl kwa">return</span> NULL<span class="hl opt">;</span>
+
+  <span class="hl kwd">va_start</span><span class="hl opt">(</span>ap<span class="hl opt">,</span> fmt<span class="hl opt">);</span>
+  size <span class="hl opt">=</span> <span class="hl kwd">vsnprintf</span><span class="hl opt">(</span>p<span class="hl opt">,</span> size<span class="hl opt">,</span> fmt<span class="hl opt">,</span> ap<span class="hl opt">);</span>
+  <span class="hl kwd">va_end</span><span class="hl opt">(</span>ap<span class="hl opt">);</span>
+
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>size <span class="hl opt">&lt;</span> <span class="hl num">0</span><span class="hl opt">) {</span>
+    <span class="hl kwd">free</span><span class="hl opt">(</span>p<span class="hl opt">);</span>
+    <span class="hl kwa">return</span> NULL<span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+
+  <span class="hl kwa">return</span> p<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Cette fonction nous permet donc d&#39;avoir une fonction de construction
+de chaînes de caractère dont le résultat est construit dynamiquement.</p>
+
+<p>Si on repend la règle précédente, on obtient: </p>
+
+<pre><code class="hl bison"><span class="hl kwd">expr:</span>  expr <span class="hl str">&apos;+&apos;</span> term    <span class="hl opt">{</span> $$<span class="hl opt">=</span> make_string<span class="hl opt">(</span><span class="hl str">&quot;&lt;add op=&apos;+&apos;&gt;%s%s&lt;/add&gt;&quot;</span><span class="hl opt">,</span> <span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">);</span>
+                          free<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">);</span> free<span class="hl opt">(</span><span class="hl kwc">$3</span><span class="hl opt">); }</span>
+    |  expr <span class="hl str">&apos;-&apos;</span> term    <span class="hl opt">{</span> $$ <span class="hl opt">=</span> make_string<span class="hl opt">(</span><span class="hl str">&quot;&lt;add op=&apos;-&apos;&gt;%s%s&lt;/add&gt;&quot;</span><span class="hl opt">,</span> <span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">) ;</span>
+                          free<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">);</span> free<span class="hl opt">(</span><span class="hl kwc">$3</span><span class="hl opt">); }</span>
+    |  term             <span class="hl opt">{</span> $$ <span class="hl opt">=</span> <span class="hl kwc">$1</span><span class="hl opt">; }</span>
+    <span class="hl opt">;</span>
+</code></pre>
+
+<p><strong>Note:</strong> Lorsque l&#39;attribut résultat est constitué, nous n&#39;avons plus
+besoin des attributs qui on été synthétisés par les non terminaux en
+partie droite de règle. La mémoire qu&#39;ils utilisent peut donc être
+libérée.</p>
+
+<p>Les sources de notre implémentation: </p>
+
+<ul>
+<li><a href="exo3.l">Source <em>lex</em> <span class='fa fa-file-o'></span></a> (identique au précédent)</li>
+<li><a href="exo3_alloc.y">Source <em>yacc</em> <span class='fa fa-file-o'></span></a></li>
+</ul>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">11-Dec-2017 19:29 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

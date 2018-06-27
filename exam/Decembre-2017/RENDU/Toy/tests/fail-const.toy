@@ -1,0 +1,26 @@
+// -*- mode: java -*-
+//
+// fail-const.toy         -- A simple test of constant decalarations
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 18-Dec-2017 15:04
+// Last file update: 18-Dec-2017 16:31 (eg)
+//
+//ERRORS: 4
+
+const int x = 10;
+const int y = 20, z = 10 + 20;
+
+int main() {
+    const bool b = false;
+    const float pi = 3.14159;
+    const string str = "Hello, world";
+    int w = 100;
+
+    x = x + 1;                  // x is read-only
+    y++;                        // y is read-only
+    z = x + y;                  // z is read-only
+    w = x + 1;                  // OK
+    x = w = x + 1;              // x is read-only
+    return 0;
+}

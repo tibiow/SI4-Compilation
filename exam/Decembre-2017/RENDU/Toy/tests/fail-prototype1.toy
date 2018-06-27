@@ -1,0 +1,44 @@
+// -*- mode: java -*-
+//
+// ok-prototype1.toy     -- Errors on prototypes
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 27-Nov-2015 10:46 (eg)
+// Last file update: 27-Nov-2015 18:47 (eg)
+//
+// ERRORS: 9
+
+// Even/Odd (with a forward declaration of the "even" function)
+bool even();
+bool odd(int x)  { return (x == 0)? false: even(x-1); }
+bool even(int x) { return (x == 0)? true:  odd(x-1);  }
+
+// Use a prototype for fork()
+void fork();
+
+// Error on return type
+int zoo(int x);
+bool zoo(int x) { return false; }
+
+// Error on parameter list
+int bar(int x, int y);
+int bar(int x, bool y, int z) { return 1; }
+
+// Error on parameter list and return type
+int foobar(int x, int y, int z);
+bool foobar(int x, bool y) { return false; }
+
+
+
+int main() {
+    print("even(50) = ", even(50), "\n");
+    print("odd(50)  = ", odd(50),  "\n");
+
+    if (fork () == 0) {
+        print("In child  process: even(101): ", odd(101)? "SUCCESS\n" : "FAILURE\n");
+        return 0;
+    } else {
+        print("In parent process: even(30): ", even(30)? "SUCCESS\n" : "FAILURE\n");
+        return 0;
+    }
+}

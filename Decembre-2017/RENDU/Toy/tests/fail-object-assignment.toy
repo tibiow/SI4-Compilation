@@ -1,0 +1,24 @@
+// -*- mode: java -*-
+//
+// fail-object-assignment.toy 	-- Testing Object assignment of objects
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 12:33 (eg)
+// Last file update: 17-Sep-2015 13:06 (eg)
+//
+// ERRORS: 2
+
+class C extends Object {}
+class D extends C      {}
+
+int main() {
+    Object o1, o2;
+    C c1, c2;
+    D d1, d2;
+
+    o1 = o2 = c1 = c2 = d1 = d2 = new D;
+    d1 = o1;		// Invalid assignment
+    c1 = o1;		// Invalid assignment
+    print(o1, " ", o2, "\n", c1, " ", c2, "\n", d1, " ", d2, "\n");
+    print("SUCCESS\n");
+}

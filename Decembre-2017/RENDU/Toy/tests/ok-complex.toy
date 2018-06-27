@@ -1,0 +1,56 @@
+// -*- mode: java -*-
+//
+// ok-complex.toy 	-- The complex number class
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 09:30 (eg)
+// Last file update: 24-Sep-2015 08:40 (eg)
+//
+
+
+class Complex {
+    int r=0, i=0;
+
+    Complex init(int r, int i) {
+	this.r = r;  this.i = i;
+	return this;
+    }
+    Complex init_int(int r) {
+	this.r = r;
+	return this;
+    }
+    void printobj() {
+	int r = this.r, i = this.i;
+
+	if (r == 0) {
+	    if (i == 0) print(0); else print(i, "i");
+	} else {
+	    print(r);
+	    if (i != 0) print((this.i <0) ? "" : "+", this.i, "i");
+	}
+    }
+    Complex add(Complex c) {
+	return new Complex.init(this.r + c.r , this.i + c.i);
+    }
+    Complex add_int(int x) {
+	return  new Complex.init(this.r+ x, this.i);
+    }
+}
+
+
+int main() {
+    Complex c1 = new Complex.init(1,2), c2 = new Complex.init_int(3);
+
+    print("Testing complex numbers\n");
+    print("c1 = ", c1, " c2 = ", c2, "\n");
+    print("c1+c2 = ", c1.add(c2), "\n");
+    print("c1+10 = ", c1.add_int(10), "\n");
+    print("null complex: ", new Complex.init(0,0), "\n");
+    print("null real part: ", new Complex.init(0, -2), "\n");
+    print("null imag part: ", new Complex.init_int(8), "\n");
+    print("negative imag part: ", new Complex.init(1,-5), "\n");
+    
+
+    Complex c3 = c1.add(c1.add(c2));
+    print((c3.r == 5 and c3.i == 4) ? "SUCCESS\n" : "FAILURE\n");
+}

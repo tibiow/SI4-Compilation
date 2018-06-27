@@ -1,0 +1,11 @@
+<map id="list.h" name="list.h">
+<area shape="rect" id="node2" href="$ast_8h.html" title="ast.h" alt="" coords="281,80,331,107"/>
+<area shape="rect" id="node10" href="$list_8c.html" title="list.c" alt="" coords="355,80,406,107"/>
+<area shape="rect" id="node3" href="$analysis_8c.html" title="analysis.c" alt="" coords="5,155,87,181"/>
+<area shape="rect" id="node4" href="$ast_8c.html" title="ast.c" alt="" coords="111,155,162,181"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="main.c" alt="" coords="186,155,247,181"/>
+<area shape="rect" id="node6" href="$object_8c.html" title="object.c" alt="" coords="272,155,340,181"/>
+<area shape="rect" id="node7" href="$prodcode_8c.html" title="prodcode.c" alt="" coords="364,155,451,181"/>
+<area shape="rect" id="node8" href="$symbols_8c.html" title="symbols.c" alt="" coords="475,155,558,181"/>
+<area shape="rect" id="node9" href="$utils_8c.html" title="utils.c" alt="" coords="583,155,640,181"/>
+</map>

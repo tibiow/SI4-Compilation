@@ -1,0 +1,32 @@
+expr {
+    background-color:#eee;
+    font-size:36px;
+    font-weight:bold;
+    border:30px;
+    padding: 20px;
+}
+
+number{
+    display:block;
+    color:#FF0000;
+    margin-left:20px;
+}
+
+add>number:first-child,mul>number:first-child {
+    display:inline;
+}
+add>*+number,mul>*+number {
+    display:inline;
+}
+
+add,mul {
+    display:block;
+    border:#0000FF solid 3px;
+    margin-left:40px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+}
+
+add:before, mul:before {
+    content: attr(op);
+}

@@ -1,0 +1,2 @@
+list.o: list.c list.h
+hash.o: hash.c hash.h

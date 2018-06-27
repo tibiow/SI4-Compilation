@@ -1,0 +1,44 @@
+// -*- mode: java -*-
+//
+// ok-no-this.toy        -- Test of 'this' elision
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 18:28 (eg)
+// Last file update:  9-Dec-2015 15:21 (eg)
+//
+
+class C {
+    int x = 1, y =1;
+    C init(int x0, int y0) {
+        x = x0; y = y0;
+        return this;
+    }
+    C identity() { return this; }
+}
+
+class D extends C {
+    int x = 2;
+    int z = 2;
+    C   c = new C.init(100, 100);
+
+    void test() {
+        print("x   = ", x, "\n");
+        print("c.x = ", c.x, "\n");
+        print("this.x = ", this.x, " x = ", x, "\n");
+        print("c.identity().identity().y = ", c.identity().identity().y, "\n");
+        print((x == 2  and c.x == 100) ? "SUCCESS\n": "FAILURE\n");
+    }
+}
+
+int main() {
+    C c = new C;
+    D d = new D;
+
+    print("c.x   = ", c.x, "\n");
+    print("d.x   = ", d.x, "\n");
+    print("d.c.x = ", d.c.x, "\n");
+
+    d.test();
+
+    return 0;
+}

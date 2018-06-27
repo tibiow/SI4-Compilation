@@ -1,0 +1,32 @@
+// -*- mode: java -*-
+//
+// ok-class-decl2.toy 	-- Simple class test declaration with inheritance
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 27-Jun-2015 16:49 (eg)
+// Last file update: 18-Jul-2015 07:56 (eg)
+//
+// ERRORS: 4
+
+class C1 {
+  int x=1, y=2, z=3;
+  bool a, b;
+  string s1, s2, s3;
+};
+
+class C2 extends C1 {
+    int w = 40;
+}
+
+int main() {
+    C1 x;
+    C2 y, z;
+    C c = new C1;   // Class C is undeclared
+    C1 d = new C;   // ditto
+
+    z = new C2;
+    x = y;   // x can be a C2
+    y = x;   // incompatibility here
+    C1 = 1;  // using a class as a variable
+    print("Class declaration with inheritance test\n");
+}

@@ -1,0 +1,47 @@
+// -*- mode: java -*-
+//
+// ok-access-member.toy 	-- Access of class members (data only)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 14-Jul-2015 09:49 (eg)
+// Last file update: 15-Jul-2015 00:24 (eg)
+//
+// ERRORS: 9
+
+class C1 {
+    int x=1, y=2;
+};
+
+
+class C2 {
+    bool a=false, b=true;
+}
+
+class C3 extends C1 {
+    int z=100;
+    C2  c;
+}
+
+class C4 extends C2 {
+    string s = "TEST";
+}
+
+
+C4 return_a_C4(C4 c) {
+    return c;
+}
+
+
+int main() {
+    C4 c4 = new C4;
+    C c;			// class does not exists
+    c.foo = 42;			// no error here (analysis not done)
+    z.a = 12;			// z not declared
+    z.x.y.z = 17;		// 
+    nonexists().a= 20; 		// function does not exists
+    return_a_C4().a = true;	// incorrect arity
+    return_a_C4(c4).z = "FOO";  // no field z in a C4
+    return_a_C4().z = true;	// incorrect arity + no member z in a C4
+
+    return 0;
+}

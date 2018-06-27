@@ -1,0 +1,110 @@
+ >> Enter procedure 'main'
+ >> Enter procedure 'fact'
+  >> Enter procedure 'fact'
+   >> Enter procedure 'fact'
+    >> Enter procedure 'fact'
+     >> Enter procedure 'fact'
+      >> Enter procedure 'fact'
+       >> Enter procedure 'fact'
+        >> Enter procedure 'fact'
+         >> Enter procedure 'fact'
+          >> Enter procedure 'fact'
+          << Leave function 'fact' <-1
+         << Leave function 'fact' <-2
+        << Leave function 'fact' <-6
+       << Leave function 'fact' <-24
+      << Leave function 'fact' <-120
+     << Leave function 'fact' <-720
+    << Leave function 'fact' <-5040
+   << Leave function 'fact' <-40320
+  << Leave function 'fact' <-362880
+ << Leave function 'fact' <-3628800
+==============================
+ >> Enter procedure 'fib'
+  >> Enter procedure 'fib'
+   >> Enter procedure 'fib'
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+      >> Enter procedure 'fib'
+       >> Enter procedure 'fib'
+       << Leave function 'fib' <-1
+       >> Enter procedure 'fib'
+       << Leave function 'fib' <-1
+      << Leave function 'fib' <-2
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+     << Leave function 'fib' <-3
+     >> Enter procedure 'fib'
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+     << Leave function 'fib' <-2
+    << Leave function 'fib' <-5
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+     << Leave function 'fib' <-2
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-3
+   << Leave function 'fib' <-8
+   >> Enter procedure 'fib'
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+     << Leave function 'fib' <-2
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-3
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-2
+   << Leave function 'fib' <-5
+  << Leave function 'fib' <-13
+  >> Enter procedure 'fib'
+   >> Enter procedure 'fib'
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+      >> Enter procedure 'fib'
+      << Leave function 'fib' <-1
+     << Leave function 'fib' <-2
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-3
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-2
+   << Leave function 'fib' <-5
+   >> Enter procedure 'fib'
+    >> Enter procedure 'fib'
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+     >> Enter procedure 'fib'
+     << Leave function 'fib' <-1
+    << Leave function 'fib' <-2
+    >> Enter procedure 'fib'
+    << Leave function 'fib' <-1
+   << Leave function 'fib' <-3
+  << Leave function 'fib' <-8
+ << Leave function 'fib' <-21
+==============================
+Fact(10) = 3628800
+Fib(7) = 21
+SUCCESS
+SUCCESS
+ << Leave function 'main' <-0

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 7: Extensions du langage Toy-base (suite)</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 7: Extensions du langage Toy-base (suite)</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Cette feuille comporte deux exercices supplémentaires (à rendre) sur
+la version du compilateur <em>Toy-base</em> de la feuille 6.</p>
+
+<div class="w3-panel w3-leftbar w3-border-blue w3-pale-blue">
+
+<p><strong>Cette feuille n&#39;a pas de corrigé...</strong></p>
+
+</div>
+
+<h3 id="question1--concaténation-de-chaînes">Question1:  Concaténation de chaînes</h3>
+
+<p>On veut permettre la concaténation de chaînes de caractères avec
+l&#39;opérateur &#39;<code>+</code>&#39; (comme en Python ou en Java). Ainsi, le programme
+<em>Toy</em> suivant:</p>
+
+<pre><code class="hl c++">    <span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+      string s <span class="hl opt">=</span> <span class="hl str">&quot;Hello&quot;</span> <span class="hl opt">+</span> <span class="hl str">&quot; &quot;</span> <span class="hl opt">+</span> <span class="hl str">&quot;world.&quot;</span><span class="hl opt">;</span>
+      
+      <span class="hl kwd">print</span><span class="hl opt">(</span>s<span class="hl opt">,</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+      <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+</code></pre>
+
+<p>permet d&#39;afficher le message <q><code>Hello, world.</code></q> sur la sortie standard.</p>
+
+<p>Pour implémenter cette fonctionnalité, vous aurez besoin d&#39;écrire une
+fonction C permettant la concaténation de deux chaînes de
+caractères. Cett fonction sera écrite dans le runtime ( on ne se
+préoccupera pas ici des <strong>fuites de mémoire</strong> qui pourraient résulter
+de l&#39;introduction de cet opérateur dans un programme <em>Toy</em>).</p>
+
+<p>Pour tester votre extension, vous pouvez utiliser les tests qui se
+trouvent dans</p>
+
+<ul>
+<li><a href="ok-concat.toy">ok-concat.toy</a>, </li>
+<li><a href="fail-concat.toy">fail-concat.toy</a></li>
+</ul>
+
+<h2 id="un-switch-pour-toy">Un switch pour Toy</h2>
+
+<p>On veut ici implémenter une forme de <code>switch</code> pour le langage Toy. La
+forme choisie ressemble à la construction <code>switch</code> du langage Go. Un
+exemple d&#39;utilisation est donné ci dessous: </p>
+
+<pre><code class="hl c">   <span class="hl kwa">switch</span> <span class="hl opt">{</span>
+       <span class="hl kwa">case</span> i <span class="hl opt">&lt;</span> <span class="hl num">0</span><span class="hl opt">:</span>
+           s <span class="hl opt">=</span> <span class="hl str">&quot;negative&quot;</span><span class="hl opt">;</span>
+       <span class="hl kwa">case</span> i <span class="hl opt">==</span> <span class="hl num">0</span><span class="hl opt">:</span>
+           <span class="hl opt">{</span> s <span class="hl opt">=</span> <span class="hl str">&quot;zero&quot;</span><span class="hl opt">;</span> x <span class="hl opt">=</span> <span class="hl num">1000</span><span class="hl opt">; }</span>
+       <span class="hl kwa">case</span> <span class="hl opt">(</span>i <span class="hl opt">&gt;</span> <span class="hl num">0</span><span class="hl opt">)</span> <span class="hl kwa">and</span> <span class="hl opt">(</span>i <span class="hl opt">&lt;</span> <span class="hl num">1000</span><span class="hl opt">):</span>
+           s <span class="hl opt">=</span> <span class="hl str">&quot;positive&quot;</span><span class="hl opt">;</span>
+       <span class="hl kwa">default</span><span class="hl opt">:</span> 
+           s <span class="hl opt">=</span> <span class="hl str">&quot;big&quot;</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+</code></pre>
+
+<p>Les clauses de cette structure de contrôle sont évaluée en
+séquence. Dès que l&#39;évaluation d&#39;un test suivant un <code>case</code> réussit,
+l&#39;énoncé associé est exécuté et on sort du <code>switch</code>. Cette structure
+ne nécessite pas de <code>break</code>. Pour exécuter plusieurs instructions, on
+utilisera un bloc (comme dans le cas <code>i==0</code> au dessus). Si aucun test
+ne réussit, le code associé à la clause <code>default</code> (si elle existe) est
+exécutée.
+La syntaxe du <code>switch</code> pour <em>Toy</em>  est sonnée ci-dessous:</p>
+
+<pre><code class="hl bison">    stmt<span class="hl opt">:</span>           ...
+            |       KSWITCH <span class="hl str">&apos;{&apos;</span> cond_list defcond <span class="hl str">&apos;}&apos;</span> <span class="hl opt">{</span> ..... <span class="hl opt">}</span>
+                    ...
+            <span class="hl opt">;</span>
+    cond_list<span class="hl opt">:</span>      cond_list KCASE expr <span class="hl str">&apos;:&apos;</span> stmt
+                                            <span class="hl opt">{</span> list_append<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$3</span><span class="hl opt">,</span> FREE_NODE<span class="hl opt">);</span>
+                                              list_append<span class="hl opt">(</span><span class="hl kwc">$1</span><span class="hl opt">,</span> <span class="hl kwc">$5</span><span class="hl opt">,</span> FREE_NODE<span class="hl opt">);</span>
+                                              $$ <span class="hl opt">=</span> <span class="hl kwc">$1</span><span class="hl opt">; }</span>
+            |       <span class="hl com">/* empty */</span>             <span class="hl opt">{</span> $$ <span class="hl opt">=</span> list_create<span class="hl opt">(); }</span>
+            <span class="hl opt">;</span>
+    defcond <span class="hl opt">:</span>       KDEFAULT <span class="hl str">&apos;:&apos;</span> stmt       <span class="hl opt">{</span> ... <span class="hl opt">}</span>
+            |       <span class="hl com">/* empty */</span>             <span class="hl opt">{</span> ... <span class="hl opt">}</span>
+            <span class="hl opt">;</span>
+</code></pre>
+
+<p>Les actions sémantiques permettant de construire la liste des
+conditions/énoncés est complète. On utilise ici les fonctions
+génériques de <code>lib/list.h</code>. Ces fonctions permettent de gérer des
+liste d&#39;objets quelconques. Ici, on ajoute donc pour chaque clause le
+nœud correspondant à la conditionb suivi du nœud de l&#39;énoncé qui lui
+est associé (vous pouvez admettre que le troisième paramètre de
+<code>list_append</code> doit être FREE_NODE).</p>
+
+<p>Une utilisation de ces fonctions est donnée ci-dessous:</p>
+
+<pre><code class="hl C">      List l <span class="hl opt">=</span> <span class="hl kwd">list_create</span><span class="hl opt">();</span>
+      
+      <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span>  <span class="hl str">&quot;foo&quot;</span><span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+      <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span>  <span class="hl str">&quot;bar&quot;</span><span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+      <span class="hl kwd">list_prepend</span><span class="hl opt">(</span>l<span class="hl opt">,</span> <span class="hl str">&quot;start&quot;</span><span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+      <span class="hl kwd">list_append</span><span class="hl opt">(</span>l<span class="hl opt">,</span>  <span class="hl str">&quot;end&quot;</span><span class="hl opt">,</span> NULL<span class="hl opt">);</span>
+      <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;taille de la liste %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> <span class="hl kwd">list_size</span><span class="hl opt">(</span>l<span class="hl opt">));</span>
+
+      <span class="hl kwa">for</span> <span class="hl opt">(</span>List_item p <span class="hl opt">=</span> <span class="hl kwd">list_head</span><span class="hl opt">(</span>l<span class="hl opt">);</span> p<span class="hl opt">;</span> p <span class="hl opt">=</span> <span class="hl kwd">list_item_next</span><span class="hl opt">(</span>p<span class="hl opt">))</span>
+        <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">, (</span><span class="hl kwb">char</span><span class="hl opt">*)</span> <span class="hl kwd">list_item_data</span><span class="hl opt">(</span>p<span class="hl opt">));</span>
+      <span class="hl kwd">list_destroy</span><span class="hl opt">(</span>l<span class="hl opt">);</span>
+</code></pre>
+
+<p>L&#39;exécution du programme suivant affiche: </p>
+
+<pre><code class="hl sql">    taille de la liste <span class="hl num">4</span>
+    <span class="hl kwa">start</span>
+    foo
+    bar
+    <span class="hl kwa">end</span>
+</code></pre>
+
+<p>Terminez l&#39;implémentation du <code>switch</code> en <em>Toy</em>. Cela veut dire que
+vous devez implémenter l&#39;action associée à la règle <code>KSWITCH</code> de
+<code>stmt</code> et tout ce qui en découle.</p>
+
+<p>Pour tester votre extension, vous pouvez utiliser les programmes</p>
+
+<ul>
+<li><a href="ok-switch1.toy">ok-switch1.toy</a>,</li>
+<li><a href="ok-switch2.toy">ok-switch2.toy</a>, </li>
+<li><a href="ok-switch3.toy">ok-switch3.toy</a>, </li>
+<li><a href="fail-switch.toy">fail-switch.toy</a></li>
+</ul>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">16-Dec-2017 17:51 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

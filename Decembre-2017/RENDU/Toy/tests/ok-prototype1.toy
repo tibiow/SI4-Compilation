@@ -1,0 +1,29 @@
+// -*- mode: java -*-
+//
+// ok-prototype1.toy     -- Tests on prototypes
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 27-Nov-2015 10:46 (eg)
+// Last file update: 27-Nov-2015 12:20 (eg)
+//
+
+// Even/Odd (with a forward declaration of the "even" function)
+bool even(int x);
+bool odd(int x)  { return (x == 0)? false: even(x-1); }
+bool even(int x) { return (x == 0)? true:  odd(x-1);  }
+
+// Use a prototype for fork()
+int fork();
+
+int main() {
+    print("even(50) = ", even(50), "\n");
+    print("odd(50)  = ", odd(50),  "\n");
+
+    if (fork () == 0) {
+        print("In child  process: even(101): ", odd(101)? "SUCCESS\n" : "FAILURE\n");
+        return 0;
+    } else {
+        print("In parent process: even(30): ", even(30)? "SUCCESS\n" : "FAILURE\n");
+        return 0;
+    }
+}

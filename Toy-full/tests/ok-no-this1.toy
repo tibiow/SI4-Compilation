@@ -1,0 +1,50 @@
+// -*- mode: java -*-
+//
+// ok-no-this.toy        -- Test of 'this' elision
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 18:28 (eg)
+// Last file update:  9-Dec-2015 15:05 (eg)
+//
+
+int global  = 100;
+int w = 200;
+
+class C {
+    int x = 1, y =1;
+
+    void reset()    { x = y = 0; }
+    void printobj() { print("(", x, ", ", y, ")"); }
+    int getw() { return w; };
+}
+
+
+class D extends C {
+    int z; 
+    int w = 0;
+    C   internal = new C;
+
+    D foo() {
+        z = x + global;
+        return this;
+    }
+    int getw() { return w; };
+}
+
+int main() {
+    C c = new C;
+
+    print("before reset: ", c, "\n");
+    c.reset();
+    print("after reset: ", c, "\n");
+
+    D d = new D.foo();
+    print((d.x == 1 and d.z == 101) ? "SUCCESS\n" : "FAILURE\n");
+
+    print("c.getw() = ", c.getw(), "\n");
+    print("d.getw() = ", d.getw(), "\n");
+
+    print((c.getw() == 200 and d.getw() == 0) ? "SUCCESS\n" : "FAILURE\n");
+
+    return 0;
+}

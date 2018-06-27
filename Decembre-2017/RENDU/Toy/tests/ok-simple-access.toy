@@ -1,0 +1,23 @@
+// -*- mode: java -*-
+//
+// ok-simple-access.toy 	-- Simple access to a class field
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 19-Jul-2015 23:53 (eg)
+// Last file update: 21-Jul-2015 07:23 (eg)
+//
+
+class C {
+    int x = 1;
+}
+
+int main() {
+    C c   = new C;
+    int v =  c.x;
+
+    c.x = 100;
+    print(((v == 1) and (c.x == 100)) ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}
+
+

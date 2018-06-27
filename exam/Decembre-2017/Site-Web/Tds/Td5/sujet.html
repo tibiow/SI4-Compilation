@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Erick Gallesio" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="robots" content="none" />
+  <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+
+  
+  
+  <!-- Mathjax -->
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  
+
+  <style type="text/css">
+    <!-- 
+        body.hl{background-color:#fff}code.hl{color:#000;background-color:#fff;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#0086b3}.hl.esc{color:#183691}.hl.str{color:#183691}.hl.pps{color:#183691}.hl.slc{color:#969896}.hl.com{color:#969896}.hl.ppc{color:#a71d5d}.hl.opt{color:#000}.hl.ipl{color:#183691}.hl.lin{color:#b2b2b2}.hl.kwa{color:#a71d5d}.hl.kwb{color:#0086b3}.hl.kwc{color:#0086b3}.hl.kwd{color:#0086b3}  
+        body{margin:10%;background:#fafafa;color:#444;font-family:sans-serif,droid sans,arial,sans;counter-reset:section}h1,h2,h3,h4{color:#333;line-height:1.1}blockquote{border-left:4px solid #ddd;padding:0 5px;font-style:italic;font-size:85%}a{color:#2ea3f2;text-decoration:none}a:hover{border-bottom:1px solid #ccc}code{font:normal 1rem droid sans mono,monaco,monospace;font-size:90%;color:#c7254e;background-color:#f9f2f4}pre code{border-radius:8px;border:1px solid #ddd;padding:10px;display:block}body{counter-reset:h2}h2{counter-reset:h3}h3{counter-reset:h4}h4{counter-reset:h5}h2:before{counter-increment:h2;content:counter(h2);margin-right:1em}h3:before{counter-increment:h3;content:counter(h2) "." counter(h3);margin-right:1em}h4:before{counter-increment:h4;content:counter(h2) "." counter(h3) "." counter(h4);margin-right:1em}h5:before{counter-increment:h5;content:counter(h2) "." counter(h3) "." counter(h4) "." counter(h5);margin-right:1em}h6:before{counter-increment:h6;content:counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " "}h2.nocount:before,h3.nocount:before,h4.nocount:before,h5.nocount:before,h6.nocount:before{content:"";counter-increment:none;margin:0}p,li{text-align:justify}ul>li{list-style-type:"- "}.sc{font-variant:small-caps}.col-red{color:red}.center{display:block;text-align:center;margin-left:auto;margin-right:auto;margin:0 auto}table{border-collapse:collapse}th{background:#ddd}th,td{padding:0 1em}table,td,th{border:1px solid #000}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}}  
+        .exo{color:#cd5c5c;font-variant:small-caps;font-size:105%;font-weight:700}.noborder,.noborder td{border-width:0} 
+      -->
+  </style>
+ 
+  
+  <title>Mini langage</title>
+</head>
+<!-- ====================================================================== -->
+
+<body>
+  <img alt="Polytech Logo" width="70"
+       src="data:image/gif;base64,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">
+
+
+<div style="font-size:small; font-variant: small-caps;">
+<span style="color: #1D1CD2; font-weight: bold"> Polytech Nice-Sophia</span><br />
+SI 4 / 2017-2018<br />
+Erick Gallesio
+</div>
+<div style="margin-top: 3em;"></div>
+<div class="title" style="text-align: center; width=100%; margin: 0 auto;">
+  <h1>Compilation</h1>
+  <h2 class='nocount'>Feuille 5: Mini langage</h2>
+  <h3 class='nocount'>Un frontend et trois backends</h3>
+</div>
+<div style="margin-top: 3em;"></div>
+<h2 id="présentation">Présentation</h2>
+
+<p>Dans cette feuille, nous allons étendre la grammaire des expressions
+de la feuille précédente. En particulier, nous allons ajouter les
+mécanismes suivants: </p>
+
+<ul>
+<li>variables, </li>
+<li>instruction <code>if</code>, </li>
+<li>instruction <code>while</code>,</li>
+<li>blocs et une primitive d&#39;impression (<code>print</code>).</li>
+</ul>
+
+<p>Par rapport à la calculatrice que nous avions réalisée dans le TD précédent
+nous construirons, lors de l&#39;analyse syntaxique, un arbre en
+mémoire. Ce dernier sera parcouru de trois façons différentes, pour
+produire trois types de résultats:</p>
+
+<ul>
+<li>évaluation de l&#39;arbre (calculatrice <q>classique</q>),</li>
+<li>production de code pour une machine à pile (compilation),</li>
+<li>traduction de l&#39;arbre vers un langage graphique (affichage).</li>
+</ul>
+
+<p>Bien sûr, pour chacun de ces trois <strong>back-ends</strong>, seule la phase III
+du compilateur devra être modifiée. Cela implique donc que les
+phases I et II du compilateur ne doivent dépendre en aucune manière du
+traitement ultérieur qui sera fait sur l&#39;arbre.</p>
+
+<p>Pour travailler, vous téléchargerez sur le site du cours une archive
+qui contient un squelette du compilateur avec ces trois phases de
+production de code.</p>
+
+<p>Le Makefile fourni dans cette archive permet de construire trois
+exécutables:</p>
+
+<ul>
+<li><strong>calc1</strong>: cet exécutable interprète directement des expressions
+séparées par des <code>&#39;;&#39;</code>. Les fichiers fournis dans le squelette
+permettent d&#39;obtenir une version pratiquement complète de la
+calculatrice (on peut évaluer des expressions simples, mais les
+instructions <code>if</code> et <code>while</code> ne sont pas du tout implémentées);</li>
+<li><strong>calc2</strong>: cet exécutable produit du code pour une machine à pile
+fictive (à construire);</li>
+<li><strong>calc3</strong>: cet exécutable produit un graphe au format <code>dot</code> (à
+construire).</li>
+</ul>
+
+<p>Les autres fichiers fournis sont:</p>
+
+<ul>
+<li><code>calc.c</code>: pour construire/détruire les nœuds de l&#39;arbre.</li>
+<li><code>calc.h</code>: définition des structures de données et macros pour la
+gestions des nœuds de l&#39;arbre.</li>
+<li><code>code.h</code>: ne contient que le prototype de la fonction <code>produce_code</code>
+(c&#39;est cette fonction qui aura trois implémentations différentes).</li>
+<li><code>code1.c</code>, <code>code2.c</code>, <code>code3.c</code>: les trois version du générateur de code.</li>
+<li><code>lexical.l</code>: le source flex de la grammaire lexicale de la calculatrice.</li>
+<li><code>syntax.y</code>:  le source yacc de la grammaire de la calculatrice.</li>
+</ul>
+
+<p>L&#39;archive comprend aussi un répertoire <code>Ressources</code> qui contient trois
+programmes de test et un interprète pour la machine à pile utilisée
+par <code>calc2</code>. Pour chaque programme de test (suffixé par <code>&#39;.in&#39;</code>), on a
+le code produit par calc2 (suffixé par <code>&#39;.as&#39;</code>) et le graphe du
+programme (suffixé par <code>&#39;.dot&#39;</code>).</p>
+
+<h2 id="extension-de-la-calculatrice">Extension de la calculatrice</h2>
+
+<p>L&#39;analyseur fourni dans le squellete reconnaît une suite d&#39;énoncés séparés par des <code>&#39;;&#39;</code>. La grammaire des énoncés reconnus est donnée ci-dessous:</p>
+
+<pre><code class="hl sql">stmt      <span class="hl opt">-&gt;</span> <span class="hl str">&apos;;&apos;</span> | expr <span class="hl str">&apos;;&apos;</span> | KPRINT expr <span class="hl str">&apos;;&apos;</span> | var <span class="hl str">&apos;=&apos;</span> expr <span class="hl str">&apos;;&apos;</span> | <span class="hl str">&apos;{&apos;</span> stmt_list <span class="hl str">&apos;}&apos;</span>
+stmt_list <span class="hl opt">-&gt;</span>  stmt_list stmt | stmt
+</code></pre>
+
+<p>Étendez cette grammaire pour reconnaître les énoncés <code>if</code> (avec ou
+sans <code>else</code>) et <code>while</code>. Vous prendrez ici une syntaxe <em>à la</em> C.</p>
+
+<ol>
+<li>Ajouter ce qu&#39;il faut à la version fournie pour reconnaître la
+nouvelle grammaire.</li>
+<li>Testez votre programme avec les fichiers <code>&#39;.in&#39;</code> du répertoire
+<code>Ressources</code>.</li>
+</ol>
+
+<h2 id="production-de-code-pour-une-machine-à-pile">Production de code pour une machine à pile</h2>
+
+<p>Le programme <code>calc2</code> doit produire du code pour une machine à
+pile. Quelques exemples de codes produits par ce programme sont donnés ci-dessous</p>
+
+<p>Si on entre l&#39;énoncé <q><code>print(3 * (5 + foo));</code></q>, le programme doit produire les instructions suivantes:</p>
+
+<pre><code class="hl">        push    3
+        push    5
+        load    foo
+        add
+        mul
+        print
+</code></pre>
+
+<p>L&#39;énoncé <q><code>if (x &lt; y) z = 2; w = 100;</code></q> produira la séquence:</p>
+
+<pre><code class="hl">        load    x
+        load    y
+        cmplt
+        jumpz   L000
+        push    2
+        store   z
+    L000:
+        push    100
+        store   w
+</code></pre>
+
+<p>Enfin, l&#39;expression <q><code>while (i &lt; 10) { print(i); i = i + 1; }</code></q> produira:</p>
+
+<pre><code class="hl">    L001:
+        load    i
+        push    10
+        cmplt
+        jumpz   L002
+        load    i
+        print
+        load    i
+        push    1
+        add
+        store   i
+        jump    L001
+    L002:
+</code></pre>
+
+<p>Pour tester le code produit par votre programme, vous pouvez utiliser
+le programme <code>interp</code> qui est dans le répertoire <code>Ressources</code>:</p>
+
+<pre><code class="hl">     $ ./calc2 Ressources/fact.in &gt; fact.as
+     $ ./interp fact.as
+     479001600.0
+     *stop*
+     $
+</code></pre>
+
+<p>Les instructions reconnues par l&#39;interprète sont:</p>
+
+<ul>
+<li>manipulation de la pile et des variables: <code>push</code>, <code>load</code>, <code>store</code></li>
+<li>affichage du sommet de la pile: <code>print</code></li>
+<li>opérations unaires: <code>negate</code> (opposé)</li>
+<li>opération binaires: <code>add</code>, <code>sub</code>, <code>mul</code>, <code>div</code></li>
+<li>comparaisons: <code>cmplt</code>, <code>cmple</code>, <code>cmpgt</code>, <code>cmpge</code>, <code>cmpeq</code>, <code>cmpne</code></li>
+<li>sauts: <code>jumpz</code>,  <code>jump</code>, </li>
+</ul>
+
+<p>Les étiquettes sont de la forme <code>Lxxx</code> où <code>xxx</code> est un nombre. La
+définition d&#39;une étiquette doit être placée en début de ligne alors
+qu&#39;une instruction doit être précédée d&#39;au moins un espace ou une
+tabulation.</p>
+
+<h2 id="affichage-de-larbre-danalyse">Affichage de l&#39;arbre d&#39;analyse</h2>
+
+<p>Le programme <code>calc3</code> doit fournir l&#39;arbre d&#39;analyse dans le format
+<strong>dot</strong>. Ce format est assez simple à produire. Par exemple,
+l&#39;expression <code>3+x*2</code> fournira la sortie suivante</p>
+
+<pre><code class="hl bash">digraph E<span class="hl opt">{</span>
+    node <span class="hl opt">[</span>style<span class="hl opt">=</span><span class="hl str">&quot;filled&quot;</span><span class="hl opt">];</span>
+    box1 <span class="hl opt">[</span>label<span class="hl opt">=</span><span class="hl str">&quot;[+]&quot;</span><span class="hl opt">,</span> fillcolor<span class="hl opt">=</span><span class="hl str">&quot;turquoise4&quot;</span><span class="hl opt">];</span>
+    box2 <span class="hl opt">[</span>label<span class="hl opt">=</span><span class="hl str">&quot;3&quot;</span><span class="hl opt">,</span> fillcolor<span class="hl opt">=</span><span class="hl str">&quot;tomato&quot;</span><span class="hl opt">];</span>
+        box1 <span class="hl opt">-&gt;</span> box2<span class="hl opt">;</span>
+    box3 <span class="hl opt">[</span>label<span class="hl opt">=</span><span class="hl str">&quot;[*]&quot;</span><span class="hl opt">,</span> fillcolor<span class="hl opt">=</span><span class="hl str">&quot;turquoise4&quot;</span><span class="hl opt">];</span>
+    box4 <span class="hl opt">[</span>label<span class="hl opt">=</span><span class="hl str">&quot;x&quot;</span><span class="hl opt">,</span> fillcolor<span class="hl opt">=</span><span class="hl str">&quot;peru&quot;</span><span class="hl opt">];</span>
+        box3 <span class="hl opt">-&gt;</span> box4<span class="hl opt">;</span>
+    box5 <span class="hl opt">[</span>label<span class="hl opt">=</span><span class="hl str">&quot;2&quot;</span><span class="hl opt">,</span> fillcolor<span class="hl opt">=</span><span class="hl str">&quot;tomato&quot;</span><span class="hl opt">];</span>
+        box3 <span class="hl opt">-&gt;</span> box5<span class="hl opt">;</span>
+        box1 <span class="hl opt">-&gt;</span> box3<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Si on charge ce fichier dans l&#39;outil <code>xdot</code>, le graphe suivant sera affiché:</p>
+
+<p><img src="Images/tree.png" alt="tree" class="center"></p>
+
+<h2 id="ajout-de-la-primitive-read">Ajout de la primitive read</h2>
+
+<p>On veut ajouter la primitive read à notre langage. Un exemple de programme utilisant
+cette primitive est donné ci-dessous:</p>
+
+<pre><code class="hl c">   <span class="hl opt">{</span>
+      read a<span class="hl opt">;</span>
+      read b<span class="hl opt">;</span>
+      print a <span class="hl opt">+</span> b
+   <span class="hl opt">}</span>
+</code></pre>
+
+<ol>
+<li>Quels sont les fichiers à modifier?</li>
+<li><p>Dans la version interprétée, comme nous n&#39;avons pas de chaîne, le
+nom de la variable sera affichée avant sa lecture. Pour le
+programme précédent, on obtient donc avec le fichier <code>read.in</code> qui
+vous est distribué:</p>
+
+<ul>
+<li><p>pour <strong>calc1</strong>:</p>
+
+<pre><code class="hl">$ ./calc1 read.in
+a? 3
+b? 2
+5
+Bye
+</code></pre></li>
+<li><p>pour <strong>calc2</strong>:</p>
+
+<pre><code class="hl">$ ./calc2 read.in &gt; read.as
+$ ./interp read.as
+a? 10
+b? 12
+22
+</code></pre></li>
+<li><p>et enfin pour <strong>calc3</strong>:</p>
+
+<pre><code class="hl dot"><span class="hl kwa">digraph</span> E{
+  <span class="hl kwa">node</span> [<span class="hl kwb">style</span>=<span class="hl str">&quot;filled&quot;</span>]<span class="hl opt">;</span>
+  box1 [<span class="hl kwb">label</span>=<span class="hl str">&quot;[;]&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box2 [<span class="hl kwb">label</span>=<span class="hl str">&quot;[;]&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box3 [<span class="hl kwb">label</span>=<span class="hl str">&quot;read&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box4 [<span class="hl kwb">label</span>=<span class="hl str">&quot;a&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;peru&quot;</span>]<span class="hl opt">;</span>
+      box3 <span class="hl opt">-&gt;</span> box4<span class="hl opt">;</span>
+      box2 <span class="hl opt">-&gt;</span> box3<span class="hl opt">;</span>
+  box5 [<span class="hl kwb">label</span>=<span class="hl str">&quot;read&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box6 [<span class="hl kwb">label</span>=<span class="hl str">&quot;b&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;peru&quot;</span>]<span class="hl opt">;</span>
+      box5 <span class="hl opt">-&gt;</span> box6<span class="hl opt">;</span>
+      box2 <span class="hl opt">-&gt;</span> box5<span class="hl opt">;</span>
+      box1 <span class="hl opt">-&gt;</span> box2<span class="hl opt">;</span>
+  box7 [<span class="hl kwb">label</span>=<span class="hl str">&quot;print&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box8 [<span class="hl kwb">label</span>=<span class="hl str">&quot;[+]&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;turquoise4&quot;</span>]<span class="hl opt">;</span>
+  box9 [<span class="hl kwb">label</span>=<span class="hl str">&quot;a&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;peru&quot;</span>]<span class="hl opt">;</span>
+      box8 <span class="hl opt">-&gt;</span> box9<span class="hl opt">;</span>
+  box10 [<span class="hl kwb">label</span>=<span class="hl str">&quot;b&quot;</span><span class="hl opt">,</span> <span class="hl kwb">fillcolor</span>=<span class="hl str">&quot;peru&quot;</span>]<span class="hl opt">;</span>
+      box8 <span class="hl opt">-&gt;</span> box10<span class="hl opt">;</span>
+      box7 <span class="hl opt">-&gt;</span> box8<span class="hl opt">;</span>
+      box1 <span class="hl opt">-&gt;</span> box7<span class="hl opt">;</span>
+}
+</code></pre></li>
+</ul></li>
+</ol>
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 1: Analyse lexicale avec Lex / Flex.</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 1: Analyse lexicale avec Lex / Flex.</h1>
+          
+        </div>
+<blockquote>
+<p>Cette feuille est une feuille de révision sur l&#39;outil lex que vous
+aviez vu dans le module LFA de l&#39;an dernier. On utilisera ici
+l&#39;outil lex (ou flex) qui permet de construire automatiquement un
+analyseur lexical en C à partir d&#39;un fichier de spécification.</p>
+</blockquote>
+
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de TD est <a href="sujet.html">ici</a>.</p>
+
+<h2 id="corrigés">Corrigés</h2>
+
+<h3 id="calculatrice">Calculatrice</h3>
+
+<p>Le corrigé de la calculatrice est simple. Il est donné ci-dessous </p>
+
+<pre><code class="hl c"><span class="hl com">/*</span>
+<span class="hl com"> *  calc.l              -- Un lexical simple pour une calculette avec variables</span>
+<span class="hl com">*/</span>
+
+<span class="hl opt">%{</span>
+<span class="hl ppc">#include &lt;stdio.h&gt;</span>
+<span class="hl ppc">#include</span> <span class="hl pps">&quot;calc.h&quot;</span><span class="hl ppc"></span>
+<span class="hl opt">%}</span>
+
+<span class="hl opt">%</span>option noyywrap
+
+<span class="hl opt">%%</span>
+
+<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+                  {</span> yylval<span class="hl opt">.</span>val <span class="hl opt">=</span> <span class="hl kwd">atoi</span><span class="hl opt">(</span>yytext<span class="hl opt">);</span> <span class="hl kwa">return</span> NUMBER<span class="hl opt">; }</span>
+<span class="hl opt">[</span>a<span class="hl opt">-</span>zA<span class="hl opt">-</span>Z<span class="hl opt">]+               {</span> yylval<span class="hl opt">.</span>var <span class="hl opt">=</span> <span class="hl kwd">strdup</span><span class="hl opt">(</span>yytext<span class="hl opt">);</span> <span class="hl kwa">return</span> IDENT<span class="hl opt">; }</span>
+
+<span class="hl str">&quot;+&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> PLUS<span class="hl opt">;  }</span>
+<span class="hl str">&quot;-&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> MINUS<span class="hl opt">; }</span>
+<span class="hl str">&quot;*&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> MULT<span class="hl opt">;  }</span>
+<span class="hl str">&quot;/&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> DIV<span class="hl opt">;   }</span>
+<span class="hl str">&quot;(&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> OPEN<span class="hl opt">;  }</span>
+<span class="hl str">&quot;)&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> CLOSE<span class="hl opt">; }</span>
+<span class="hl str">&quot;=&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> EQUAL<span class="hl opt">; }</span>
+<span class="hl esc">\n</span>                      <span class="hl opt">{</span> <span class="hl kwa">return</span> EOL<span class="hl opt">; }</span>
+
+
+<span class="hl opt">[</span> <span class="hl esc">\t</span><span class="hl opt">]                   { }</span>
+<span class="hl opt">.                       {</span> <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Unexpected character %c (%d)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+                                          <span class="hl opt">*</span>yytext<span class="hl opt">, *</span>yytext<span class="hl opt">); }</span>
+<span class="hl opt">%%</span>
+
+
+</code></pre>
+
+<p><strong>Notes</strong>:</p>
+
+<ul>
+<li>Il faut inclure kle fichier <q>calc.h</q> qui contient les définitions de
+constantes pour les token, ainsi que la déclaration de la variable <code>yylval</code>.</li>
+<li>Les seuls cas ou il faut faire attention sont les identificateurs et
+les entiers: Dans ce cas, il faut remplir le bon champ de l&#39;union
+<code>yylval</code> abvant de renvoyer le type token rencontré. </li>
+<li><p>Pour compiler (le source lex étant dans le fichier <code>calc.lex.c</code></p>
+
+<pre><code class="hl bash">$ <span class="hl kwc">lex</span>  <span class="hl kwb">-o</span> calc.<span class="hl kwc">lex</span>.c calc.l
+$ gcc <span class="hl kwb">-Wall -std</span><span class="hl opt">=</span>gnu99 calc.c calc.<span class="hl kwc">lex</span>.c <span class="hl kwb">-o</span> calc
+</code></pre></li>
+</ul>
+
+<h3 id="espaces-et-langages-de-programmation">Espaces et langages de programmation</h3>
+
+<p>Avant de commencer, il faut savoir que l&#39;expression <code>- - a</code> est valide
+en C: elle correspond à la valeur <code>(- (- a))</code>, c&#39;est à dire <code>a</code>. Par
+contre, l&#39;expression <code>--a</code> sans espace entre les deux tirets correspond à la pré-décrémentation de la variable <code>a</code>.</p>
+
+<p>Par conséquent,
+* l&#39;expression <code>- -1</code> est valide et correspond à l&#39;entier <code>+1</code>, alors que
+* l&#39;expression <code>--1</code> n&#39;est pas valide puisque on ne peut pas
+  décrémenter une constante.</p>
+
+<p>La table demandée est donc:</p>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th style="text-align: center">Valeur</th>
+<th style="text-align: center">x</th>
+<th style="text-align: center">y</th>
+<th style="text-align: center">Valeur sans espace</th>
+<th style="text-align: center">x</th>
+<th style="text-align: center">y</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x - 1</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>x - -1</td>
+<td style="text-align: center">-2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center"><strong>erreur</strong></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td>x - - 1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center"><strong>erreur</strong></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td>x - - - 1</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>x - y</td>
+<td style="text-align: center">-1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">-1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>x - -y</td>
+<td style="text-align: center">3</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center"><strong>erreur</strong></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td>x - - y</td>
+<td style="text-align: center">3</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center"><strong>erreur</strong></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td>x ---y</td>
+<td style="text-align: center">-1</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">-1</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>-y</td>
+<td style="text-align: center">-2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">-2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>- -y</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">-2</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+</tr>
+<tr>
+<td>--y</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">1</td>
+</tr>
+<tr>
+<td>x -- - -- y</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center"><strong>erreur</strong></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td>x-- + --y</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+<td style="text-align: center">2</td>
+<td style="text-align: center">0</td>
+<td style="text-align: center">1</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>Comme on peut le voir, les espaces peuvent donc être <strong>significatifs</strong>, même
+si un analyseur lexical ne renvoie en général pas de lexème
+correspondant à un espace en tant que tel.</p>
+
+<h3 id="minifier">Minifier</h3>
+
+<p>Dans un premier temps, nous allons simplement enlever les commentaires
+de nos programmes. Un première idée pourrait consister à dire qu&#39;ils
+sont purement et simplement effacés en sortie. Malheusement ce n&#39;est
+pas complètement sûr; prenons le morceau de programme C suivant</p>
+
+<pre><code class="hl c">   x <span class="hl opt">=</span> <span class="hl num">3</span><span class="hl opt">-</span><span class="hl com">/* Un commentaire */</span><span class="hl opt">-</span><span class="hl num">3</span><span class="hl opt">;</span>
+</code></pre>
+
+<p>on obtiendrait 
+<code>c
+   x = 3--3;</code>
+qui est incorrect, comme nous l&#39;avons vu dans l&#39;exercice précédent. </p>
+
+<p>Par conséquent, les commentaires classiques seront remplacés par un
+espace et les commentaire <em>à la</em> C++ seront remplacé par un saut de
+ligne.</p>
+
+<p>Par ailleurs, les directives du pré-processeur seront laissée telles
+quelles (en fait c&#39;est un peu plus compliqué, car il faudrait aussi
+traiter les lignes suites qui se terminent par un <q>\</q> en fin de
+ligne; on ne le fera pas ici).</p>
+
+<p>Bien sûr les chaînes ne doivent pas être modifiées du tout. Elles
+seront recopiées telles quelles. </p>
+
+<p>Quant aux suites d&#39;espaces, elle seront remplacée par un espace
+unique.</p>
+
+<p>Nous obtenons l&#39;analyseur suivant:</p>
+
+<pre><code class="hl bison"><span class="hl com">/*</span>
+<span class="hl com">// Un «minifier» pour C</span>
+<span class="hl com">*/</span>
+
+%<span class="hl opt">{</span>
+<span class="hl ppc">#include &lt;ctype.h&gt;</span>
+%<span class="hl opt">}</span>
+
+%option noyywrap
+%x COMMENT
+
+space   <span class="hl opt">[</span> <span class="hl esc">\t\n</span><span class="hl opt">]</span>
+
+%%
+ <span class="hl com">/* strings */</span>
+<span class="hl esc">\&quot;</span><span class="hl opt">([</span>^<span class="hl esc">\&quot;</span><span class="hl opt">]</span>|<span class="hl esc">\\</span>.<span class="hl opt">)*</span><span class="hl esc">\&quot;</span>                <span class="hl opt">{</span> printf<span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">); }</span>
+
+ <span class="hl com">/* Commentaires classiques */</span>
+<span class="hl opt">{</span>space<span class="hl opt">}*</span><span class="hl str">&quot;/*&quot;</span>                    <span class="hl opt">{</span> BEGIN COMMENT<span class="hl opt">; }</span>
+<span class="hl opt">&lt;</span>COMMENT<span class="hl opt">&gt;</span><span class="hl str">&quot;*/&quot;</span><span class="hl opt">{</span>space<span class="hl opt">}*           {</span> BEGIN INITIAL<span class="hl opt">;</span> putchar<span class="hl opt">(</span><span class="hl str">&apos; &apos;</span> <span class="hl opt">);}</span>
+<span class="hl opt">&lt;</span>COMMENT<span class="hl opt">&gt;</span>.|<span class="hl esc">\n</span>                   <span class="hl opt">{ }</span>
+
+  <span class="hl com">/* Commentaires  C++ */</span>
+<span class="hl opt">{</span>space<span class="hl opt">}*</span><span class="hl str">&quot;//&quot;</span>.<span class="hl opt">*</span>$                 <span class="hl opt">{</span> putchar<span class="hl opt">(</span><span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span><span class="hl opt">);}</span>
+
+ <span class="hl com">/* Directives  FAUX si on a 1 ligne suite */</span>
+<span class="hl str">&quot;#&quot;</span>.<span class="hl opt">*                           {</span> printf<span class="hl opt">(</span><span class="hl str">&quot;%s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> yytext<span class="hl opt">);  }</span>
+
+  <span class="hl com">/* Suite d&apos;espaces =&gt; un seul espace  */</span>
+<span class="hl opt">{</span>space<span class="hl opt">}+</span>                       putchar<span class="hl opt">(</span><span class="hl str">&apos; &apos;</span><span class="hl opt">);</span>
+
+  <span class="hl com">/* Les autres caractères */</span>
+.                               ECHO<span class="hl opt">;</span>
+
+%%
+
+<span class="hl kwb">int</span> main<span class="hl opt">() {</span>
+    <span class="hl kwa">yylex</span><span class="hl opt">();</span>
+    putchar<span class="hl opt">(</span><span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span><span class="hl opt">);</span>      <span class="hl slc">// to avoid to be &quot;crunched&quot; by a prompt</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<dl>
+<dt><strong>Note:</strong></dt>
+<dd>Le remplacement d&#39;un commentaire par un espace ou un newline, n&#39;est
+pas une très bonne idée. En effet si deux commentaire se suivent, il
+seront remplacés deux fois par un espace en sortie (et donc
+occuperont deux caractères. Une meilleure solution consiste à
+utiliser la macro <code>unput</code> qui permet de remettre un caractère dans
+le flux d&#39;entrée de <em>flex</em>. Ainsi, deux commentaires successifs
+seront remplacé par un seul espace. Yeah!!</dd>
+</dl>
+
+<p>En faisant tourner l&#39;analyseur précédent sur le programme <code>hello.c</code>,
+on obtient:</p>
+
+<pre><code class="hl c"> <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+ <span class="hl kwb">char</span> <span class="hl opt">*</span>w <span class="hl opt">=</span> <span class="hl str">&quot;world&quot;</span><span class="hl opt">;</span> <span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span> <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;Hello, %s.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> w<span class="hl opt">);</span> <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">; }</span> 
+</code></pre>
+
+<p>C&#39;est déjà pas mal, mais on peut faire mieux: il reste des espaces que
+l&#39;on peut facilement éliminer.  En effet, si on excepte <q>+</q> et <q>-</q> qui
+sont problématiques, on peut supprimer les espaces autour des
+séparateurs (c&#39;est à dire <q>,</q>, <q>=</q>, <q>!</q>, ...).</p>
+
+<p>Il suffit donc de rajouter au programme précédent </p>
+
+<pre><code class="hl bison"> <span class="hl com">/* opérateurs &amp; séparateurs qui ne necessitent pas d&apos;espaces à gauche et à droite. */</span>
+separ <span class="hl opt">[</span><span class="hl esc">\&quot;\&apos;</span><span class="hl opt">=!*&lt;&gt;,;:{}</span>\<span class="hl opt">[</span>\<span class="hl opt">]()*</span>~|<span class="hl opt">&amp;]</span>
+
+.....
+
+  <span class="hl com">/* suppression des espaces avant et après  les séparateurs */</span>
+<span class="hl opt">{</span>space<span class="hl opt">}*{</span>separ<span class="hl opt">}{</span>space<span class="hl opt">}*         {</span> for <span class="hl opt">(</span><span class="hl kwb">char</span> <span class="hl opt">*</span>s<span class="hl opt">=</span>yytext<span class="hl opt">; *</span>s<span class="hl opt">;</span> s<span class="hl opt">++)</span>
+                                  if <span class="hl opt">(!</span>isspace<span class="hl opt">(*</span>s<span class="hl opt">))</span> putchar<span class="hl opt">(*</span>s<span class="hl opt">);</span>
+                                <span class="hl opt">}</span>
+</code></pre>
+
+<p>En faisant tourner cette nouvelle version de l&#39;analyseur  sur le programme <code>hello.c</code>,
+on obtient:</p>
+
+<pre><code class="hl c"> <span class="hl ppc">#include &lt;stdio.h&gt;</span>
+ <span class="hl kwb">char</span><span class="hl opt">*</span>w<span class="hl opt">=</span><span class="hl str">&quot;world&quot;</span><span class="hl opt">;</span><span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">(){</span><span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;Hello, %s.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>w<span class="hl opt">);</span><span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;}</span>
+</code></pre>
+
+<p>C&#39;est pas top mal sur cet exemple, mais ce code n&#39;est pas optimal, car
+il laisse encore des espaces inutiles (typiquement si on a des
+commentaires en fin de ligne). Noter qu&#39;en mettant la sortie
+du minifier en pipe avec lui même, ceux-ci seront supprimés.... </p>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">11-Dec-2017 19:28 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

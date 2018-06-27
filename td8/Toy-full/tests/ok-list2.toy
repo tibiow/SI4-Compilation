@@ -1,0 +1,109 @@
+// -*- mode: java -*-
+//
+// ok-list.toy  -- Implementation of lists in Toy (using the null constant)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  9-Dec-2015 18:30 (eg)
+// Last file update:  9-Dec-2015 18:34 (eg)
+//
+
+// ----------------------------------------------------------------------
+//                              Node Class
+// ----------------------------------------------------------------------
+
+class Node {
+    int value;
+    Node prec, next;
+
+    Node init(int v) {
+        this.value = v;
+        this.prec = this.next = null;
+        return this;
+    }
+}
+
+
+// ----------------------------------------------------------------------
+//                              List Class
+//----------------------------------------------------------------------
+class List {
+    Node first, last;
+
+    bool empty() { return this.first == null; }
+    int  head()  { return this.first.value; }
+    int  tail()  { return this.last.value; }
+
+    void append(int v) {
+        Node e;
+        e = new Node.init(v);
+        if (this.first == null) {
+            this.first = this.last = e;
+        } else {
+            e.prec = this.last; this.last.next = e; this.last = e;
+        }
+    }
+
+    void prepend(int v) {
+        Node e;
+        e = new Node.init(v);
+        if (this.last == null) {
+            this.first = this.last = e;
+        } else {
+            e.next = this.first; this.first.prec = e; this.first = e;
+        }
+    }
+
+    void printobj() {
+        Node e = this.first;
+
+        print("{");
+        while (e != null) {
+            print(e.value, (e.next == null)? "": ", ");
+            e = e.next;
+        }
+        print("}");
+    }
+}
+// ----------------------------------------------------------------------
+//                              Sorted_list Class
+//----------------------------------------------------------------------
+class Sorted_list extends List {
+    void insert (int v) {
+        Node e = new Node.init(v);
+
+        if (this.first == null) {
+            this.last = this.first = e;
+        } else {
+            Node p, q;
+
+            p = this.first; q = null;
+            while (p != null and p.value < v) {
+                q = p; p = p.next;
+            }
+            e.next = p; e.prec = q;
+            if (q == null) { this.first.prec = e; this.first = e; } else q.next = e;
+            if (p == null) { this.last.next = e;  this.last = e;  } else p.prec = e;
+        }
+    }
+}
+
+int main() {
+    int i          = 7;
+    List l         = new List;
+    Sorted_list sl = new Sorted_list;
+
+    while (i != 0) {
+        print("Adding ", i, " in both lists\n");
+        l.append(i);
+        sl.insert(i);
+        i = (i + 7) % 13;
+    }
+    print("l  = ", l, "\n");
+    print("sl = ", sl, "\n");
+
+    // This is just for fun:
+    print("null = ", null, "\n");
+
+    print(sl.head() == 1 ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

@@ -1,0 +1,92 @@
+// -*- mode: java -*-
+//
+// ok-super.toy         -- Test of SUPER
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 23-Sep-2015 09:04 (eg)
+// Last file update:  9-Dec-2015 17:21 (eg)
+//
+
+bool success = true;
+
+class C {
+    int c = 1;
+    void foo(int n) {
+        print("\tfoo of C: ", n, "\n");
+    }
+
+    void bar(int n) {
+        print("\tbar of C: ", n, "\n");
+    }
+}
+
+
+class D extends C {
+    int d = 2;
+    void foo (int n) {
+        print("\tfoo of D: ", n, "\n");
+    }
+
+    void foobar(int n) {
+        print("\tfoobar of D: ", n, "\n");
+        // Accessing super on simple fields
+        print("\t--> c = ", super.c, "\n");
+
+        success = success and (this.c == super.c);
+    }
+}
+
+
+class E extends D {
+    int e = 3;
+
+    void foo(int n) {
+        print("\tfoo of E: ", n, "\n");
+    }
+
+    void bar(int n) {
+        print("\tbar of E: ", n, "\n");
+    }
+    void foobar(int n) {
+        print("\tfoobar of E: ", n, "\n");
+        // Accessing super on simple fields
+        print("\t--> c = ", super.c, " d = ", super.d, "\n");
+        // Accessing super on a method
+        print("\t--> Call super.foobar\n");
+        super.foobar(100*n);
+        print("\t--> Call super.bar (must be: C::bar)\n");
+        super.bar(100*n);
+        print("\t--> Call this.bar  (must be: E::bar)\n");
+        this.bar(-n);
+        print("\t--> Done\n");
+
+        success = success and (this.c == super.c) and (this.d == super.d);
+    }
+}
+
+int main() {
+    C c = new C;
+    D d = new D;
+    E e = new E;
+
+    // --------------------------------------------------
+    print("**** Calls on C\n");
+    c.foo(1);
+    c.bar(2);
+
+    // --------------------------------------------------
+    print("**** Calls on D\n");
+    d.foo(3);
+    d.bar(4);
+    d.foobar(5);
+
+    // --------------------------------------------------
+    print("**** Calls on E\n");
+    e.foo(6);
+    e.bar(7);
+    e.foobar(8);
+
+
+    print(success ? "SUCCESS": "FAILURE", "\n");
+    return 0;
+}

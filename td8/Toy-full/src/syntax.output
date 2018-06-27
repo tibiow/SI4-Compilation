@@ -1,0 +1,6026 @@
+La règle est inutile dans l'analyseur à cause de conflits
+
+   99 prefix: %empty
+
+
+État 8 conflits: 1 décalage/réduction
+État 13 conflits: 1 décalage/réduction
+État 28 conflits: 1 décalage/réduction
+État 35 conflits: 1 décalage/réduction
+État 40 conflits: 1 décalage/réduction
+État 41 conflits: 1 décalage/réduction, 2 réduction/réduction
+État 43 conflits: 1 décalage/réduction
+État 50 conflits: 1 décalage/réduction
+État 51 conflits: 1 décalage/réduction
+État 52 conflits: 1 décalage/réduction
+État 53 conflits: 1 décalage/réduction
+État 54 conflits: 1 décalage/réduction
+État 55 conflits: 1 décalage/réduction
+État 64 conflits: 1 décalage/réduction
+État 70 conflits: 1 décalage/réduction
+État 88 conflits: 1 décalage/réduction
+État 89 conflits: 1 décalage/réduction
+État 90 conflits: 1 décalage/réduction
+État 91 conflits: 1 décalage/réduction
+État 92 conflits: 1 décalage/réduction
+État 93 conflits: 1 décalage/réduction
+État 94 conflits: 1 décalage/réduction
+État 95 conflits: 1 décalage/réduction
+État 96 conflits: 1 décalage/réduction
+État 97 conflits: 1 décalage/réduction
+État 98 conflits: 1 décalage/réduction
+État 99 conflits: 1 décalage/réduction
+État 100 conflits: 1 décalage/réduction
+État 101 conflits: 1 décalage/réduction
+État 102 conflits: 1 décalage/réduction
+État 103 conflits: 1 décalage/réduction
+État 104 conflits: 1 décalage/réduction
+État 105 conflits: 1 décalage/réduction
+État 113 conflits: 1 décalage/réduction
+État 114 conflits: 1 décalage/réduction
+État 115 conflits: 1 décalage/réduction
+État 119 conflits: 1 décalage/réduction
+État 120 conflits: 1 décalage/réduction
+État 121 conflits: 1 décalage/réduction
+État 148 conflits: 1 décalage/réduction
+État 154 conflits: 1 décalage/réduction
+État 160 conflits: 1 décalage/réduction
+État 166 conflits: 1 décalage/réduction
+État 167 conflits: 1 décalage/réduction
+État 170 conflits: 1 décalage/réduction
+État 172 conflits: 1 décalage/réduction
+État 181 conflits: 1 décalage/réduction
+État 182 conflits: 1 décalage/réduction
+État 186 conflits: 1 décalage/réduction
+
+
+Grammaire
+
+    0 $accept: program $end
+
+    1 program: declarations
+
+    2 declarations: declarations declaration
+    3             | declaration
+
+    4 declaration: var_decl ';'
+    5            | func_decl
+    6            | class_decl
+
+    7 stmt: ';'
+    8     | expr ';'
+    9     | KPRINT '(' eparam_list ')' ';'
+   10     | KREAD '(' param_read ')' ';'
+   11     | '{' stmt_list '}'
+   12     | KWHILE '(' expr ')' stmt
+   13     | KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | KRETURN expr_opt ';'
+   15     | KBREAK ';'
+   16     | KIF '(' expr ')' stmt
+   17     | KIF '(' expr ')' stmt KELSE stmt
+   18     | var_decl ';'
+   19     | prototype ';'
+   20     | error ';'
+
+   21 stmt_list: stmt_list stmt
+   22          | %empty
+
+   23 var_decl: var_decl ',' var init_var
+   24         | type var init_var
+
+   25 init_var: '=' expr
+   26         | %empty
+
+   27 type: TINT
+   28     | TFLOAT
+   29     | TBOOL
+   30     | TSTRING
+   31     | TVOID
+   32     | TTNULL
+   33     | IDENTIFIER
+
+   34 for1: var_decl
+   35     | expr
+   36     | %empty
+
+   37 for2: expr_opt
+
+   38 for3: expr_opt
+
+   39 func_decl: prototype ';'
+   40          | prototype '{' stmt_list '}'
+
+   41 prototype: type var '(' fparam_list ')'
+
+   42 fparam_list: fparam_list ',' type var
+   43            | type var
+   44            | %empty
+
+   45 param_read: param_read ',' var
+   46           | var
+   47           | %empty
+
+   48 eparam_list: eparam_list ',' expr
+   49            | expr
+   50            | %empty
+
+   51 class_decl: KCLASS var ';'
+   52           | KCLASS var inherit '{' members_list '}' opt_semi
+
+   53 inherit: KEXTENDS identifier
+   54        | %empty
+
+   55 members_list: members_list attr_decl
+   56             | %empty
+
+   57 attr_decl: var_decl ';'
+   58          | func_decl opt_semi
+
+   59 opt_semi: ';'
+   60         | %empty
+
+   61 expr: INTEGER
+   62     | FLOAT
+   63     | BOOLEAN
+   64     | TNULL
+   65     | STRING
+   66     | designator
+   67     | var '=' expr
+   68     | '-' expr
+   69     | '+' expr
+   70     | expr '+' expr
+   71     | expr '-' expr
+   72     | expr '*' expr
+   73     | expr '/' expr
+   74     | expr '%' expr
+   75     | expr POW expr
+   76     | expr '<' expr
+   77     | expr '>' expr
+   78     | expr EQ expr
+   79     | expr GE expr
+   80     | expr LE expr
+   81     | expr NE expr
+   82     | expr KOR expr
+   83     | expr KAND expr
+   84     | expr KINSTANCEOF expr
+   85     | KNOT expr
+   86     | '(' expr ')'
+   87     | expr '?' expr ':' expr
+   88     | PP var
+   89     | MM var
+   90     | var PP
+   91     | var MM
+
+   92 expr_opt: expr
+   93         | %empty
+
+   94 var: identifier
+   95    | prefix identifier
+
+   96 call: var '(' eparam_list ')'
+
+   97 identifier: IDENTIFIER
+
+   98 prefix: designator '.'
+   99       | %empty
+
+  100 designator: var
+  101           | call
+  102           | KNEW IDENTIFIER
+  103           | KTHIS
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+'%' (37) 74
+'(' (40) 9 10 12 13 16 17 41 86 96
+')' (41) 9 10 12 13 16 17 41 86 96
+'*' (42) 72
+'+' (43) 69 70
+',' (44) 23 42 45 48
+'-' (45) 68 71
+'.' (46) 98
+'/' (47) 73
+':' (58) 87
+';' (59) 4 7 8 9 10 13 14 15 18 19 20 39 51 57 59
+'<' (60) 76
+'=' (61) 25 67
+'>' (62) 77
+'?' (63) 87
+'{' (123) 11 40 52
+'}' (125) 11 40 52
+error (256) 20
+INTEGER (258) 61
+BOOLEAN (259) 63
+FLOAT (260) 62
+TNULL (261) 64
+STRING (262) 65
+IDENTIFIER (263) 33 97 102
+KWHILE (264) 12
+KIF (265) 16 17
+KPRINT (266) 9
+KRETURN (267) 14
+KBREAK (268) 15
+KFOR (269) 13
+KREAD (270) 10
+KINSTANCEOF (271) 84
+TINT (272) 27
+TFLOAT (273) 28
+TBOOL (274) 29
+TSTRING (275) 30
+TVOID (276) 31
+TTNULL (277) 32
+KCLASS (278) 51 52
+KNEW (279) 102
+KEXTENDS (280) 53
+KTHIS (281) 103
+IFX (282)
+KELSE (283) 17
+KOR (284) 82
+KAND (285) 83
+GE (286) 79
+LE (287) 80
+EQ (288) 78
+NE (289) 81
+KNOT (290) 85
+UMINUS (291)
+PP (292) 88 90
+MM (293) 89 91
+POW (294) 75
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (57)
+    à gauche: 0
+program (58)
+    à gauche: 1, à droite: 0
+declarations (59)
+    à gauche: 2 3, à droite: 1 2
+declaration (60)
+    à gauche: 4 5 6, à droite: 2 3
+stmt (61)
+    à gauche: 7 8 9 10 11 12 13 14 15 16 17 18 19 20, à droite: 12
+    13 16 17 21
+stmt_list (62)
+    à gauche: 21 22, à droite: 11 21 40
+var_decl (63)
+    à gauche: 23 24, à droite: 4 18 23 34 57
+init_var (64)
+    à gauche: 25 26, à droite: 23 24
+type (65)
+    à gauche: 27 28 29 30 31 32 33, à droite: 24 41 42 43
+for1 (66)
+    à gauche: 34 35 36, à droite: 13
+for2 (67)
+    à gauche: 37, à droite: 13
+for3 (68)
+    à gauche: 38, à droite: 13
+func_decl (69)
+    à gauche: 39 40, à droite: 5 58
+prototype (70)
+    à gauche: 41, à droite: 19 39 40
+fparam_list (71)
+    à gauche: 42 43 44, à droite: 41 42
+param_read (72)
+    à gauche: 45 46 47, à droite: 10 45
+eparam_list (73)
+    à gauche: 48 49 50, à droite: 9 48 96
+class_decl (74)
+    à gauche: 51 52, à droite: 6
+inherit (75)
+    à gauche: 53 54, à droite: 52
+members_list (76)
+    à gauche: 55 56, à droite: 52 55
+attr_decl (77)
+    à gauche: 57 58, à droite: 55
+opt_semi (78)
+    à gauche: 59 60, à droite: 52 58
+expr (79)
+    à gauche: 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
+    79 80 81 82 83 84 85 86 87 88 89 90 91, à droite: 8 12 16 17 25
+    35 48 49 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84
+    85 86 87 92
+expr_opt (80)
+    à gauche: 92 93, à droite: 14 37 38
+var (81)
+    à gauche: 94 95, à droite: 23 24 41 42 43 45 46 51 52 67 88 89
+    90 91 96 100
+call (82)
+    à gauche: 96, à droite: 101
+identifier (83)
+    à gauche: 97, à droite: 53 94 95
+prefix (84)
+    à gauche: 98 99, à droite: 95
+designator (85)
+    à gauche: 100 101 102 103, à droite: 66 98
+
+
+État 0
+
+    0 $accept: . program $end
+    1 program: . declarations
+    2 declarations: . declarations declaration
+    3             | . declaration
+    4 declaration: . var_decl ';'
+    5            | . func_decl
+    6            | . class_decl
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   39 func_decl: . prototype ';'
+   40          | . prototype '{' stmt_list '}'
+   41 prototype: . type var '(' fparam_list ')'
+   51 class_decl: . KCLASS var ';'
+   52           | . KCLASS var inherit '{' members_list '}' opt_semi
+
+    IDENTIFIER  décalage et aller à l'état 1
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KCLASS      décalage et aller à l'état 8
+
+    program       aller à l'état 9
+    declarations  aller à l'état 10
+    declaration   aller à l'état 11
+    var_decl      aller à l'état 12
+    type          aller à l'état 13
+    func_decl     aller à l'état 14
+    prototype     aller à l'état 15
+    class_decl    aller à l'état 16
+
+
+État 1
+
+   33 type: IDENTIFIER .
+
+    $défaut  réduction par utilisation de la règle 33 (type)
+
+
+État 2
+
+   27 type: TINT .
+
+    $défaut  réduction par utilisation de la règle 27 (type)
+
+
+État 3
+
+   28 type: TFLOAT .
+
+    $défaut  réduction par utilisation de la règle 28 (type)
+
+
+État 4
+
+   29 type: TBOOL .
+
+    $défaut  réduction par utilisation de la règle 29 (type)
+
+
+État 5
+
+   30 type: TSTRING .
+
+    $défaut  réduction par utilisation de la règle 30 (type)
+
+
+État 6
+
+   31 type: TVOID .
+
+    $défaut  réduction par utilisation de la règle 31 (type)
+
+
+État 7
+
+   32 type: TTNULL .
+
+    $défaut  réduction par utilisation de la règle 32 (type)
+
+
+État 8
+
+   51 class_decl: KCLASS . var ';'
+   52           | KCLASS . var inherit '{' members_list '}' opt_semi
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 20
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 9
+
+    0 $accept: program . $end
+
+    $end  décalage et aller à l'état 25
+
+
+État 10
+
+    1 program: declarations .  [$end]
+    2 declarations: declarations . declaration
+    4 declaration: . var_decl ';'
+    5            | . func_decl
+    6            | . class_decl
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   39 func_decl: . prototype ';'
+   40          | . prototype '{' stmt_list '}'
+   41 prototype: . type var '(' fparam_list ')'
+   51 class_decl: . KCLASS var ';'
+   52           | . KCLASS var inherit '{' members_list '}' opt_semi
+
+    IDENTIFIER  décalage et aller à l'état 1
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KCLASS      décalage et aller à l'état 8
+
+    $défaut  réduction par utilisation de la règle 1 (program)
+
+    declaration  aller à l'état 26
+    var_decl     aller à l'état 12
+    type         aller à l'état 13
+    func_decl    aller à l'état 14
+    prototype    aller à l'état 15
+    class_decl   aller à l'état 16
+
+
+État 11
+
+    3 declarations: declaration .
+
+    $défaut  réduction par utilisation de la règle 3 (declarations)
+
+
+État 12
+
+    4 declaration: var_decl . ';'
+   23 var_decl: var_decl . ',' var init_var
+
+    ';'  décalage et aller à l'état 27
+    ','  décalage et aller à l'état 28
+
+
+État 13
+
+   24 var_decl: type . var init_var
+   41 prototype: type . var '(' fparam_list ')'
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 29
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 14
+
+    5 declaration: func_decl .
+
+    $défaut  réduction par utilisation de la règle 5 (declaration)
+
+
+État 15
+
+   39 func_decl: prototype . ';'
+   40          | prototype . '{' stmt_list '}'
+
+    ';'  décalage et aller à l'état 30
+    '{'  décalage et aller à l'état 31
+
+
+État 16
+
+    6 declaration: class_decl .
+
+    $défaut  réduction par utilisation de la règle 6 (declaration)
+
+
+État 17
+
+   97 identifier: IDENTIFIER .
+
+    $défaut  réduction par utilisation de la règle 97 (identifier)
+
+
+État 18
+
+  102 designator: KNEW . IDENTIFIER
+
+    IDENTIFIER  décalage et aller à l'état 32
+
+
+État 19
+
+  103 designator: KTHIS .
+
+    $défaut  réduction par utilisation de la règle 103 (designator)
+
+
+État 20
+
+   51 class_decl: KCLASS var . ';'
+   52           | KCLASS var . inherit '{' members_list '}' opt_semi
+   53 inherit: . KEXTENDS identifier
+   54        | . %empty  ['{']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    KEXTENDS  décalage et aller à l'état 33
+    ';'       décalage et aller à l'état 34
+    '('       décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 54 (inherit)
+
+    inherit  aller à l'état 36
+
+
+État 21
+
+  101 designator: call .
+
+    $défaut  réduction par utilisation de la règle 101 (designator)
+
+
+État 22
+
+   94 var: identifier .
+
+    $défaut  réduction par utilisation de la règle 94 (var)
+
+
+État 23
+
+   95 var: prefix . identifier
+   97 identifier: . IDENTIFIER
+
+    IDENTIFIER  décalage et aller à l'état 17
+
+    identifier  aller à l'état 37
+
+
+État 24
+
+   98 prefix: designator . '.'
+
+    '.'  décalage et aller à l'état 38
+
+
+État 25
+
+    0 $accept: program $end .
+
+    $défaut  accepter
+
+
+État 26
+
+    2 declarations: declarations declaration .
+
+    $défaut  réduction par utilisation de la règle 2 (declarations)
+
+
+État 27
+
+    4 declaration: var_decl ';' .
+
+    $défaut  réduction par utilisation de la règle 4 (declaration)
+
+
+État 28
+
+   23 var_decl: var_decl ',' . var init_var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 39
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 29
+
+   24 var_decl: type var . init_var
+   25 init_var: . '=' expr
+   26         | . %empty  [';', ',']
+   41 prototype: type var . '(' fparam_list ')'
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '='  décalage et aller à l'état 40
+    '('  décalage et aller à l'état 41
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 26 (init_var)
+
+    init_var  aller à l'état 42
+
+
+État 30
+
+   39 func_decl: prototype ';' .
+
+    $défaut  réduction par utilisation de la règle 39 (func_decl)
+
+
+État 31
+
+   21 stmt_list: . stmt_list stmt
+   22          | . %empty
+   40 func_decl: prototype '{' . stmt_list '}'
+
+    $défaut  réduction par utilisation de la règle 22 (stmt_list)
+
+    stmt_list  aller à l'état 43
+
+
+État 32
+
+  102 designator: KNEW IDENTIFIER .
+
+    $défaut  réduction par utilisation de la règle 102 (designator)
+
+
+État 33
+
+   53 inherit: KEXTENDS . identifier
+   97 identifier: . IDENTIFIER
+
+    IDENTIFIER  décalage et aller à l'état 17
+
+    identifier  aller à l'état 44
+
+
+État 34
+
+   51 class_decl: KCLASS var ';' .
+
+    $défaut  réduction par utilisation de la règle 51 (class_decl)
+
+
+État 35
+
+   48 eparam_list: . eparam_list ',' expr
+   49            | . expr
+   50            | . %empty  [')', ',']
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   96     | var '(' . eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 50 (eparam_list)
+
+    eparam_list  aller à l'état 56
+    expr         aller à l'état 57
+    var          aller à l'état 58
+    call         aller à l'état 21
+    identifier   aller à l'état 22
+    prefix       aller à l'état 23
+    designator   aller à l'état 59
+
+
+État 36
+
+   52 class_decl: KCLASS var inherit . '{' members_list '}' opt_semi
+
+    '{'  décalage et aller à l'état 60
+
+
+État 37
+
+   95 var: prefix identifier .
+
+    $défaut  réduction par utilisation de la règle 95 (var)
+
+
+État 38
+
+   98 prefix: designator '.' .
+
+    $défaut  réduction par utilisation de la règle 98 (prefix)
+
+
+État 39
+
+   23 var_decl: var_decl ',' var . init_var
+   25 init_var: . '=' expr
+   26         | . %empty  [';', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '='  décalage et aller à l'état 40
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 26 (init_var)
+
+    init_var  aller à l'état 61
+
+
+État 40
+
+   25 init_var: '=' . expr
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 62
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 41
+
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: type var '(' . fparam_list ')'
+   42 fparam_list: . fparam_list ',' type var
+   43            | . type var
+   44            | . %empty  [')', ',']
+   48 eparam_list: . eparam_list ',' expr
+   49            | . expr
+   50            | . %empty  [')', ',']
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   96     | var '(' . eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    ')'         réduction par utilisation de la règle 44 (fparam_list)
+    ')'         [réduction par utilisation de la règle 50 (eparam_list)]
+    ','         réduction par utilisation de la règle 44 (fparam_list)
+    ','         [réduction par utilisation de la règle 50 (eparam_list)]
+    $défaut    réduction par utilisation de la règle 44 (fparam_list)
+
+    type         aller à l'état 64
+    fparam_list  aller à l'état 65
+    eparam_list  aller à l'état 56
+    expr         aller à l'état 57
+    var          aller à l'état 58
+    call         aller à l'état 21
+    identifier   aller à l'état 22
+    prefix       aller à l'état 23
+    designator   aller à l'état 59
+
+
+État 42
+
+   24 var_decl: type var init_var .
+
+    $défaut  réduction par utilisation de la règle 24 (var_decl)
+
+
+État 43
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   12     | . KWHILE '(' expr ')' stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   21 stmt_list: stmt_list . stmt
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   40 func_decl: prototype '{' stmt_list . '}'
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+    '}'         décalage et aller à l'état 76
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 77
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 44
+
+   53 inherit: KEXTENDS identifier .
+
+    $défaut  réduction par utilisation de la règle 53 (inherit)
+
+
+État 45
+
+   61 expr: INTEGER .
+
+    $défaut  réduction par utilisation de la règle 61 (expr)
+
+
+État 46
+
+   63 expr: BOOLEAN .
+
+    $défaut  réduction par utilisation de la règle 63 (expr)
+
+
+État 47
+
+   62 expr: FLOAT .
+
+    $défaut  réduction par utilisation de la règle 62 (expr)
+
+
+État 48
+
+   64 expr: TNULL .
+
+    $défaut  réduction par utilisation de la règle 64 (expr)
+
+
+État 49
+
+   65 expr: STRING .
+
+    $défaut  réduction par utilisation de la règle 65 (expr)
+
+
+État 50
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   69     | '+' . expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 81
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 51
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   68     | '-' . expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 82
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 52
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   85     | KNOT . expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 83
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 53
+
+   88 expr: PP . var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 84
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 54
+
+   89 expr: MM . var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 85
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 55
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   86     | '(' . expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 86
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 56
+
+   48 eparam_list: eparam_list . ',' expr
+   96 call: var '(' eparam_list . ')'
+
+    ')'  décalage et aller à l'état 87
+    ','  décalage et aller à l'état 88
+
+
+État 57
+
+   49 eparam_list: expr .  [')', ',']
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 49 (eparam_list)
+
+
+État 58
+
+   67 expr: var . '=' expr
+   90     | var . PP
+   91     | var . MM
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', POW, ';', ')', ',', '.']
+
+    '='  décalage et aller à l'état 105
+    PP   décalage et aller à l'état 106
+    MM   décalage et aller à l'état 107
+    '('  décalage et aller à l'état 35
+
+    $défaut  réduction par utilisation de la règle 100 (designator)
+
+
+État 59
+
+   66 expr: designator .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', POW, ';', ')', ',']
+   98 prefix: designator . '.'
+
+    '.'  décalage et aller à l'état 38
+
+    $défaut  réduction par utilisation de la règle 66 (expr)
+
+
+État 60
+
+   52 class_decl: KCLASS var inherit '{' . members_list '}' opt_semi
+   55 members_list: . members_list attr_decl
+   56             | . %empty
+
+    $défaut  réduction par utilisation de la règle 56 (members_list)
+
+    members_list  aller à l'état 108
+
+
+État 61
+
+   23 var_decl: var_decl ',' var init_var .
+
+    $défaut  réduction par utilisation de la règle 23 (var_decl)
+
+
+État 62
+
+   25 init_var: '=' expr .  [';', ',']
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 25 (init_var)
+
+
+État 63
+
+   33 type: IDENTIFIER .  [IDENTIFIER, KNEW, KTHIS]
+   97 identifier: IDENTIFIER .  [KINSTANCEOF, '=', '?', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', PP, MM, POW, ';', '(', ')', ',', '.']
+
+    IDENTIFIER  réduction par utilisation de la règle 33 (type)
+    KNEW        réduction par utilisation de la règle 33 (type)
+    KTHIS       réduction par utilisation de la règle 33 (type)
+    $défaut    réduction par utilisation de la règle 97 (identifier)
+
+
+État 64
+
+   43 fparam_list: type . var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 109
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 65
+
+   41 prototype: type var '(' fparam_list . ')'
+   42 fparam_list: fparam_list . ',' type var
+
+    ')'  décalage et aller à l'état 110
+    ','  décalage et aller à l'état 111
+
+
+État 66
+
+   20 stmt: error . ';'
+
+    ';'  décalage et aller à l'état 112
+
+
+État 67
+
+   12 stmt: KWHILE . '(' expr ')' stmt
+
+    '('  décalage et aller à l'état 113
+
+
+État 68
+
+   16 stmt: KIF . '(' expr ')' stmt
+   17     | KIF . '(' expr ')' stmt KELSE stmt
+
+    '('  décalage et aller à l'état 114
+
+
+État 69
+
+    9 stmt: KPRINT . '(' eparam_list ')' ';'
+
+    '('  décalage et aller à l'état 115
+
+
+État 70
+
+   14 stmt: KRETURN . expr_opt ';'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   92 expr_opt: . expr
+   93         | . %empty  [';']
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 93 (expr_opt)
+
+    expr        aller à l'état 116
+    expr_opt    aller à l'état 117
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 71
+
+   15 stmt: KBREAK . ';'
+
+    ';'  décalage et aller à l'état 118
+
+
+État 72
+
+   13 stmt: KFOR . '(' for1 ';' for2 ';' for3 ')' stmt
+
+    '('  décalage et aller à l'état 119
+
+
+État 73
+
+   10 stmt: KREAD . '(' param_read ')' ';'
+
+    '('  décalage et aller à l'état 120
+
+
+État 74
+
+    7 stmt: ';' .
+
+    $défaut  réduction par utilisation de la règle 7 (stmt)
+
+
+État 75
+
+   11 stmt: '{' . stmt_list '}'
+   21 stmt_list: . stmt_list stmt
+   22          | . %empty
+
+    $défaut  réduction par utilisation de la règle 22 (stmt_list)
+
+    stmt_list  aller à l'état 121
+
+
+État 76
+
+   40 func_decl: prototype '{' stmt_list '}' .
+
+    $défaut  réduction par utilisation de la règle 40 (func_decl)
+
+
+État 77
+
+   21 stmt_list: stmt_list stmt .
+
+    $défaut  réduction par utilisation de la règle 21 (stmt_list)
+
+
+État 78
+
+   18 stmt: var_decl . ';'
+   23 var_decl: var_decl . ',' var init_var
+
+    ';'  décalage et aller à l'état 122
+    ','  décalage et aller à l'état 28
+
+
+État 79
+
+   19 stmt: prototype . ';'
+
+    ';'  décalage et aller à l'état 123
+
+
+État 80
+
+    8 stmt: expr . ';'
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+    ';'          décalage et aller à l'état 124
+
+
+État 81
+
+   69 expr: '+' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   70     | expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 69 (expr)
+
+    Conflit entre la règle 69 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < UMINUS).
+    Conflit entre la règle 69 et le jeton '?' résolu par réduction ('?' < UMINUS).
+    Conflit entre la règle 69 et le jeton KOR résolu par réduction (KOR < UMINUS).
+    Conflit entre la règle 69 et le jeton KAND résolu par réduction (KAND < UMINUS).
+    Conflit entre la règle 69 et le jeton '>' résolu par réduction ('>' < UMINUS).
+    Conflit entre la règle 69 et le jeton '<' résolu par réduction ('<' < UMINUS).
+    Conflit entre la règle 69 et le jeton GE résolu par réduction (GE < UMINUS).
+    Conflit entre la règle 69 et le jeton LE résolu par réduction (LE < UMINUS).
+    Conflit entre la règle 69 et le jeton EQ résolu par réduction (EQ < UMINUS).
+    Conflit entre la règle 69 et le jeton NE résolu par réduction (NE < UMINUS).
+    Conflit entre la règle 69 et le jeton '+' résolu par réduction ('+' < UMINUS).
+    Conflit entre la règle 69 et le jeton '-' résolu par réduction ('-' < UMINUS).
+    Conflit entre la règle 69 et le jeton '*' résolu par réduction ('*' < UMINUS).
+    Conflit entre la règle 69 et le jeton '/' résolu par réduction ('/' < UMINUS).
+    Conflit entre la règle 69 et le jeton '%' résolu par réduction ('%' < UMINUS).
+    Conflit entre la règle 69 et le jeton POW résolu par décalage (UMINUS < POW).
+
+
+État 82
+
+   68 expr: '-' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   70     | expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 68 (expr)
+
+    Conflit entre la règle 68 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < UMINUS).
+    Conflit entre la règle 68 et le jeton '?' résolu par réduction ('?' < UMINUS).
+    Conflit entre la règle 68 et le jeton KOR résolu par réduction (KOR < UMINUS).
+    Conflit entre la règle 68 et le jeton KAND résolu par réduction (KAND < UMINUS).
+    Conflit entre la règle 68 et le jeton '>' résolu par réduction ('>' < UMINUS).
+    Conflit entre la règle 68 et le jeton '<' résolu par réduction ('<' < UMINUS).
+    Conflit entre la règle 68 et le jeton GE résolu par réduction (GE < UMINUS).
+    Conflit entre la règle 68 et le jeton LE résolu par réduction (LE < UMINUS).
+    Conflit entre la règle 68 et le jeton EQ résolu par réduction (EQ < UMINUS).
+    Conflit entre la règle 68 et le jeton NE résolu par réduction (NE < UMINUS).
+    Conflit entre la règle 68 et le jeton '+' résolu par réduction ('+' < UMINUS).
+    Conflit entre la règle 68 et le jeton '-' résolu par réduction ('-' < UMINUS).
+    Conflit entre la règle 68 et le jeton '*' résolu par réduction ('*' < UMINUS).
+    Conflit entre la règle 68 et le jeton '/' résolu par réduction ('/' < UMINUS).
+    Conflit entre la règle 68 et le jeton '%' résolu par réduction ('%' < UMINUS).
+    Conflit entre la règle 68 et le jeton POW résolu par décalage (UMINUS < POW).
+
+
+État 83
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   85     | KNOT expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 85 (expr)
+
+    Conflit entre la règle 85 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < KNOT).
+    Conflit entre la règle 85 et le jeton '?' résolu par réduction ('?' < KNOT).
+    Conflit entre la règle 85 et le jeton KOR résolu par réduction (KOR < KNOT).
+    Conflit entre la règle 85 et le jeton KAND résolu par réduction (KAND < KNOT).
+    Conflit entre la règle 85 et le jeton '>' résolu par réduction ('>' < KNOT).
+    Conflit entre la règle 85 et le jeton '<' résolu par réduction ('<' < KNOT).
+    Conflit entre la règle 85 et le jeton GE résolu par réduction (GE < KNOT).
+    Conflit entre la règle 85 et le jeton LE résolu par réduction (LE < KNOT).
+    Conflit entre la règle 85 et le jeton EQ résolu par réduction (EQ < KNOT).
+    Conflit entre la règle 85 et le jeton NE résolu par réduction (NE < KNOT).
+    Conflit entre la règle 85 et le jeton '+' résolu par réduction ('+' < KNOT).
+    Conflit entre la règle 85 et le jeton '-' résolu par réduction ('-' < KNOT).
+    Conflit entre la règle 85 et le jeton '*' résolu par réduction ('*' < KNOT).
+    Conflit entre la règle 85 et le jeton '/' résolu par réduction ('/' < KNOT).
+    Conflit entre la règle 85 et le jeton '%' résolu par réduction ('%' < KNOT).
+    Conflit entre la règle 85 et le jeton POW résolu par décalage (KNOT < POW).
+
+
+État 84
+
+   88 expr: PP var .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', POW, ';', ')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 88 (expr)
+
+
+État 85
+
+   89 expr: MM var .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', POW, ';', ')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 89 (expr)
+
+
+État 86
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   86     | '(' expr . ')'
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+    ')'          décalage et aller à l'état 125
+
+
+État 87
+
+   96 call: var '(' eparam_list ')' .
+
+    $défaut  réduction par utilisation de la règle 96 (call)
+
+
+État 88
+
+   48 eparam_list: eparam_list ',' . expr
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 126
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 89
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   84     | expr KINSTANCEOF . expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 127
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 90
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   87     | expr '?' . expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 128
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 91
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   82     | expr KOR . expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 129
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 92
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   83     | expr KAND . expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 130
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 93
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   77     | expr '>' . expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 131
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 94
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   76     | expr '<' . expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 132
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 95
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   79     | expr GE . expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 133
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 96
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   80     | expr LE . expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 134
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 97
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   78     | expr EQ . expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 135
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 98
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   81     | expr NE . expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 136
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 99
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   70     | expr '+' . expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 137
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 100
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   71     | expr '-' . expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 138
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 101
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   72     | expr '*' . expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 139
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 102
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   73     | expr '/' . expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 140
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 103
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   74     | expr '%' . expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 141
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 104
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   75     | expr POW . expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 142
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 105
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   67     | var '=' . expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 143
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 106
+
+   90 expr: var PP .
+
+    $défaut  réduction par utilisation de la règle 90 (expr)
+
+
+État 107
+
+   91 expr: var MM .
+
+    $défaut  réduction par utilisation de la règle 91 (expr)
+
+
+État 108
+
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   39 func_decl: . prototype ';'
+   40          | . prototype '{' stmt_list '}'
+   41 prototype: . type var '(' fparam_list ')'
+   52 class_decl: KCLASS var inherit '{' members_list . '}' opt_semi
+   55 members_list: members_list . attr_decl
+   57 attr_decl: . var_decl ';'
+   58          | . func_decl opt_semi
+
+    IDENTIFIER  décalage et aller à l'état 1
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    '}'         décalage et aller à l'état 144
+
+    var_decl   aller à l'état 145
+    type       aller à l'état 13
+    func_decl  aller à l'état 146
+    prototype  aller à l'état 15
+    attr_decl  aller à l'état 147
+
+
+État 109
+
+   43 fparam_list: type var .  [')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 43 (fparam_list)
+
+
+État 110
+
+   41 prototype: type var '(' fparam_list ')' .
+
+    $défaut  réduction par utilisation de la règle 41 (prototype)
+
+
+État 111
+
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   42 fparam_list: fparam_list ',' . type var
+
+    IDENTIFIER  décalage et aller à l'état 1
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+
+    type  aller à l'état 148
+
+
+État 112
+
+   20 stmt: error ';' .
+
+    $défaut  réduction par utilisation de la règle 20 (stmt)
+
+
+État 113
+
+   12 stmt: KWHILE '(' . expr ')' stmt
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 149
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 114
+
+   16 stmt: KIF '(' . expr ')' stmt
+   17     | KIF '(' . expr ')' stmt KELSE stmt
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 150
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 115
+
+    9 stmt: KPRINT '(' . eparam_list ')' ';'
+   48 eparam_list: . eparam_list ',' expr
+   49            | . expr
+   50            | . %empty  [')', ',']
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 50 (eparam_list)
+
+    eparam_list  aller à l'état 151
+    expr         aller à l'état 57
+    var          aller à l'état 58
+    call         aller à l'état 21
+    identifier   aller à l'état 22
+    prefix       aller à l'état 23
+    designator   aller à l'état 59
+
+
+État 116
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+   92 expr_opt: expr .  [';', ')']
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 92 (expr_opt)
+
+
+État 117
+
+   14 stmt: KRETURN expr_opt . ';'
+
+    ';'  décalage et aller à l'état 152
+
+
+État 118
+
+   15 stmt: KBREAK ';' .
+
+    $défaut  réduction par utilisation de la règle 15 (stmt)
+
+
+État 119
+
+   13 stmt: KFOR '(' . for1 ';' for2 ';' for3 ')' stmt
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   34 for1: . var_decl
+   35     | . expr
+   36     | . %empty  [';']
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 36 (for1)
+
+    var_decl    aller à l'état 153
+    type        aller à l'état 154
+    for1        aller à l'état 155
+    expr        aller à l'état 156
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 120
+
+   10 stmt: KREAD '(' . param_read ')' ';'
+   45 param_read: . param_read ',' var
+   46           | . var
+   47           | . %empty  [')', ',']
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 47 (param_read)
+
+    param_read  aller à l'état 157
+    var         aller à l'état 158
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 121
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   11     | '{' stmt_list . '}'
+   12     | . KWHILE '(' expr ')' stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   21 stmt_list: stmt_list . stmt
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+    '}'         décalage et aller à l'état 159
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 77
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 122
+
+   18 stmt: var_decl ';' .
+
+    $défaut  réduction par utilisation de la règle 18 (stmt)
+
+
+État 123
+
+   19 stmt: prototype ';' .
+
+    $défaut  réduction par utilisation de la règle 19 (stmt)
+
+
+État 124
+
+    8 stmt: expr ';' .
+
+    $défaut  réduction par utilisation de la règle 8 (stmt)
+
+
+État 125
+
+   86 expr: '(' expr ')' .
+
+    $défaut  réduction par utilisation de la règle 86 (expr)
+
+
+État 126
+
+   48 eparam_list: eparam_list ',' expr .  [')', ',']
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 48 (eparam_list)
+
+
+État 127
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   84     | expr KINSTANCEOF expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', ';', ')', ',']
+   87     | expr . '?' expr ':' expr
+
+    '*'  décalage et aller à l'état 101
+    '/'  décalage et aller à l'état 102
+    '%'  décalage et aller à l'état 103
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 84 (expr)
+
+    Conflit entre la règle 84 et le jeton KINSTANCEOF résolu par réduction (%left KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton '?' résolu par réduction ('?' < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton KOR résolu par réduction (KOR < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton KAND résolu par réduction (KAND < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton '>' résolu par réduction ('>' < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton '<' résolu par réduction ('<' < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton GE résolu par réduction (GE < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton LE résolu par réduction (LE < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton EQ résolu par réduction (EQ < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton NE résolu par réduction (NE < KINSTANCEOF).
+    Conflit entre la règle 84 et le jeton '+' résolu par réduction (%left '+').
+    Conflit entre la règle 84 et le jeton '-' résolu par réduction (%left '-').
+    Conflit entre la règle 84 et le jeton '*' résolu par décalage (KINSTANCEOF < '*').
+    Conflit entre la règle 84 et le jeton '/' résolu par décalage (KINSTANCEOF < '/').
+    Conflit entre la règle 84 et le jeton '%' résolu par décalage (KINSTANCEOF < '%').
+    Conflit entre la règle 84 et le jeton POW résolu par décalage (KINSTANCEOF < POW).
+
+
+État 128
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+   87     | expr '?' expr . ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    ':'          décalage et aller à l'état 160
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+
+État 129
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   82     | expr KOR expr .  ['?', ':', KOR, ';', ')', ',']
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 82 (expr)
+
+    Conflit entre la règle 82 et le jeton KINSTANCEOF résolu par décalage (KOR < KINSTANCEOF).
+    Conflit entre la règle 82 et le jeton '?' résolu par réduction ('?' < KOR).
+    Conflit entre la règle 82 et le jeton KOR résolu par réduction (%left KOR).
+    Conflit entre la règle 82 et le jeton KAND résolu par décalage (KOR < KAND).
+    Conflit entre la règle 82 et le jeton '>' résolu par décalage (KOR < '>').
+    Conflit entre la règle 82 et le jeton '<' résolu par décalage (KOR < '<').
+    Conflit entre la règle 82 et le jeton GE résolu par décalage (KOR < GE).
+    Conflit entre la règle 82 et le jeton LE résolu par décalage (KOR < LE).
+    Conflit entre la règle 82 et le jeton EQ résolu par décalage (KOR < EQ).
+    Conflit entre la règle 82 et le jeton NE résolu par décalage (KOR < NE).
+    Conflit entre la règle 82 et le jeton '+' résolu par décalage (KOR < '+').
+    Conflit entre la règle 82 et le jeton '-' résolu par décalage (KOR < '-').
+    Conflit entre la règle 82 et le jeton '*' résolu par décalage (KOR < '*').
+    Conflit entre la règle 82 et le jeton '/' résolu par décalage (KOR < '/').
+    Conflit entre la règle 82 et le jeton '%' résolu par décalage (KOR < '%').
+    Conflit entre la règle 82 et le jeton POW résolu par décalage (KOR < POW).
+
+
+État 130
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   83     | expr KAND expr .  ['?', ':', KOR, KAND, ';', ')', ',']
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 83 (expr)
+
+    Conflit entre la règle 83 et le jeton KINSTANCEOF résolu par décalage (KAND < KINSTANCEOF).
+    Conflit entre la règle 83 et le jeton '?' résolu par réduction ('?' < KAND).
+    Conflit entre la règle 83 et le jeton KOR résolu par réduction (KOR < KAND).
+    Conflit entre la règle 83 et le jeton KAND résolu par réduction (%left KAND).
+    Conflit entre la règle 83 et le jeton '>' résolu par décalage (KAND < '>').
+    Conflit entre la règle 83 et le jeton '<' résolu par décalage (KAND < '<').
+    Conflit entre la règle 83 et le jeton GE résolu par décalage (KAND < GE).
+    Conflit entre la règle 83 et le jeton LE résolu par décalage (KAND < LE).
+    Conflit entre la règle 83 et le jeton EQ résolu par décalage (KAND < EQ).
+    Conflit entre la règle 83 et le jeton NE résolu par décalage (KAND < NE).
+    Conflit entre la règle 83 et le jeton '+' résolu par décalage (KAND < '+').
+    Conflit entre la règle 83 et le jeton '-' résolu par décalage (KAND < '-').
+    Conflit entre la règle 83 et le jeton '*' résolu par décalage (KAND < '*').
+    Conflit entre la règle 83 et le jeton '/' résolu par décalage (KAND < '/').
+    Conflit entre la règle 83 et le jeton '%' résolu par décalage (KAND < '%').
+    Conflit entre la règle 83 et le jeton POW résolu par décalage (KAND < POW).
+
+
+État 131
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   77     | expr '>' expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 77 (expr)
+
+    Conflit entre la règle 77 et le jeton KINSTANCEOF résolu par décalage ('>' < KINSTANCEOF).
+    Conflit entre la règle 77 et le jeton '?' résolu par réduction ('?' < '>').
+    Conflit entre la règle 77 et le jeton KOR résolu par réduction (KOR < '>').
+    Conflit entre la règle 77 et le jeton KAND résolu par réduction (KAND < '>').
+    Conflit entre la règle 77 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 77 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 77 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 77 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 77 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 77 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 77 et le jeton '+' résolu par décalage ('>' < '+').
+    Conflit entre la règle 77 et le jeton '-' résolu par décalage ('>' < '-').
+    Conflit entre la règle 77 et le jeton '*' résolu par décalage ('>' < '*').
+    Conflit entre la règle 77 et le jeton '/' résolu par décalage ('>' < '/').
+    Conflit entre la règle 77 et le jeton '%' résolu par décalage ('>' < '%').
+    Conflit entre la règle 77 et le jeton POW résolu par décalage ('>' < POW).
+
+
+État 132
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   76     | expr '<' expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 76 (expr)
+
+    Conflit entre la règle 76 et le jeton KINSTANCEOF résolu par décalage ('<' < KINSTANCEOF).
+    Conflit entre la règle 76 et le jeton '?' résolu par réduction ('?' < '<').
+    Conflit entre la règle 76 et le jeton KOR résolu par réduction (KOR < '<').
+    Conflit entre la règle 76 et le jeton KAND résolu par réduction (KAND < '<').
+    Conflit entre la règle 76 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 76 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 76 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 76 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 76 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 76 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 76 et le jeton '+' résolu par décalage ('<' < '+').
+    Conflit entre la règle 76 et le jeton '-' résolu par décalage ('<' < '-').
+    Conflit entre la règle 76 et le jeton '*' résolu par décalage ('<' < '*').
+    Conflit entre la règle 76 et le jeton '/' résolu par décalage ('<' < '/').
+    Conflit entre la règle 76 et le jeton '%' résolu par décalage ('<' < '%').
+    Conflit entre la règle 76 et le jeton POW résolu par décalage ('<' < POW).
+
+
+État 133
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   79     | expr GE expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 79 (expr)
+
+    Conflit entre la règle 79 et le jeton KINSTANCEOF résolu par décalage (GE < KINSTANCEOF).
+    Conflit entre la règle 79 et le jeton '?' résolu par réduction ('?' < GE).
+    Conflit entre la règle 79 et le jeton KOR résolu par réduction (KOR < GE).
+    Conflit entre la règle 79 et le jeton KAND résolu par réduction (KAND < GE).
+    Conflit entre la règle 79 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 79 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 79 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 79 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 79 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 79 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 79 et le jeton '+' résolu par décalage (GE < '+').
+    Conflit entre la règle 79 et le jeton '-' résolu par décalage (GE < '-').
+    Conflit entre la règle 79 et le jeton '*' résolu par décalage (GE < '*').
+    Conflit entre la règle 79 et le jeton '/' résolu par décalage (GE < '/').
+    Conflit entre la règle 79 et le jeton '%' résolu par décalage (GE < '%').
+    Conflit entre la règle 79 et le jeton POW résolu par décalage (GE < POW).
+
+
+État 134
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   80     | expr LE expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 80 (expr)
+
+    Conflit entre la règle 80 et le jeton KINSTANCEOF résolu par décalage (LE < KINSTANCEOF).
+    Conflit entre la règle 80 et le jeton '?' résolu par réduction ('?' < LE).
+    Conflit entre la règle 80 et le jeton KOR résolu par réduction (KOR < LE).
+    Conflit entre la règle 80 et le jeton KAND résolu par réduction (KAND < LE).
+    Conflit entre la règle 80 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 80 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 80 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 80 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 80 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 80 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 80 et le jeton '+' résolu par décalage (LE < '+').
+    Conflit entre la règle 80 et le jeton '-' résolu par décalage (LE < '-').
+    Conflit entre la règle 80 et le jeton '*' résolu par décalage (LE < '*').
+    Conflit entre la règle 80 et le jeton '/' résolu par décalage (LE < '/').
+    Conflit entre la règle 80 et le jeton '%' résolu par décalage (LE < '%').
+    Conflit entre la règle 80 et le jeton POW résolu par décalage (LE < POW).
+
+
+État 135
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   78     | expr EQ expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 78 (expr)
+
+    Conflit entre la règle 78 et le jeton KINSTANCEOF résolu par décalage (EQ < KINSTANCEOF).
+    Conflit entre la règle 78 et le jeton '?' résolu par réduction ('?' < EQ).
+    Conflit entre la règle 78 et le jeton KOR résolu par réduction (KOR < EQ).
+    Conflit entre la règle 78 et le jeton KAND résolu par réduction (KAND < EQ).
+    Conflit entre la règle 78 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 78 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 78 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 78 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 78 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 78 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 78 et le jeton '+' résolu par décalage (EQ < '+').
+    Conflit entre la règle 78 et le jeton '-' résolu par décalage (EQ < '-').
+    Conflit entre la règle 78 et le jeton '*' résolu par décalage (EQ < '*').
+    Conflit entre la règle 78 et le jeton '/' résolu par décalage (EQ < '/').
+    Conflit entre la règle 78 et le jeton '%' résolu par décalage (EQ < '%').
+    Conflit entre la règle 78 et le jeton POW résolu par décalage (EQ < POW).
+
+
+État 136
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   81     | expr NE expr .  ['?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, ';', ')', ',']
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 81 (expr)
+
+    Conflit entre la règle 81 et le jeton KINSTANCEOF résolu par décalage (NE < KINSTANCEOF).
+    Conflit entre la règle 81 et le jeton '?' résolu par réduction ('?' < NE).
+    Conflit entre la règle 81 et le jeton KOR résolu par réduction (KOR < NE).
+    Conflit entre la règle 81 et le jeton KAND résolu par réduction (KAND < NE).
+    Conflit entre la règle 81 et le jeton '>' résolu par réduction (%left '>').
+    Conflit entre la règle 81 et le jeton '<' résolu par réduction (%left '<').
+    Conflit entre la règle 81 et le jeton GE résolu par réduction (%left GE).
+    Conflit entre la règle 81 et le jeton LE résolu par réduction (%left LE).
+    Conflit entre la règle 81 et le jeton EQ résolu par réduction (%left EQ).
+    Conflit entre la règle 81 et le jeton NE résolu par réduction (%left NE).
+    Conflit entre la règle 81 et le jeton '+' résolu par décalage (NE < '+').
+    Conflit entre la règle 81 et le jeton '-' résolu par décalage (NE < '-').
+    Conflit entre la règle 81 et le jeton '*' résolu par décalage (NE < '*').
+    Conflit entre la règle 81 et le jeton '/' résolu par décalage (NE < '/').
+    Conflit entre la règle 81 et le jeton '%' résolu par décalage (NE < '%').
+    Conflit entre la règle 81 et le jeton POW résolu par décalage (NE < POW).
+
+
+État 137
+
+   70 expr: expr . '+' expr
+   70     | expr '+' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', ';', ')', ',']
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    '*'  décalage et aller à l'état 101
+    '/'  décalage et aller à l'état 102
+    '%'  décalage et aller à l'état 103
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 70 (expr)
+
+    Conflit entre la règle 70 et le jeton KINSTANCEOF résolu par réduction (%left KINSTANCEOF).
+    Conflit entre la règle 70 et le jeton '?' résolu par réduction ('?' < '+').
+    Conflit entre la règle 70 et le jeton KOR résolu par réduction (KOR < '+').
+    Conflit entre la règle 70 et le jeton KAND résolu par réduction (KAND < '+').
+    Conflit entre la règle 70 et le jeton '>' résolu par réduction ('>' < '+').
+    Conflit entre la règle 70 et le jeton '<' résolu par réduction ('<' < '+').
+    Conflit entre la règle 70 et le jeton GE résolu par réduction (GE < '+').
+    Conflit entre la règle 70 et le jeton LE résolu par réduction (LE < '+').
+    Conflit entre la règle 70 et le jeton EQ résolu par réduction (EQ < '+').
+    Conflit entre la règle 70 et le jeton NE résolu par réduction (NE < '+').
+    Conflit entre la règle 70 et le jeton '+' résolu par réduction (%left '+').
+    Conflit entre la règle 70 et le jeton '-' résolu par réduction (%left '-').
+    Conflit entre la règle 70 et le jeton '*' résolu par décalage ('+' < '*').
+    Conflit entre la règle 70 et le jeton '/' résolu par décalage ('+' < '/').
+    Conflit entre la règle 70 et le jeton '%' résolu par décalage ('+' < '%').
+    Conflit entre la règle 70 et le jeton POW résolu par décalage ('+' < POW).
+
+
+État 138
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   71     | expr '-' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', ';', ')', ',']
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    '*'  décalage et aller à l'état 101
+    '/'  décalage et aller à l'état 102
+    '%'  décalage et aller à l'état 103
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 71 (expr)
+
+    Conflit entre la règle 71 et le jeton KINSTANCEOF résolu par réduction (%left KINSTANCEOF).
+    Conflit entre la règle 71 et le jeton '?' résolu par réduction ('?' < '-').
+    Conflit entre la règle 71 et le jeton KOR résolu par réduction (KOR < '-').
+    Conflit entre la règle 71 et le jeton KAND résolu par réduction (KAND < '-').
+    Conflit entre la règle 71 et le jeton '>' résolu par réduction ('>' < '-').
+    Conflit entre la règle 71 et le jeton '<' résolu par réduction ('<' < '-').
+    Conflit entre la règle 71 et le jeton GE résolu par réduction (GE < '-').
+    Conflit entre la règle 71 et le jeton LE résolu par réduction (LE < '-').
+    Conflit entre la règle 71 et le jeton EQ résolu par réduction (EQ < '-').
+    Conflit entre la règle 71 et le jeton NE résolu par réduction (NE < '-').
+    Conflit entre la règle 71 et le jeton '+' résolu par réduction (%left '+').
+    Conflit entre la règle 71 et le jeton '-' résolu par réduction (%left '-').
+    Conflit entre la règle 71 et le jeton '*' résolu par décalage ('-' < '*').
+    Conflit entre la règle 71 et le jeton '/' résolu par décalage ('-' < '/').
+    Conflit entre la règle 71 et le jeton '%' résolu par décalage ('-' < '%').
+    Conflit entre la règle 71 et le jeton POW résolu par décalage ('-' < POW).
+
+
+État 139
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   72     | expr '*' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 72 (expr)
+
+    Conflit entre la règle 72 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < '*').
+    Conflit entre la règle 72 et le jeton '?' résolu par réduction ('?' < '*').
+    Conflit entre la règle 72 et le jeton KOR résolu par réduction (KOR < '*').
+    Conflit entre la règle 72 et le jeton KAND résolu par réduction (KAND < '*').
+    Conflit entre la règle 72 et le jeton '>' résolu par réduction ('>' < '*').
+    Conflit entre la règle 72 et le jeton '<' résolu par réduction ('<' < '*').
+    Conflit entre la règle 72 et le jeton GE résolu par réduction (GE < '*').
+    Conflit entre la règle 72 et le jeton LE résolu par réduction (LE < '*').
+    Conflit entre la règle 72 et le jeton EQ résolu par réduction (EQ < '*').
+    Conflit entre la règle 72 et le jeton NE résolu par réduction (NE < '*').
+    Conflit entre la règle 72 et le jeton '+' résolu par réduction ('+' < '*').
+    Conflit entre la règle 72 et le jeton '-' résolu par réduction ('-' < '*').
+    Conflit entre la règle 72 et le jeton '*' résolu par réduction (%left '*').
+    Conflit entre la règle 72 et le jeton '/' résolu par réduction (%left '/').
+    Conflit entre la règle 72 et le jeton '%' résolu par réduction (%left '%').
+    Conflit entre la règle 72 et le jeton POW résolu par décalage ('*' < POW).
+
+
+État 140
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   73     | expr '/' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 73 (expr)
+
+    Conflit entre la règle 73 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < '/').
+    Conflit entre la règle 73 et le jeton '?' résolu par réduction ('?' < '/').
+    Conflit entre la règle 73 et le jeton KOR résolu par réduction (KOR < '/').
+    Conflit entre la règle 73 et le jeton KAND résolu par réduction (KAND < '/').
+    Conflit entre la règle 73 et le jeton '>' résolu par réduction ('>' < '/').
+    Conflit entre la règle 73 et le jeton '<' résolu par réduction ('<' < '/').
+    Conflit entre la règle 73 et le jeton GE résolu par réduction (GE < '/').
+    Conflit entre la règle 73 et le jeton LE résolu par réduction (LE < '/').
+    Conflit entre la règle 73 et le jeton EQ résolu par réduction (EQ < '/').
+    Conflit entre la règle 73 et le jeton NE résolu par réduction (NE < '/').
+    Conflit entre la règle 73 et le jeton '+' résolu par réduction ('+' < '/').
+    Conflit entre la règle 73 et le jeton '-' résolu par réduction ('-' < '/').
+    Conflit entre la règle 73 et le jeton '*' résolu par réduction (%left '*').
+    Conflit entre la règle 73 et le jeton '/' résolu par réduction (%left '/').
+    Conflit entre la règle 73 et le jeton '%' résolu par réduction (%left '%').
+    Conflit entre la règle 73 et le jeton POW résolu par décalage ('/' < POW).
+
+
+État 141
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   74     | expr '%' expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 74 (expr)
+
+    Conflit entre la règle 74 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < '%').
+    Conflit entre la règle 74 et le jeton '?' résolu par réduction ('?' < '%').
+    Conflit entre la règle 74 et le jeton KOR résolu par réduction (KOR < '%').
+    Conflit entre la règle 74 et le jeton KAND résolu par réduction (KAND < '%').
+    Conflit entre la règle 74 et le jeton '>' résolu par réduction ('>' < '%').
+    Conflit entre la règle 74 et le jeton '<' résolu par réduction ('<' < '%').
+    Conflit entre la règle 74 et le jeton GE résolu par réduction (GE < '%').
+    Conflit entre la règle 74 et le jeton LE résolu par réduction (LE < '%').
+    Conflit entre la règle 74 et le jeton EQ résolu par réduction (EQ < '%').
+    Conflit entre la règle 74 et le jeton NE résolu par réduction (NE < '%').
+    Conflit entre la règle 74 et le jeton '+' résolu par réduction ('+' < '%').
+    Conflit entre la règle 74 et le jeton '-' résolu par réduction ('-' < '%').
+    Conflit entre la règle 74 et le jeton '*' résolu par réduction (%left '*').
+    Conflit entre la règle 74 et le jeton '/' résolu par réduction (%left '/').
+    Conflit entre la règle 74 et le jeton '%' résolu par réduction (%left '%').
+    Conflit entre la règle 74 et le jeton POW résolu par décalage ('%' < POW).
+
+
+État 142
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   75     | expr POW expr .  [KINSTANCEOF, '?', ':', KOR, KAND, '>', '<', GE, LE, EQ, NE, '+', '-', '*', '/', '%', ';', ')', ',']
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    POW  décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 75 (expr)
+
+    Conflit entre la règle 75 et le jeton KINSTANCEOF résolu par réduction (KINSTANCEOF < POW).
+    Conflit entre la règle 75 et le jeton '?' résolu par réduction ('?' < POW).
+    Conflit entre la règle 75 et le jeton KOR résolu par réduction (KOR < POW).
+    Conflit entre la règle 75 et le jeton KAND résolu par réduction (KAND < POW).
+    Conflit entre la règle 75 et le jeton '>' résolu par réduction ('>' < POW).
+    Conflit entre la règle 75 et le jeton '<' résolu par réduction ('<' < POW).
+    Conflit entre la règle 75 et le jeton GE résolu par réduction (GE < POW).
+    Conflit entre la règle 75 et le jeton LE résolu par réduction (LE < POW).
+    Conflit entre la règle 75 et le jeton EQ résolu par réduction (EQ < POW).
+    Conflit entre la règle 75 et le jeton NE résolu par réduction (NE < POW).
+    Conflit entre la règle 75 et le jeton '+' résolu par réduction ('+' < POW).
+    Conflit entre la règle 75 et le jeton '-' résolu par réduction ('-' < POW).
+    Conflit entre la règle 75 et le jeton '*' résolu par réduction ('*' < POW).
+    Conflit entre la règle 75 et le jeton '/' résolu par réduction ('/' < POW).
+    Conflit entre la règle 75 et le jeton '%' résolu par réduction ('%' < POW).
+    Conflit entre la règle 75 et le jeton POW résolu par décalage (%right POW).
+
+
+État 143
+
+   67 expr: var '=' expr .  [':', ';', ')', ',']
+   70     | expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 67 (expr)
+
+    Conflit entre la règle 67 et le jeton KINSTANCEOF résolu par décalage ('=' < KINSTANCEOF).
+    Conflit entre la règle 67 et le jeton '?' résolu par décalage ('=' < '?').
+    Conflit entre la règle 67 et le jeton KOR résolu par décalage ('=' < KOR).
+    Conflit entre la règle 67 et le jeton KAND résolu par décalage ('=' < KAND).
+    Conflit entre la règle 67 et le jeton '>' résolu par décalage ('=' < '>').
+    Conflit entre la règle 67 et le jeton '<' résolu par décalage ('=' < '<').
+    Conflit entre la règle 67 et le jeton GE résolu par décalage ('=' < GE).
+    Conflit entre la règle 67 et le jeton LE résolu par décalage ('=' < LE).
+    Conflit entre la règle 67 et le jeton EQ résolu par décalage ('=' < EQ).
+    Conflit entre la règle 67 et le jeton NE résolu par décalage ('=' < NE).
+    Conflit entre la règle 67 et le jeton '+' résolu par décalage ('=' < '+').
+    Conflit entre la règle 67 et le jeton '-' résolu par décalage ('=' < '-').
+    Conflit entre la règle 67 et le jeton '*' résolu par décalage ('=' < '*').
+    Conflit entre la règle 67 et le jeton '/' résolu par décalage ('=' < '/').
+    Conflit entre la règle 67 et le jeton '%' résolu par décalage ('=' < '%').
+    Conflit entre la règle 67 et le jeton POW résolu par décalage ('=' < POW).
+
+
+État 144
+
+   52 class_decl: KCLASS var inherit '{' members_list '}' . opt_semi
+   59 opt_semi: . ';'
+   60         | . %empty  [$end, IDENTIFIER, TINT, TFLOAT, TBOOL, TSTRING, TVOID, TTNULL, KCLASS]
+
+    ';'  décalage et aller à l'état 161
+
+    $défaut  réduction par utilisation de la règle 60 (opt_semi)
+
+    opt_semi  aller à l'état 162
+
+
+État 145
+
+   23 var_decl: var_decl . ',' var init_var
+   57 attr_decl: var_decl . ';'
+
+    ';'  décalage et aller à l'état 163
+    ','  décalage et aller à l'état 28
+
+
+État 146
+
+   58 attr_decl: func_decl . opt_semi
+   59 opt_semi: . ';'
+   60         | . %empty  [IDENTIFIER, TINT, TFLOAT, TBOOL, TSTRING, TVOID, TTNULL, '}']
+
+    ';'  décalage et aller à l'état 161
+
+    $défaut  réduction par utilisation de la règle 60 (opt_semi)
+
+    opt_semi  aller à l'état 164
+
+
+État 147
+
+   55 members_list: members_list attr_decl .
+
+    $défaut  réduction par utilisation de la règle 55 (members_list)
+
+
+État 148
+
+   42 fparam_list: fparam_list ',' type . var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 165
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 149
+
+   12 stmt: KWHILE '(' expr . ')' stmt
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+    ')'          décalage et aller à l'état 166
+
+
+État 150
+
+   16 stmt: KIF '(' expr . ')' stmt
+   17     | KIF '(' expr . ')' stmt KELSE stmt
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+    ')'          décalage et aller à l'état 167
+
+
+État 151
+
+    9 stmt: KPRINT '(' eparam_list . ')' ';'
+   48 eparam_list: eparam_list . ',' expr
+
+    ')'  décalage et aller à l'état 168
+    ','  décalage et aller à l'état 88
+
+
+État 152
+
+   14 stmt: KRETURN expr_opt ';' .
+
+    $défaut  réduction par utilisation de la règle 14 (stmt)
+
+
+État 153
+
+   23 var_decl: var_decl . ',' var init_var
+   34 for1: var_decl .  [';']
+
+    ','  décalage et aller à l'état 28
+
+    $défaut  réduction par utilisation de la règle 34 (for1)
+
+
+État 154
+
+   24 var_decl: type . var init_var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 169
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 155
+
+   13 stmt: KFOR '(' for1 . ';' for2 ';' for3 ')' stmt
+
+    ';'  décalage et aller à l'état 170
+
+
+État 156
+
+   35 for1: expr .  [';']
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 35 (for1)
+
+
+État 157
+
+   10 stmt: KREAD '(' param_read . ')' ';'
+   45 param_read: param_read . ',' var
+
+    ')'  décalage et aller à l'état 171
+    ','  décalage et aller à l'état 172
+
+
+État 158
+
+   46 param_read: var .  [')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 46 (param_read)
+
+
+État 159
+
+   11 stmt: '{' stmt_list '}' .
+
+    $défaut  réduction par utilisation de la règle 11 (stmt)
+
+
+État 160
+
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   87     | expr '?' expr ':' . expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    expr        aller à l'état 173
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 161
+
+   59 opt_semi: ';' .
+
+    $défaut  réduction par utilisation de la règle 59 (opt_semi)
+
+
+État 162
+
+   52 class_decl: KCLASS var inherit '{' members_list '}' opt_semi .
+
+    $défaut  réduction par utilisation de la règle 52 (class_decl)
+
+
+État 163
+
+   57 attr_decl: var_decl ';' .
+
+    $défaut  réduction par utilisation de la règle 57 (attr_decl)
+
+
+État 164
+
+   58 attr_decl: func_decl opt_semi .
+
+    $défaut  réduction par utilisation de la règle 58 (attr_decl)
+
+
+État 165
+
+   42 fparam_list: fparam_list ',' type var .  [')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 42 (fparam_list)
+
+
+État 166
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   12     | . KWHILE '(' expr ')' stmt
+   12     | KWHILE '(' expr ')' . stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 174
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 167
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   12     | . KWHILE '(' expr ')' stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   16     | KIF '(' expr ')' . stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   17     | KIF '(' expr ')' . stmt KELSE stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 175
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 168
+
+    9 stmt: KPRINT '(' eparam_list ')' . ';'
+
+    ';'  décalage et aller à l'état 176
+
+
+État 169
+
+   24 var_decl: type var . init_var
+   25 init_var: . '=' expr
+   26         | . %empty  [';', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '='  décalage et aller à l'état 40
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 26 (init_var)
+
+    init_var  aller à l'état 42
+
+
+État 170
+
+   13 stmt: KFOR '(' for1 ';' . for2 ';' for3 ')' stmt
+   37 for2: . expr_opt
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   92 expr_opt: . expr
+   93         | . %empty  [';']
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 93 (expr_opt)
+
+    for2        aller à l'état 177
+    expr        aller à l'état 116
+    expr_opt    aller à l'état 178
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 171
+
+   10 stmt: KREAD '(' param_read ')' . ';'
+
+    ';'  décalage et aller à l'état 179
+
+
+État 172
+
+   45 param_read: param_read ',' . var
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    var         aller à l'état 180
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 24
+
+
+État 173
+
+   70 expr: expr . '+' expr
+   71     | expr . '-' expr
+   72     | expr . '*' expr
+   73     | expr . '/' expr
+   74     | expr . '%' expr
+   75     | expr . POW expr
+   76     | expr . '<' expr
+   77     | expr . '>' expr
+   78     | expr . EQ expr
+   79     | expr . GE expr
+   80     | expr . LE expr
+   81     | expr . NE expr
+   82     | expr . KOR expr
+   83     | expr . KAND expr
+   84     | expr . KINSTANCEOF expr
+   87     | expr . '?' expr ':' expr
+   87     | expr '?' expr ':' expr .  [':', ';', ')', ',']
+
+    KINSTANCEOF  décalage et aller à l'état 89
+    '?'          décalage et aller à l'état 90
+    KOR          décalage et aller à l'état 91
+    KAND         décalage et aller à l'état 92
+    '>'          décalage et aller à l'état 93
+    '<'          décalage et aller à l'état 94
+    GE           décalage et aller à l'état 95
+    LE           décalage et aller à l'état 96
+    EQ           décalage et aller à l'état 97
+    NE           décalage et aller à l'état 98
+    '+'          décalage et aller à l'état 99
+    '-'          décalage et aller à l'état 100
+    '*'          décalage et aller à l'état 101
+    '/'          décalage et aller à l'état 102
+    '%'          décalage et aller à l'état 103
+    POW          décalage et aller à l'état 104
+
+    $défaut  réduction par utilisation de la règle 87 (expr)
+
+    Conflit entre la règle 87 et le jeton KINSTANCEOF résolu par décalage (':' < KINSTANCEOF).
+    Conflit entre la règle 87 et le jeton '?' résolu par décalage (%right '?').
+    Conflit entre la règle 87 et le jeton KOR résolu par décalage (':' < KOR).
+    Conflit entre la règle 87 et le jeton KAND résolu par décalage (':' < KAND).
+    Conflit entre la règle 87 et le jeton '>' résolu par décalage (':' < '>').
+    Conflit entre la règle 87 et le jeton '<' résolu par décalage (':' < '<').
+    Conflit entre la règle 87 et le jeton GE résolu par décalage (':' < GE).
+    Conflit entre la règle 87 et le jeton LE résolu par décalage (':' < LE).
+    Conflit entre la règle 87 et le jeton EQ résolu par décalage (':' < EQ).
+    Conflit entre la règle 87 et le jeton NE résolu par décalage (':' < NE).
+    Conflit entre la règle 87 et le jeton '+' résolu par décalage (':' < '+').
+    Conflit entre la règle 87 et le jeton '-' résolu par décalage (':' < '-').
+    Conflit entre la règle 87 et le jeton '*' résolu par décalage (':' < '*').
+    Conflit entre la règle 87 et le jeton '/' résolu par décalage (':' < '/').
+    Conflit entre la règle 87 et le jeton '%' résolu par décalage (':' < '%').
+    Conflit entre la règle 87 et le jeton POW résolu par décalage (':' < POW).
+
+
+État 174
+
+   12 stmt: KWHILE '(' expr ')' stmt .
+
+    $défaut  réduction par utilisation de la règle 12 (stmt)
+
+
+État 175
+
+   16 stmt: KIF '(' expr ')' stmt .  [error, INTEGER, BOOLEAN, FLOAT, TNULL, STRING, IDENTIFIER, KWHILE, KIF, KPRINT, KRETURN, KBREAK, KFOR, KREAD, TINT, TFLOAT, TBOOL, TSTRING, TVOID, TTNULL, KNEW, KTHIS, '+', '-', KNOT, PP, MM, ';', '(', '{', '}']
+   17     | KIF '(' expr ')' stmt . KELSE stmt
+
+    KELSE  décalage et aller à l'état 181
+
+    $défaut  réduction par utilisation de la règle 16 (stmt)
+
+    Conflit entre la règle 16 et le jeton KELSE résolu par décalage (IFX < KELSE).
+
+
+État 176
+
+    9 stmt: KPRINT '(' eparam_list ')' ';' .
+
+    $défaut  réduction par utilisation de la règle 9 (stmt)
+
+
+État 177
+
+   13 stmt: KFOR '(' for1 ';' for2 . ';' for3 ')' stmt
+
+    ';'  décalage et aller à l'état 182
+
+
+État 178
+
+   37 for2: expr_opt .
+
+    $défaut  réduction par utilisation de la règle 37 (for2)
+
+
+État 179
+
+   10 stmt: KREAD '(' param_read ')' ';' .
+
+    $défaut  réduction par utilisation de la règle 10 (stmt)
+
+
+État 180
+
+   45 param_read: param_read ',' var .  [')', ',']
+   96 call: var . '(' eparam_list ')'
+  100 designator: var .  ['.']
+
+    '('  décalage et aller à l'état 35
+
+    '.'       réduction par utilisation de la règle 100 (designator)
+    $défaut  réduction par utilisation de la règle 45 (param_read)
+
+
+État 181
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   12     | . KWHILE '(' expr ')' stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   17     | KIF '(' expr ')' stmt KELSE . stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 183
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 182
+
+   13 stmt: KFOR '(' for1 ';' for2 ';' . for3 ')' stmt
+   38 for3: . expr_opt
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   92 expr_opt: . expr
+   93         | . %empty  [')']
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 17
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    '('         décalage et aller à l'état 55
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+    $défaut    réduction par utilisation de la règle 93 (expr_opt)
+
+    for3        aller à l'état 184
+    expr        aller à l'état 116
+    expr_opt    aller à l'état 185
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 183
+
+   17 stmt: KIF '(' expr ')' stmt KELSE stmt .
+
+    $défaut  réduction par utilisation de la règle 17 (stmt)
+
+
+État 184
+
+   13 stmt: KFOR '(' for1 ';' for2 ';' for3 . ')' stmt
+
+    ')'  décalage et aller à l'état 186
+
+
+État 185
+
+   38 for3: expr_opt .
+
+    $défaut  réduction par utilisation de la règle 38 (for3)
+
+
+État 186
+
+    7 stmt: . ';'
+    8     | . expr ';'
+    9     | . KPRINT '(' eparam_list ')' ';'
+   10     | . KREAD '(' param_read ')' ';'
+   11     | . '{' stmt_list '}'
+   12     | . KWHILE '(' expr ')' stmt
+   13     | . KFOR '(' for1 ';' for2 ';' for3 ')' stmt
+   13     | KFOR '(' for1 ';' for2 ';' for3 ')' . stmt
+   14     | . KRETURN expr_opt ';'
+   15     | . KBREAK ';'
+   16     | . KIF '(' expr ')' stmt
+   17     | . KIF '(' expr ')' stmt KELSE stmt
+   18     | . var_decl ';'
+   19     | . prototype ';'
+   20     | . error ';'
+   23 var_decl: . var_decl ',' var init_var
+   24         | . type var init_var
+   27 type: . TINT
+   28     | . TFLOAT
+   29     | . TBOOL
+   30     | . TSTRING
+   31     | . TVOID
+   32     | . TTNULL
+   33     | . IDENTIFIER
+   41 prototype: . type var '(' fparam_list ')'
+   61 expr: . INTEGER
+   62     | . FLOAT
+   63     | . BOOLEAN
+   64     | . TNULL
+   65     | . STRING
+   66     | . designator
+   67     | . var '=' expr
+   68     | . '-' expr
+   69     | . '+' expr
+   70     | . expr '+' expr
+   71     | . expr '-' expr
+   72     | . expr '*' expr
+   73     | . expr '/' expr
+   74     | . expr '%' expr
+   75     | . expr POW expr
+   76     | . expr '<' expr
+   77     | . expr '>' expr
+   78     | . expr EQ expr
+   79     | . expr GE expr
+   80     | . expr LE expr
+   81     | . expr NE expr
+   82     | . expr KOR expr
+   83     | . expr KAND expr
+   84     | . expr KINSTANCEOF expr
+   85     | . KNOT expr
+   86     | . '(' expr ')'
+   87     | . expr '?' expr ':' expr
+   88     | . PP var
+   89     | . MM var
+   90     | . var PP
+   91     | . var MM
+   94 var: . identifier
+   95    | . prefix identifier
+   96 call: . var '(' eparam_list ')'
+   97 identifier: . IDENTIFIER
+   98 prefix: . designator '.'
+   99       | . %empty  [IDENTIFIER]
+  100 designator: . var
+  101           | . call
+  102           | . KNEW IDENTIFIER
+  103           | . KTHIS
+
+    error       décalage et aller à l'état 66
+    INTEGER     décalage et aller à l'état 45
+    BOOLEAN     décalage et aller à l'état 46
+    FLOAT       décalage et aller à l'état 47
+    TNULL       décalage et aller à l'état 48
+    STRING      décalage et aller à l'état 49
+    IDENTIFIER  décalage et aller à l'état 63
+    KWHILE      décalage et aller à l'état 67
+    KIF         décalage et aller à l'état 68
+    KPRINT      décalage et aller à l'état 69
+    KRETURN     décalage et aller à l'état 70
+    KBREAK      décalage et aller à l'état 71
+    KFOR        décalage et aller à l'état 72
+    KREAD       décalage et aller à l'état 73
+    TINT        décalage et aller à l'état 2
+    TFLOAT      décalage et aller à l'état 3
+    TBOOL       décalage et aller à l'état 4
+    TSTRING     décalage et aller à l'état 5
+    TVOID       décalage et aller à l'état 6
+    TTNULL      décalage et aller à l'état 7
+    KNEW        décalage et aller à l'état 18
+    KTHIS       décalage et aller à l'état 19
+    '+'         décalage et aller à l'état 50
+    '-'         décalage et aller à l'état 51
+    KNOT        décalage et aller à l'état 52
+    PP          décalage et aller à l'état 53
+    MM          décalage et aller à l'état 54
+    ';'         décalage et aller à l'état 74
+    '('         décalage et aller à l'état 55
+    '{'         décalage et aller à l'état 75
+
+    IDENTIFIER  [réduction par utilisation de la règle 99 (prefix)]
+
+    stmt        aller à l'état 187
+    var_decl    aller à l'état 78
+    type        aller à l'état 13
+    prototype   aller à l'état 79
+    expr        aller à l'état 80
+    var         aller à l'état 58
+    call        aller à l'état 21
+    identifier  aller à l'état 22
+    prefix      aller à l'état 23
+    designator  aller à l'état 59
+
+
+État 187
+
+   13 stmt: KFOR '(' for1 ';' for2 ';' for3 ')' stmt .
+
+    $défaut  réduction par utilisation de la règle 13 (stmt)

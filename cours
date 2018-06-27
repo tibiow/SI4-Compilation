@@ -1,0 +1,7 @@
+cours 1:
+
+Compilatuer VS interprète.
+
+Un interprète coute plus cher. Le tradcteur est la pour créer une sorte d'arbre. On envoie les données à traiter à l'interprete et on fait jouer l'arbre.
+
+le compilo produit du code machine. C'est plus interessant niveau temps puisque ça nous évite de traduire en arbre à chaque fois.

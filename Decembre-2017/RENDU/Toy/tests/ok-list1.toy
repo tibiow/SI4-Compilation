@@ -1,0 +1,112 @@
+// -*- mode: java -*-
+//
+// ok-list.toy  -- Implementation of lists in Toy
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 24-Sep-2015 08:49 (eg)
+// Last file update: 11-Dec-2017 17:16 (eg)
+//
+
+// ----------------------------------------------------------------------
+//                              Node Class
+// ----------------------------------------------------------------------
+
+class Node {
+    int value;
+    Node prec, next;
+
+    Node init(int v) {
+        this.value = v;
+        // NOTE: Enlever le commentaire suivant lorsque null est implémenté
+        // this.prec = this.next = null;  // not necessary since initialized to NULL
+        return this;
+    }
+}
+
+//NOTE: Commenter la déclaration suivante lorsque null est implémenté
+Node nil;
+
+// ----------------------------------------------------------------------
+//                              List Class
+//----------------------------------------------------------------------
+class List {
+    Node first, last;
+
+    bool empty() { return this.first == nil; }
+    int  head()  { return this.first.value; }
+    int  tail()  { return this.last.value; }
+
+    void append(int v) {
+        Node e;
+        e = new Node.init(v);
+        if (this.first == nil) {
+            this.first = this.last = e;
+        } else {
+            e.prec = this.last; this.last.next = e; this.last = e;
+        }
+    }
+
+    void prepend(int v) {
+        Node e;
+        e = new Node.init(v);
+        if (this.last == nil) {
+            this.first = this.last = e;
+        } else {
+            e.next = this.first; this.first.prec = e; this.first = e;
+        }
+    }
+
+    void printobj() {
+        Node e = this.first;
+
+        print("{");
+        while (e != nil) {
+            print(e.value, (e.next == nil)? "": ", ");
+            e = e.next;
+        }
+        print("}");
+    }
+}
+// ----------------------------------------------------------------------
+//                              Sorted_list Class
+//----------------------------------------------------------------------
+class Sorted_list extends List {
+    void insert (int v) {
+        Node e = new Node.init(v);
+
+        if (this.first == nil) {
+            this.last = this.first = e;
+        } else {
+            Node p, q;
+
+            p = this.first; q = nil;
+            while (p != nil and p.value < v) {
+                q = p; p = p.next;
+            }
+            e.next = p; e.prec = q;
+            if (q == nil) { this.first.prec = e; this.first = e; } else q.next = e;
+            if (p == nil) { this.last.next = e;  this.last = e;  } else p.prec = e;
+        }
+    }
+}
+
+int main() {
+    int i          = 7;
+    List l         = new List;
+    Sorted_list sl = new Sorted_list;
+
+    while (i != 0) {
+        print("Adding ", i, " in both lists\n");
+        l.append(i);
+        sl.insert(i);
+        i = (i + 7) % 13;
+    }
+    print("l  = ", l, "\n");
+    print("sl = ", sl, "\n");
+
+    // This is just for fun:
+    print("nil = ", nil, "\n");
+
+    print(sl.head() == 1 ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

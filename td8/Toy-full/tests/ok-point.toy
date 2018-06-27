@@ -1,0 +1,32 @@
+// -*- mode: java -*-
+//
+// ok-point.toy 	-- Classical class point
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  9-Nov-2015 14:54 (eg)
+// Last file update: 13-Nov-2015 07:54 (eg)
+//
+
+class Point {
+    int x, y;
+
+    void printobj() {
+        print("#<Point x=", this.x, " y=", this.y, ">");
+    }
+
+    Point init(int x, int y) {
+        this.x = x; this.y = y;
+        return this;
+    }
+}
+
+int main() {
+    Point p1, p2;
+
+    p1 = new Point.init(1, 2);          // Appel explicite à la fonction init
+    p2 = new Point;                     // x et y à 0
+
+    print("p1 = ", p1, "\np2 = ", p2, "\n");
+    print((p1.x == 1 and p1.y == 2 and p2.x == 0 and p2.y == 0) ? "SUCCESS\n":
+          "FALILURE\n");
+}

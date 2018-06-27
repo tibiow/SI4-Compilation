@@ -1,0 +1,79 @@
+// -*- mode: java -*-
+//
+// ok-access-member.toy 	-- Access of class members (data only)
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 14-Jul-2015 09:49 (eg)
+// Last file update: 18-Jul-2015 07:52 (eg)
+//
+
+class C1 {
+    int x=1, y=2;
+};
+
+
+class C2 {
+    bool a=false, b=true;
+}
+
+class C3 extends C1 {
+    int z=100;
+    C2  c = new C2;
+}
+
+class C4 extends C2 {
+    string s = "TEST";
+}
+
+
+
+void print_C1(C1 c) {
+    print("{C1: x=", c.x, " y=", c.y, "}");
+}
+
+void print_C2(C2 c) {
+    print("{C2: a=", c.a, " b=", c.b, "}");
+}
+
+void print_C3(C3 c) {
+    print("{C3: x=", c.x, " y=", c.y, " z=", c.z, " c="); print_C2(c.c); print("}");
+}
+
+void print_C4(C4 c) {
+    print("{C4: a=", c.a, " b=", c.b, " s=\"", c.s); print("\"}");
+}
+
+
+C4 return_a_C4(C4 c) {
+    return c;
+}
+
+
+int main() {
+    C1 c1 = new C1;
+    C2 c2 = new C2;
+    C3 c3 = new C3;
+    C4 c4 = new C4;
+
+    print("c1 = "); print_C1(c1); print("\n");
+    print("c2 = "); print_C2(c2); print("\n");
+    print("c3 = "); print_C3(c3); print("\n");
+    print("c4 = "); print_C4(c4); print("\n");
+
+    print("Access to direct member z    ", c3.z, "\n");
+    print("Access to inherited member x ", c3.x, "\n");
+    print("Access to embedded member a  ", c3.c.a, "\n");
+
+    // Calls where a cast is needed
+    c3.c = new C4;	// new C4 must be converted to a C2. Note: memory leak here
+    c3.c.a = true;
+    c4.s = "NEW VALUE";
+    print("a C3 printed as a C1: c3="); print_C1(c3); print("\n"); // c3 => C1
+
+    // Accessing a field from the result of a function
+    print("c4.a (sort of) = ", return_a_C4(c4).a, "\n");
+    print(return_a_C4(c4).a, "\n");
+
+    print(return_a_C4(c4).b ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

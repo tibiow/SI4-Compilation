@@ -1,0 +1,42 @@
+// -*- mode: java -*-
+//
+// ok-instanceof1.toy    -- Test instanceof
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 13-Dec-2017 16:08 (eg)
+// Last file update: 13-Dec-2017 16:31 (eg)
+//
+
+class C1            { C1 init(){ return this;}}
+class C2 extends C1 { C2 init(){ return this;}}
+class C3 extends C2 { C3 init(){ return this;}}
+class D             { D  init(){ return this;}}
+int main() {
+    C1 c1 = new C1.init();
+    C2 c2 = new C2.init();
+    C3 c3 = new C3.init();
+    D  d  = new D.init();
+    int cpt = 0;
+
+    // Tests qui réussissent
+    if (c1 instanceof C1) { print("c1 is a C1\n"); cpt++; }
+    if (c2 instanceof C2) { print("c2 is a C2\n"); cpt++; }
+    if (c3 instanceof C3) { print("c3 is a C3\n"); cpt++; }
+
+    if (c3 instanceof C2) { print("c3 is a C2\n"); cpt++; }
+    if (c3 instanceof C1) { print("c3 is a C1\n"); cpt++; }
+
+    if (d  instanceof D)       { print("d  is a D\n"); cpt++; }
+    if (d  instanceof Object)  { print("d  is an Object\n"); cpt++; }
+
+    // Tests qui échouent
+    if (c1 instanceof C2) { print("c1 is a C2\n"); cpt++; }
+    if (c1 instanceof C3) { print("c1 is a C3\n"); cpt++; }
+    if (c2 instanceof C3) { print("c2 is a C3\n"); cpt++; }
+
+    if (c1 instanceof D)  { print("c1 is a D\n"); cpt++; }
+
+    print("cpt = ", cpt, "\n");
+    print((cpt == 7) ? "SUCCESS\n" : "FAILURE\n");
+    return 0;
+}

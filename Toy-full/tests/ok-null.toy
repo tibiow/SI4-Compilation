@@ -1,0 +1,36 @@
+// -*- mode: java -*-
+//
+// ok-null.toy        -- Simple test on null constant
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  9-Dec-2015 18:43 (eg)
+// Last file update:  9-Dec-2015 20:17 (eg)
+//
+
+class A {
+    int x = 1;
+}
+
+int foo(A o) {
+    if (o == null) {
+        print("parameter is null!!!\n");
+        return 0;
+    }
+    else {
+        print("x = ", o.x, "\n");
+        return o.x;
+    }
+}
+
+
+int main() {
+    A a = new A;
+    int x, y;
+
+    x = foo(a);
+    a = null;   // Memory leak here!!!!
+    y = foo(a);
+
+    print((x == 1 and y == 0) ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

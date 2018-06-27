@@ -1,0 +1,16 @@
+ >> Enter procedure 'main'
+ >> Enter procedure 'bar'
+Dans bar:  >> Enter procedure '_A_printobj'
+A(1, 2)  << Leave procedure '_A_printobj'
+ << Leave procedure 'bar'
+ >> Enter procedure 'bar'
+Dans bar:  >> Enter procedure '_B_printobj'
+B(1, 2, 3)  << Leave procedure '_B_printobj'
+ << Leave procedure 'bar'
+Dans foo: >> Enter procedure '_A_printobj'
+A(1, 2) << Leave procedure '_A_printobj'
+SUCCESS
+Dans foo: >> Enter procedure '_B_printobj'
+B(1, 2, 3) << Leave procedure '_B_printobj'
+SUCCESS
+ << Leave function 'main' <-0

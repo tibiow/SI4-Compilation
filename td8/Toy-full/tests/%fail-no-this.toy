@@ -1,0 +1,37 @@
+// -*- mode: java -*-
+//
+// fail-no-this.toy        -- Failure when not using this
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 18:28 (eg)
+// Last file update:  9-Dec-2015 08:39 (eg)
+//
+// ERRORS: 2
+
+class C {
+    int x = 1, y =1;
+
+    void reset()    { x = y = 0; }
+    void printobj() { print("(", x, ", ", y, ")"); }
+}
+
+
+class D extends C {
+    bool z;
+
+    D foo() {
+        print(global);    // global undeclared
+        z = x + global;   // not integer
+        return this;
+    }
+}
+
+int main() {
+    C c = new C;
+
+    print("before reset: ", c, "\n");
+    c.reset();
+    print("after reset: ", c, "\n");
+
+    D d = new D.foo();
+}

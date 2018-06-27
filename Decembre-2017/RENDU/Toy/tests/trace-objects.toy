@@ -1,0 +1,41 @@
+// -*- mode: java -*-
+//
+// ok-debug3.toy        -- Debug with objects
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Dec-2017 22:28
+// Last file update: 18-Dec-2017 07:54 (eg)
+//
+
+class A {
+    int x = 1, y = 2;
+    void printobj() { print("A(", x, ", ", y, ")"); }
+    A init() { return this; }
+}
+
+class B extends A {
+    int z=3;
+    void printobj() { print("B(", x, ", ", y, ", ", z, ")"); }
+    B init() { return this; }
+}
+
+A foo(A obj) {
+    print("Dans foo:", obj);
+    return obj;
+}
+
+void bar(A obj) {
+    print("Dans bar:", obj);
+}
+
+
+int main() {
+    A a = new A.init();
+    B b = new B.init();
+
+    bar(a);
+    bar(b);
+    print(foo(a) == a ? "SUCCESS\n": "FAILURE");
+    print(foo(b) == b ? "SUCCESS\n": "FAILURE");
+    return 0;
+}

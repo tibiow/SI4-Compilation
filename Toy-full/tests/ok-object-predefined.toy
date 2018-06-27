@@ -1,0 +1,37 @@
+// -*- mode: java -*-
+//
+// ok-object-predefined.toy        -- Test of the predefined Object methods
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 08:07 (eg)
+// Last file update: 26-Nov-2015 14:24 (eg)
+//
+
+class C { }
+
+class D {
+    void printobj() {
+        print("Object of class D (or a descendant of)");
+    }
+}
+
+class E extends D { }
+
+int main() {
+    // Direct access to the printobj() method
+    new C.printobj(); print("\n");
+    new D.printobj(); print("\n");
+    new E.printobj(); print("\n");
+
+    // Direct access to the typename() method
+    print(new C.typename(), " ", new D.typename(), " ", new E.typename(), "\n");
+
+    // Indirect access to the printobj() method
+    print(new C, " | ", new D, " | ", new E, "\n");
+
+    D d = new D;
+    print("indirect ⟹  ", d, "\n");
+    print("direct   ⟹  "); d.printobj(); print("\n");
+
+    print(d.typename() == "D" ? "SUCCESS\n": "FAILURE\n");
+}

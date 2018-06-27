@@ -1,0 +1,81 @@
+// -*- mode: java -*-
+//
+// ok-method3.toy 	-- Simple methods with inheritance
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 21-Jul-2015 08:27 (eg)
+// Last file update: 17-Sep-2015 13:30 (eg)
+//
+
+void foo (int n) {
+    print("function foo: ", n, "\n");
+}
+
+class C {
+    int x=1, y=2, z = 3;
+
+    void foo(int n) {
+	print("foo of C: ", n, "\n");
+    }
+
+    int bar(int n) {
+	return n + 1;
+    }
+
+    void foobar() {
+	print("In foobar\n");
+    }
+}
+
+
+class D extends C {
+    int w = 4;
+    void foo (int n) {
+	print("foo of D: ", n, "\n");
+    }
+
+    int gee(int n) {
+	return n * 2;
+    }
+
+}
+
+class E extends D {
+    bool b;
+    int bar(int n) {
+	print("bar in E\n");
+	return n * 4;
+    }
+}
+
+int main() {
+    // Function
+    foo(10);
+    print("------------\n");
+
+    // foo, bar and foobar on an C
+    C c = new C;
+    c.foo(1);
+    if (c.bar(4) != 5) print("FAILURE\n");
+    c.foobar();
+    print("------------\n");
+
+    // foo, bar, foobar and gee on an D
+    D d = new E;
+    d.foo(2);
+    if (d.bar(4) != 16) print("FAILURE\n");
+    d.foobar();
+    if (d.gee(2) != 4) print("FAILURE\n");
+    print("------------\n");
+
+    // foo, bar, foobar and gee on an E
+    E e = new E;
+    e.foo(3);
+    if (e.bar(4) != 16) print("FAILURE\n");
+    e.foobar();
+    if (e.gee(3) != 6) print("FAILURE\n");
+    print("------------\n");
+
+    print("SUCCESS\n");
+    return 0;
+}

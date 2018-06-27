@@ -1,0 +1,67 @@
+// -*- mode: java -*-
+//
+// fail-qualified.toy     -- Fail on  qualified names
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  7-Dec-2015 08:58 (eg)
+// Last file update:  7-Dec-2015 09:36 (eg)
+//
+// ERRORS: 5
+
+class A {
+    int x = 1;
+    int y = 2;
+    A foo() {
+        return this;
+    }
+    A bar() {
+        return this.foo();
+    }
+    int sum() {
+        return this.x + this.y;
+    }
+}
+
+class B extends A {
+    int x = 3;
+    int z = 4;
+    B foo() {
+        return this;
+    }
+    A gee() {
+        return this.bar();
+    }
+    B oof() {
+        return this.foo();
+    }
+    int sum() {
+        return this.x + this.z;
+    }
+}
+
+
+int main() {
+    A a = new A;
+    B b = new B;
+
+    a.x;                        // OK
+    a.z;                        // z doesn't exist
+
+    b.foo().foo().foo().x;      //OK
+    a.foo().foo().foo().x;      //OK
+    a.foo().bar().foo().z;      //z does not exist
+
+
+    b.oof().foo().y;
+    a.oof().foo().y;            // No
+
+    a = b.gee();
+    a = b.foo();
+    b = b.gee();                // No
+    b = b.foo().foo().gee();    // No
+    b = b.foo();
+
+
+
+    return 0;
+}

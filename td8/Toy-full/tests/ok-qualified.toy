@@ -1,0 +1,74 @@
+// -*- mode: java -*-
+//
+// ok-qualified.toy     -- Test on fully qualified names
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  7-Dec-2015 08:58 (eg)
+// Last file update:  7-Dec-2015 09:25 (eg)
+//
+
+class A {
+    int x = 1;
+    int y = 2;
+    A foo() {
+        return this;
+    }
+    A bar() {
+        return this.foo();
+    }
+    int sum() {
+        return this.x + this.y;
+    }
+}
+
+class B extends A {
+    int x = 3;
+    int z = 4;
+    B foo() {
+        return this;
+    }
+    A gee() {
+        return this.bar();
+    }
+    int sum() {
+        return this.x + this.z;
+    }
+}
+
+
+int main() {
+    A a = new A;
+
+    print("a.x                = ", a.x, "\n");
+    print("a.foo().y          = ", a.foo().y, "\n");
+    print("a.bar().x          = ", a.bar().x, "\n");
+    print("a.foo().bar()      = ", a.foo().bar(), "\n");
+    print("a.foo().bar().x    = ", a.foo().bar().x, "\n");
+    print("a.sum()            = ", a.sum(), "\n");
+    print("--------------------\n");
+
+    B b = new B;
+    print("b.x                = ", b.x, "\n");
+    print("b.foo().y          = ", b.foo().y, "\n");
+    print("b.foo().z          = ", b.foo().z, "\n");
+    print("b.bar().x          = ", b.bar().x, "\n");
+    print("b.foo().bar()      = ", b.foo().bar(), "\n");
+    print("b.foo().bar().x    = ", b.foo().bar().x, "\n");
+    print("b.foo().gee()      = ", b.foo().gee(), "\n");
+    print("b.foo().gee().y    = ", b.foo().gee().y, "\n");
+    print("b.sum()            = ", b.sum(), "\n");
+    print("--------------------\n");
+
+    a = b;
+    print("a.x                = ",  a.x, "\n");
+    print("a.foo().y          = ", a.foo().y, "\n");
+    print("a.bar().x          = ", a.bar().x, "\n");
+    print("a.foo().bar()      = ", a.foo().bar(), "\n");
+    print("a.foo().bar().x    = ", a.foo().bar().x, "\n");
+    print("a.sum()            = ", a.sum(), "\n");
+    print("--------------------\n");
+
+    print(a.sum() == b.sum () ? "SUCCESS\n": "FAILURE\n");
+
+    return 0;
+}

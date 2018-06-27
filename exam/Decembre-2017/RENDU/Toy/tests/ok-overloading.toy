@@ -1,0 +1,36 @@
+// -*- mode: java -*-
+//
+// ok-overloading.toy   -- overloading data
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 30-Nov-2015 12:04 (eg)
+// Last file update:  1-Dec-2015 17:29 (eg)
+//
+
+class A {
+    int w = 1;
+    int x = 2;
+    void f() {
+        print("x = ", this.x, "\n");
+    }
+    int get_X() {
+        return this.x;
+    }
+}
+
+class B extends A {
+    int x = 3, y = 4;
+    void g() {
+        print("In A: "); this.f();
+        print("In B: x = ", this.x, " y = ", this.y, "\n");
+    }
+}
+
+int main() {
+    B b = new B;
+
+    b.g();
+    print("w = ", b.w, " x= ", b.x, "(in A x = ", b.get_X(), ") y = ", b.y ,"\n");
+    print((b.x == 3 and b.get_X() == 2) ? "SUCCESS\n" : "FAILURE\n");
+    return 0;
+}

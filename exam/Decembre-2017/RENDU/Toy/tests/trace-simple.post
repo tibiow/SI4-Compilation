@@ -1,0 +1,10 @@
+#!/bin/sh
+#           Author: Erick Gallesio [eg@unice.fr]
+#    Creation date: 18-Dec-2017 11:50
+# Last file update: 18-Dec-2017 12:21 (eg)
+
+in=$(grep -c "<<" trace-simple.out)
+out=$(grep -c ">>" trace-simple.out)
+
+[ "$in" -eq 4 -a "$out" -eq 4 ] 
+

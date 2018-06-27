@@ -1,0 +1,21 @@
+// -*- mode: java -*-
+//
+// fail-null.toy        -- Simple test on null constant
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  9-Dec-2015 18:43 (eg)
+// Last file update:  9-Dec-2015 18:56 (eg)
+//
+// ERRORS: 4
+
+class A { }
+
+int main() {
+    int x;
+    A a;
+
+    a = null;           // OK
+    null = a;           // ??
+    x =1 + null;        // cannot add
+    x = null;           // not on an int
+}

@@ -1,0 +1,27 @@
+// -*- mode: java -*-
+//
+// ok-strconcat.toy     -- test the static string concatenation
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 15-Dec-2017 17:24
+// Last file update: 17-Dec-2017 19:29 (eg)
+//
+
+int main() {
+    print("(C99, 6.4.5p5) In translation phase 6, the multibyte "
+          "character sequences specified by any sequence of "
+          "adjacent character and identically-prefixed "
+          "string literal tokens are concatenated into a single "
+          "multibyte character sequence.");
+
+    string c1 = "ABC" "DEF";
+    string c2 = "AB" "CD" "EF";
+
+    print((c1 == c2)         ? "SUCCESS\n" : "FAILURE\n");
+    print(("A" == "" "A" "") ? "SUCCESS\n" : "FAILURE\n");
+    print(("" "" == "" "" "") ? "SUCCESS\n" : "FAILURE\n");
+
+    return 0;
+}
+
+

@@ -1,0 +1,38 @@
+// -*- mode: java -*-
+//
+// fail-class-decl.toy  -- Simple class test declaration
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 27-Jun-2015 16:49 (eg)
+// Last file update: 30-Nov-2015 14:07 (eg)
+//
+// ERRORS: 3
+
+int x;
+class C {
+  int x=1, y=2, z=3;
+};
+
+class D extends C {
+    int w;
+}
+
+class E extends D {
+    int x;      // overloading C::x
+    int w;      // overloading D::w
+}
+
+class F extends x {     // x is not a class
+    int z;
+}
+
+class G extends W {     // W in undeclared
+    int z;
+}
+
+int main() {
+    new G;
+    new FOO;
+
+    print("End of test\n");
+}

@@ -1,0 +1,12 @@
+syntax.h: syntax.y
+lexical.c: syntax.h
+symbols.o: symbols.c ../lib/hash.h toy.h ast.h ../lib/list.h utils.h \
+ symbols.h object.h
+analysis.o: analysis.c toy.h ast.h ../lib/list.h utils.h symbols.h \
+ object.h analysis.h
+main.o: main.c toy.h ast.h ../lib/list.h syntax.h prodcode.h symbols.h \
+ object.h
+object.o: object.c toy.h ast.h ../lib/list.h symbols.h object.h
+prodcode.o: prodcode.c toy.h ast.h ../lib/list.h prodcode.h
+ast.o: ast.c toy.h ast.h ../lib/list.h analysis.h prodcode.h utils.h
+utils.o: utils.c toy.h ast.h ../lib/list.h utils.h

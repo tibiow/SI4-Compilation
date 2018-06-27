@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#1f3055}code.hl{color:#b2dfee;background-color:#1f3055;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b3ee3a}.hl.esc{color:#ffeea6}.hl.str{color:#ccc}.hl.pps{color:#ccc}.hl.slc{color:#9e9e9e}.hl.com{color:#9e9e9e}.hl.ppc{color:#b2dfee}.hl.opt{color:#fff}.hl.ipl{color:#ceff9f}.hl.lin{color:#9e9e9e}.hl.kwa{color:#cd919e}.hl.kwb{color:#f40}.hl.kwc{color:#9ecc91}.hl.kwd{color:#edc1b2}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 2: Grammaires / Analyse descendante</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 2: Grammaires / Analyse descendante</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de TD est <a href="sujet.html">ici</a>.</p>
+
+<h2 id="corrigé">Corrigé</h2>
+
+<h3 id="généralités-grammaires">Généralités grammaires</h3>
+
+<h4 id="une-première-grammaire">Une première grammaire</h4>
+
+<p>Une grammaire possible: </p>
+
+<pre><code class="hl c">S → AB
+A → aAb <span class="hl opt">|</span> ε
+B → bBc <span class="hl opt">|</span> ε
+</code></pre>
+
+<h4 id="appels-de-fonction">Appels de fonction</h4>
+
+<p><strong>Factorisation à gauche de G<sub>1</sub></strong></p>
+
+<p>On travaille sur la première règle: </p>
+
+<pre><code class="hl c">call   → <span class="hl kwd">ident</span> <span class="hl opt">(</span> params
+params → liste <span class="hl opt">) | )</span>
+</code></pre>
+
+<p><em>Note:</em> au prix d&#39;une ε-production, on peut aussi factoriser à droite,  et obtenir:</p>
+
+<pre><code class="hl c">call   → <span class="hl kwd">ident</span> <span class="hl opt">(</span> params <span class="hl opt">)</span>
+params → liste <span class="hl opt">|</span> ε
+</code></pre>
+
+<p>qui est un peu plus lisible.</p>
+
+<p><strong>Suppression de la récursivité gauche de G<sub>1</sub></strong></p>
+
+<p>La troisème règle peut se réécrire en:</p>
+
+<pre><code class="hl c">liste → expr suite
+suite → <span class="hl opt">,</span> expr suite <span class="hl opt">|</span> ε
+</code></pre>
+
+<p>La grammaire G<sub>2</sub> est donc:</p>
+
+<pre><code class="hl c">call   → <span class="hl kwd">ident</span> <span class="hl opt">(</span> params <span class="hl opt">)</span>
+params → liste <span class="hl opt">|</span> ε
+liste → expr suite
+suite → <span class="hl opt">,</span> expr suite <span class="hl opt">|</span> ε
+</code></pre>
+
+<p><strong>Forme BNF</strong></p>
+
+<p>La forme BNF de G<sub>1</sub></p>
+
+<pre><code class="hl">call  ::= ident ( [liste] )
+liste ::= expr {, expr}
+</code></pre>
+
+<p>On peut voir que la forme BNF de  G<sub>2</sub> est bien sûr identique et que les deux grammaires sont bien équivalentes.</p>
+
+<h4 id="grammaire-ambiguë">Grammaire ambiguë</h4>
+
+<p>Prenons par exemple le mot <code>abab</code>; il peut être produit par les deux suites de dérivations suivantes: </p>
+
+<pre><code class="hl">S → aSbS → abS → abaSbS → ababS → abab
+     r1     r3     r1      r3     r3
+</code></pre>
+
+<p>et </p>
+
+<pre><code class="hl">S -&gt; aSbS → abSaSb → abaSb → abab
+     r1      r2       r3       r3
+</code></pre>
+
+<p>Le langage engendré par G est l&#39;ensemble des mots formés d&#39;autant de <code>a</code> que de <code>b</code>.</p>
+
+<h4 id="s-expressions">S-expressions</h4>
+
+<p>La grammaire des <em>s-expressions</em> de Lisp est très simple:</p>
+
+<pre><code class="hl">PROG    → SEXPR PROG | ε
+SEXPR   → atom    | ( MEMBERS ) 
+MEMBERS → SEXPR MEMBERS | ε
+</code></pre>
+
+<h4 id="déclarations-c">Déclarations C</h4>
+
+<p>Une version possible de la grammaire demandée pourrait être: </p>
+
+<pre><code class="hl sql">Decl     → <span class="hl kwa">type</span> liste <span class="hl str">&apos;;&apos;</span>
+<span class="hl kwa">type</span>     → typename star
+typename → ident | <span class="hl kwb">int</span> | <span class="hl kwb">float</span> | ...
+star     → <span class="hl str">&apos;*&apos;</span> star | ε
+liste    → liste <span class="hl str">&apos;,&apos;</span> var | var
+var      → ident brackets
+brackets → brackets <span class="hl str">&apos;[&apos;</span> <span class="hl kwb">integer</span> <span class="hl str">&apos;]&apos;</span> | ε
+</code></pre>
+
+<p>La forme BNF est ici probablement plus lisible: </p>
+
+<pre><code class="hl sql">Decl     → typename <span class="hl opt">{</span> <span class="hl str">&apos;*&apos;</span> <span class="hl opt">}</span> var <span class="hl opt">{</span> <span class="hl str">&apos;,&apos;</span> var <span class="hl opt">}</span> <span class="hl str">&apos;;&apos;</span>
+typename → ident | <span class="hl kwb">int</span> | <span class="hl kwb">float</span> | ...
+var      → ident <span class="hl opt">{</span> <span class="hl str">&apos;[&apos;</span> <span class="hl kwb">integer</span> <span class="hl str">&apos;]&apos;</span> <span class="hl opt">}</span>
+</code></pre>
+
+<h3 id="premiers-et-suivants">PREMIERs et SUIVANTs</h3>
+
+<h4 id="grammaire-llk">Grammaire LL(k)</h4>
+
+<p><strong>Rappel:</strong> on a la grammaire</p>
+
+<pre><code class="hl sql">S → A B C e
+A → a A | ε
+B → b B | c B | ε
+C → d e | d a | d A
+</code></pre>
+
+<p>Pour les PREMIERs, on a:</p>
+
+<pre><code class="hl">PREMIER(S) = { a, b, c, d }
+PREMIER(A) = { a, ε }
+PREMIER(B) = { b, c, ε }
+PREMIER(C) = { d }
+</code></pre>
+
+<p>Pour les SUIVANTS, on a:</p>
+
+<pre><code class="hl">SUIVANT(S) = { $ }
+SUIVANT(A) = { b, c, d ,e }
+SUIVANT(B) = { d }
+SUIVANT(C) = { e }
+</code></pre>
+
+<p>On peut donc construire la table d&#39;analyse de cette grammaire. </p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">a</th>
+<th style="text-align: center">b</th>
+<th style="text-align: center">c</th>
+<th style="text-align: center">d</th>
+<th style="text-align: center">e</th>
+<th style="text-align: center">$</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">S</td>
+<td style="text-align: center">ABCe</td>
+<td style="text-align: center">ABCe</td>
+<td style="text-align: center">ABCe</td>
+<td style="text-align: center">ABCe</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">A</td>
+<td style="text-align: center">aA</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">B</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">bB</td>
+<td style="text-align: center">cB</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">C</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">de<br>da<br>dA</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+</tbody>
+</table>
+
+<p>Cette grammaire n&#39;est pas LL(1) puisqu&#39;il y a 3 règles dans la case
+T[C, d].  On peut voir que si on avait 2 symboles d&#39;avance, on ne
+pourrait toujours pas discriminer entre les règles qui ont en partie
+droite <code>da</code> et <code>dA</code> puisque le non terminal <code>A</code> possède <code>a</code> dans ses
+premiers. La grammaire n&#39;est donc pas LL(2), non plus.<br>
+A vérifier: elle est LL(3).</p>
+
+<h4 id="grammaire-de-blocs">Grammaire de blocs</h4>
+
+<p>On a donc la grammaire: </p>
+
+<pre><code class="hl sql">Bloc    → <span class="hl str">&apos;{&apos;</span> L_decl L_instr <span class="hl str">&apos;}&apos;</span>
+L_decl  → d <span class="hl str">&apos;;&apos;</span> L_decl | ε 
+L_instr → i <span class="hl str">&apos;;&apos;</span> L_instr | Bloc L_instr | <span class="hl str">&apos;;&apos;</span> | ε
+</code></pre>
+
+<p>Pour les PREMIERs, nous avons:</p>
+
+<pre><code class="hl sql"><span class="hl kwd">PREMIER</span><span class="hl opt">(</span>Bloc<span class="hl opt">)    = {</span> <span class="hl str">&apos;{&apos;</span> <span class="hl opt">}</span>
+<span class="hl kwd">PREMIER</span><span class="hl opt">(</span>L_decl<span class="hl opt">)  = {</span> d<span class="hl opt">,</span> ε <span class="hl opt">}</span>
+<span class="hl kwd">PREMIER</span><span class="hl opt">(</span>L_instr<span class="hl opt">) = {</span> i<span class="hl opt">,</span> <span class="hl str">&apos;{&apos;</span><span class="hl opt">,</span> <span class="hl str">&apos;;&apos;</span><span class="hl opt">,</span> ε <span class="hl opt">}</span>
+</code></pre>
+
+<p>Pour les SUIVANTs: </p>
+
+<pre><code class="hl sql"><span class="hl kwd">SUIVANT</span><span class="hl opt">(</span>Bloc<span class="hl opt">)    = {</span> i<span class="hl opt">,</span> <span class="hl str">&apos;{&apos;</span><span class="hl opt">,</span> <span class="hl str">&apos;}&apos;</span><span class="hl opt">,</span> <span class="hl str">&apos;;&apos;</span> <span class="hl opt">}</span>
+<span class="hl kwd">SUIVANT</span><span class="hl opt">(</span>L_decl<span class="hl opt">)  = {</span> i<span class="hl opt">,</span> <span class="hl str">&apos;{&apos;</span><span class="hl opt">,</span> <span class="hl str">&apos;}&apos;</span><span class="hl opt">,</span> <span class="hl str">&apos;;&apos;</span> <span class="hl opt">}</span>
+<span class="hl kwd">SUIVANT</span><span class="hl opt">(</span>L_instr<span class="hl opt">) = {</span> <span class="hl str">&apos;}&apos;</span> <span class="hl opt">}</span>
+</code></pre>
+
+<p>Nous pouvons donc construire la table d&#39;analyse:</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">i</th>
+<th style="text-align: center">d</th>
+<th style="text-align: center">{</th>
+<th style="text-align: center">}</th>
+<th style="text-align: center">;</th>
+<th style="text-align: center">$</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">Bloc</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">&#39;{&#39; L_decl L_instr &#39;}&#39;</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">L_decl</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">d &#39;;&#39; L_decl</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">L_instr</td>
+<td style="text-align: center">i ; L_instr</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">Bloc L_instr</td>
+<td style="text-align: center">ε</td>
+<td style="text-align: center">;</td>
+<td style="text-align: center"></td>
+</tr>
+</tbody>
+</table>
+
+<p><br>
+Comme il n&#39;y a aucun conflit dans la table, la grammaire est bien LL(1).</p>
+
+<p><strong>Séparateur vs terminateur:</strong></p>
+
+<p>Pour considérer <code>&#39;;&#39;</code> somme un séparateur (et non plus comme un terminateur), il suffit de transformer la règle pour
+<code>L_instr</code>. Celle-ci devient: </p>
+
+<pre><code class="hl sql">L_instr → i | i <span class="hl opt">;</span> L_instr | Bloc L_instr | <span class="hl opt">;</span> 
+</code></pre>
+
+<p>Nous avons maintenant une règle qui n&#39;est pas factorisée à gauche. Il
+faut donc la transformer en :</p>
+
+<pre><code class="hl sql">L_instr → i Suite | Bloc L_instr | <span class="hl str">&apos;;&apos;</span> 
+Suite   → <span class="hl str">&apos;;&apos;</span> i Suite | ε
+</code></pre>
+
+<p>On peut vérifier que cette nouvelle grammaire est aussi LL(1). Ceci est laissé en exercice. </p>
+
+<h2 id="connexion-de-lex-à-un-analyseur-ll1">Connexion de Lex à un analyseur LL(1)</h2>
+
+<p>Pour cet exercice, nous reprenons l&#39;analyseur lexical du TD 1 (en le
+simplifiant car on a pas de variables ici). Du coup, la variable
+<code>yylval</code> n&#39;est plus une union, mais simplement un entier. Notez que le
+calcul de la valeur entière dans <code>yylval</code> est complètement inutile ici
+puisque nous nous bornons à ne faire que l&#39;analyse syntaxique dans cet
+exercice. Toutefois, nous la calculons quand même ici car nous en en
+aurons besoin pour l&#39;exercice suivant.</p>
+
+<p>Le code de l&#39;analyseur lexical en lex peut donc être: </p>
+
+<pre><code class="hl c"><span class="hl com">/*</span>
+<span class="hl com"> *  lex.l                       -- Un lexical simple pour implémenter ETF</span>
+<span class="hl com">*/</span>
+
+<span class="hl opt">%{</span>
+
+<span class="hl ppc">#include &lt;stdio.h&gt;</span>
+<span class="hl ppc">#include</span> <span class="hl pps">&quot;analyseur-ll.h&quot;</span><span class="hl ppc"></span>
+<span class="hl kwc">extern</span> <span class="hl kwb">int</span> yylval<span class="hl opt">;</span>
+
+<span class="hl opt">%}</span>
+
+<span class="hl opt">%</span>option noyywrap
+
+<span class="hl opt">%%</span>
+
+<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">-</span><span class="hl num">9</span><span class="hl opt">]+                  {</span> yylval <span class="hl opt">=</span> <span class="hl kwd">atoi</span><span class="hl opt">(</span>yytext<span class="hl opt">);</span> <span class="hl kwa">return</span> INT<span class="hl opt">; }</span>
+<span class="hl str">&quot;+&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> PLUS<span class="hl opt">;  }</span>
+<span class="hl str">&quot;-&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> MINUS<span class="hl opt">; }</span>
+<span class="hl str">&quot;*&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> MULT<span class="hl opt">;  }</span>
+<span class="hl str">&quot;/&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> DIV<span class="hl opt">;   }</span>
+<span class="hl str">&quot;(&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> OPEN<span class="hl opt">;  }</span>
+<span class="hl str">&quot;)&quot;</span>                     <span class="hl opt">{</span> <span class="hl kwa">return</span> CLOSE<span class="hl opt">; }</span>
+<span class="hl esc">\n</span>                      <span class="hl opt">{</span> <span class="hl kwa">return</span> EOL<span class="hl opt">; }</span>
+<span class="hl opt">&lt;&lt;</span>EOF<span class="hl opt">&gt;&gt;                 {</span> <span class="hl kwa">return</span> EOF<span class="hl opt">; }</span>
+
+<span class="hl opt">[</span> <span class="hl esc">\t</span><span class="hl opt">]                   { }</span>
+<span class="hl opt">.                       {</span> <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Unexpected character %c (%d)</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+                                          <span class="hl opt">*</span>yytext<span class="hl opt">, *</span>yytext<span class="hl opt">); }</span>
+<span class="hl opt">%%</span>
+</code></pre>
+
+<p>Par ailleurs, il nous faut un fichier permettant de communiquer les
+valeurs choisies pour les constantes représentant les unités
+syntaxiques (OPEN, CLOSE, PLUS, ...). Ceci est fait dans le fichier
+<code>analyseur-ll.h</code>:</p>
+
+<pre><code class="hl c"><span class="hl com">/*</span>
+<span class="hl com"> * automate.c        -- Automate déterministe pour ETF</span>
+<span class="hl com"> */</span>
+
+<span class="hl ppc">#define OPEN  300</span>
+<span class="hl ppc">#define CLOSE 301</span>
+<span class="hl ppc">#define PLUS  302</span>
+<span class="hl ppc">#define MINUS 303</span>
+<span class="hl ppc">#define MULT  304</span>
+<span class="hl ppc">#define DIV   305</span>
+
+<span class="hl ppc">#define INT   310</span>
+<span class="hl ppc">#define EOL   311</span>
+
+<span class="hl kwc">extern</span> <span class="hl kwb">int</span> <span class="hl kwd">yylex</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>
+</code></pre>
+
+<p>Il ne nous reste plus maintenant qu&#39;à définir la fonction
+<code>verify</code>. Celle-ci est assez proche de celle du cours:</p>
+
+<pre><code class="hl c"><span class="hl slc">// Verify current token &amp; advance</span>
+<span class="hl kwb">static bool</span> <span class="hl kwd">verify</span><span class="hl opt">(</span>token tok<span class="hl opt">) {</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>next <span class="hl opt">!=</span> tok<span class="hl opt">) {</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Invalid token &apos;%d&apos;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> next<span class="hl opt">);</span>
+    <span class="hl kwa">return false</span><span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> <span class="hl kwd">advance</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>avec une fonction <code>advance</code> définie simplement comme: </p>
+
+<pre><code class="hl c"><span class="hl slc">// Advance</span>
+<span class="hl kwb">static bool</span> <span class="hl kwd">advance</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">) {</span>
+  next <span class="hl opt">=</span> <span class="hl kwd">yylex</span><span class="hl opt">();</span>
+  <span class="hl kwa">return true</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Pour pouvoir analyser une phrase, le code minimal pourrait être :</p>
+
+<pre><code class="hl c">   <span class="hl kwd">advance</span><span class="hl opt">();</span>       <span class="hl slc">// pour initialiser le token d&apos;avance (dans next)</span>
+   <span class="hl kwd">E</span><span class="hl opt">();</span>             <span class="hl slc">// pour analyser l&apos;expression </span>
+   <span class="hl kwd">verify</span><span class="hl opt">(</span>EOL<span class="hl opt">);</span>     <span class="hl slc">// pour vérifier qu&apos;on a bien un &apos;\n&apos; après l&apos;expression</span> 
+</code></pre>
+
+<p>Nous devons ensuite définir une fonction par non-terminal de la
+grammaire. A titre d&#39;exemple, le code de la fonction F est: </p>
+
+<pre><code class="hl c"><span class="hl kwb">static bool</span> <span class="hl kwd">F</span><span class="hl opt">() {</span>
+  <span class="hl kwa">switch</span> <span class="hl opt">(</span>next<span class="hl opt">) {</span>
+    <span class="hl kwa">case</span> INT<span class="hl opt">:</span>
+      <span class="hl kwa">return</span> <span class="hl kwd">advance</span><span class="hl opt">();</span>
+    <span class="hl kwa">case</span> OPEN<span class="hl opt">:</span>
+      <span class="hl kwa">return</span> <span class="hl kwd">advance</span><span class="hl opt">() &amp;&amp;</span> <span class="hl kwd">E</span><span class="hl opt">()&amp;&amp;</span> <span class="hl kwd">verify</span><span class="hl opt">(</span>CLOSE<span class="hl opt">);</span>
+    <span class="hl kwa">default</span><span class="hl opt">:</span>
+      <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;Expected INT or OPEN</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+      <span class="hl kwa">return false</span><span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+</code></pre>
+
+<p>Code complet de l&#39;analyseur <a href="analyseur-ll.c">analyseur-ll.c</a></p>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">11-Dec-2017 19:29 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

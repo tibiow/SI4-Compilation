@@ -1,0 +1,91 @@
+// -*- mode: java -*-
+//
+// ok-rational.toy 	-- Implementation of a  Rational Class
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 18-Sep-2015 13:57 (eg)
+// Last file update: 18-Sep-2015 15:08 (eg)
+//
+
+
+// Define the (external) exit function
+void exit(int n);
+
+// Define our gcd function
+int gcd(int a, int b) {
+    return (b == 0) ? a : gcd(b, a%b);
+}
+
+
+// ----------------------------------------------------------------------
+//			Rational Class
+// ----------------------------------------------------------------------
+class Rational
+{
+    int num=0, den=1;
+
+    // Utilities
+    Rational normalize() {
+	if (this.den == 0) { print("**** null denominator. Abort\n"); exit(1);	}
+
+	// Simplify
+	int g = gcd(this.num, this.den);
+	this.num = this.num / g;
+	this.den = this.den / g;
+
+	// Always keep sign in the denominator
+	if (this.den < 0) { this.num = -this.num; this.den = -this.den; };
+
+	return this;
+    }
+
+    void printobj() {
+	print(this.num);
+	if (this.den != 1) print("/", this.den);
+    }
+
+    //  ---- Constructors
+    Rational init(int i) {
+	this.num = i; return this;
+    }
+    Rational init2(int i, int j) {
+	this.num = i; this.den = j;
+	return this.normalize(); }
+
+    // ---- Operations
+    Rational add(Rational x) {
+	return new Rational.init2(this.num * x.den + this.den * x.num,
+				  this.den * x.den).normalize();
+    }
+
+    Rational sub(Rational x) {
+	return new Rational.init2(this.num * x.den - this.den * x.num,
+				  this.den * x.den).normalize();
+    }
+
+    Rational mul(Rational x) {
+	return new Rational.init2(this.num * x.num, this.den * x.den).normalize();
+    }
+
+    Rational divF(Rational x) {
+	return new Rational.init2(this.num * x.den, this.den * x.num).normalize();
+    }
+}
+
+
+int main() {
+    print("10    ==> ", new Rational.init(10),      "\n");
+    print("3/2   ==> ", new Rational.init2(3, 2),   "\n");
+    print("3/-2  ==> ", new Rational.init2(3, -2),  "\n");
+    print("-6/-4 ==> ", new Rational.init2(-6, -4), "\n");
+    print("12/-4 ==> ", new Rational.init2(12, -4), "\n");
+
+    Rational r1 = new Rational.init2(3, -7), r2 = new Rational.init(2);
+    print("r1 = ", r1, "\n", "r2 = ", r2, "\n");
+    r1 = r1.mul(r2.add(r1));
+    print("r1*(r2+r1) = ", r1, "\n");
+
+    print((r1.num == -33 and r1.den == 49) ? "SUCCESS\n" : "FAILURE\n");
+
+    return 0;
+}

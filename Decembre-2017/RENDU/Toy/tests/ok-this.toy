@@ -1,0 +1,25 @@
+// -*- mode: java -*-
+//
+// ok-this.toy 	-- Test of 'this' designator
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 17-Sep-2015 18:28 (eg)
+// Last file update: 17-Sep-2015 18:43 (eg)
+//
+
+class C {
+    int x = 1, y =1;
+
+    void reset()    { this.x = this.y = 0; }
+    void printobj() { print("(", this.x, ", ", this.y, ")"); }
+}
+
+int main() {
+    C c = new C;
+
+    print("before reset: ", c, "\n");
+    c.reset();
+    print("after reset: ", c, "\n");
+    print("SUCCESS\n");
+}
+

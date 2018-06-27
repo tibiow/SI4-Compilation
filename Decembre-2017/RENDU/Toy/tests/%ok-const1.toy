@@ -1,0 +1,25 @@
+// -*- mode: java -*-
+//
+// ok-const1.toy         -- A simple test of constant decalarations
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 18-Dec-2017 15:04
+// Last file update: 18-Dec-2017 16:44 (eg)
+//
+
+const int x = 10;
+const int y = 20, z = 30;
+
+int main() {
+    const bool b = false;
+    const float pi = 3.14159;
+    const string str = "Hello, world";
+    int w = 100;
+
+    print(x, y, z);
+    print(x+1, y+1, z+1);
+    print(b, pi, str);
+
+    print((w + x + y + z == 160) ? "SUCCESS\n": "FAILURE");
+    return 0;
+}

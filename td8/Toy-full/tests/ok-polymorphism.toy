@@ -1,0 +1,43 @@
+// -*- mode: java -*-
+//
+// ok-polymorphism.toy  -- Polymorphism test
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 16-Sep-2015 13:02 (eg)
+// Last file update: 26-Nov-2015 13:55 (eg)
+//
+
+// Idea of the example comes from
+//     https://en.wikipedia.org/wiki/Polymorphism_(computer_science)
+
+class Animal {
+    string talk() {
+        return "??";
+    }
+}
+
+class Cat extends Animal {
+    string talk() {
+        return "Meow!";
+    }
+}
+
+class Dog extends Animal {
+    string talk() {
+        return "Woof!";
+    }
+}
+
+void hear(Animal a) {
+    print("hear: ", a.talk(), "\n");
+}
+
+int main() {
+    hear(new Cat);
+    hear(new Dog);
+
+    Animal a = new Dog;                 //
+    print(a.typename(), "\n");          // ⟹ Dog
+    print((a.typename() == "Dog") ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

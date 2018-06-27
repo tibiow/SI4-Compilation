@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Erick Gallesio" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="robots" content="none" />
+    <meta name="generator" content="Gomd 2.0-alpha / Erick Gallesio" />
+    
+    
+    <!-- W3css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    
+    
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+    
+    
+    
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    
+    <style type="text/css">
+    <!-- 
+         
+         body.hl{background-color:#d6d6d6}code.hl{color:#000;background-color:#d6d6d6;font-size:10pt;font-family:courier new,monospace}.hl.num{color:#b85d00}.hl.esc{color:#007f00}.hl.str{color:#d10000}.hl.pps{color:#d10000}.hl.slc{color:#0000c3}.hl.com{color:#0000c3}.hl.ppc{color:#540054}.hl.opt{color:#2f7428}.hl.ipl{color:#be58a0}.hl.lin{color:#0000c3}.hl.kwa{color:#00007f}.hl.kwb{color:#540054;font-weight:700}.hl.kwc{color:#005400}.hl.kwd{color:#002a54}  
+         
+         
+         body{font-family:helvetica neue,helvetica,arial,sans-serif;color:#333}pre{margin:1em 0;padding:0;border:0}pre code{margin:0;border-radius:8px;padding:5px;display:block}code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}blockquote{font-size:14px;font-style:oblique}ul{list-style-type:"- "}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}h2{border-bottom:3px solid #ccc}.page-header{padding:8px 0}.page-footer{background:#fafafa;padding:5px 10px 0;position:fixed;margin:0;bottom:0;left:0;width:1e2%}table{border-collapse:collapse}th{background:#ddd;padding:0 1em}td{padding:0 1em}table,td,th{border:1px solid #000}.center{text-align:center;margin:0 auto}@page{size:a4;@bottom-center{content:counter(page)"/"counter(pages);font-style:italic}}@media print{body{font-family:palatino linotype,book antiqua,palatino,serif;font-size:1em;margin:0;font-size:9pt;background-color:#fff!important;color:#000!important}h1,h2,h3,h4:{page-break-after:avoid}code{font-size:9pt;page-break-inside:avoid}p,li{orphans:2;widows:2}header,footer,.noprint{display:none}.print{width:1e2%}}  
+         
+         
+      -->
+    </style>
+    
+    <!-- ====================================================================== -->
+    <title>Feuille 3: Grammaires / Analyse ascendante</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="w3-container w3-bar w3-black page-header" style="font-size: 18px">
+        <a class="w3-bar-item w3-button w3-hover-red w3-text-grey" href="../..//index.html">
+          Compilation
+        </a>
+
+        
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td1/index.html">Td1</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td2/index.html">Td2</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td3/index.html">Td3</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td4/index.html">Td4</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td5/index.html">Td5</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td6/index.html">Td6</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td7/index.html">Td7</a>
+          
+             <a class="w3bar-item w3-button w3-hover-red w3-text-grey" href="../../Tds/Td8/index.html">Td8</a>
+          
+        
+      </div>
+    </header>
+
+
+    <div class="w3-row-padding">
+
+      <!-- Left margin -->
+      <div class="w3-quarter noprint">
+        <!-- Informations -->
+        
+
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-red">
+            <i class="fa fa-info-circle"></i> &nbsp;&nbsp;<b>Informations</b></li>
+          <li style="font-size: 12px;">
+            <p><strong>Année 2017-2018</strong>:</p>
+
+<p>- 21/09: Début du cours<br>
+- 09/11: Contrôle intermédiaire<br>
+- 21/12: Contôle final</p>
+
+          </li>
+        </ul>
+        
+
+        <!-- Resources -->
+        
+        <ul class="w3-ul w3-card-2 w3-border" style="margin-top: 16px">
+          <li class="w3-indigo">
+            <i class="fa fa-file"></i> &nbsp;&nbsp;<b>Ressources</b></li>
+          <li style="font-size: 12px;">
+            <p>- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/flex.pdf">Doc. Flex</a><br/>
+- <a href="http://www.polytech.unice.fr/%7Eeg/Compilation/Ressources/bison.pdf">Doc. Bison</a><br/></p>
+
+          </li>
+        </ul>
+        
+        
+        <!-- Links -->
+        
+      </div>
+        
+      <div class="w3-threequarter print">
+        
+        <div class="w3-center" style="margin:32px 16px;">
+          <h1>Feuille 3: Grammaires / Analyse ascendante</h1>
+          
+        </div>
+<h2 id="sujet">Sujet</h2>
+
+<p>Le sujet de la feuille de TD est <a href="sujet.html">ici</a>.</p>
+
+<h2 id="corrigé">Corrigé</h2>
+
+<h3 id="grammaires-simples">Grammaires simples</h3>
+
+<h4 id="grammaire-g1">Grammaire G1</h4>
+
+<p>La grammaire est <code>S → a S | x</code> que l&#39;on transforme en</p>
+
+<pre><code class="hl">0   S&#39; → S $
+1   S  → a S 
+2   S  → x
+</code></pre>
+
+<p>On peut calculer les PREMIERs et les SUIVANTs </p>
+
+<pre><code class="hl">PREMIER(S)  = { a, x }    SUIVANT(S) = { $ }
+</code></pre>
+
+<p>On peut donc construire la table </p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>x</th>
+<th>$</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>S</td>
+<td>1</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>La grammaire est donc bien LL(1).</p>
+
+<p>Construisons maintenant les ensembles d&#39;items pour G1:</p>
+
+<pre><code class="hl">I0: S&#39; -&gt; . S         I1
+    S  -&gt; . a S       I2
+    S  -&gt; . x         I3
+</code></pre>
+
+<pre><code class="hl">I1: S&#39; -&gt; S .        accept
+</code></pre>
+
+<pre><code class="hl">I2: S -&gt; a . S        I4
+    S -&gt; . a S        I2
+    S -&gt; . x          I3
+</code></pre>
+
+<pre><code class="hl">I3: S -&gt; x .          reduce 2
+</code></pre>
+
+<pre><code class="hl">I4: S -&gt; a S .        reduce 1
+</code></pre>
+
+<p>Nous avons donc la table de transitions suivante:</p>
+
+<p><center><img src="G1-LR0-automaton.png"></center></p>
+
+<p>La table LR(0) de cette grammaire est donc:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>x</th>
+<th>$</th>
+<th>S</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>s2</td>
+<td>s3</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td></td>
+<td>accept</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>s2</td>
+<td>s3</td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Pas de conflit ⇒ la grammaire est LR(0) (et donc aussi SLR(1))</p>
+
+<p><strong>Un exemple d&#39;analyse</strong></p>
+
+<p>Prenons maintenant la table précédente pour analyser la phrase <code>aax</code>. On obtient</p>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Pile</th>
+<th style="text-align: right">Entrée</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>$0</td>
+<td style="text-align: right">aax$</td>
+<td>shift puis état 2</td>
+</tr>
+<tr>
+<td>$0 a2</td>
+<td style="text-align: right">ax$</td>
+<td>shift puis état 2</td>
+</tr>
+<tr>
+<td>$0 a2 a2</td>
+<td style="text-align: right">x$</td>
+<td>shift puis état 3</td>
+</tr>
+<tr>
+<td>$0 a2 a2 x3</td>
+<td style="text-align: right">$</td>
+<td>reduce suivant règle 2, passage en état 4</td>
+</tr>
+<tr>
+<td>$0 a2 a2 S4</td>
+<td style="text-align: right">$</td>
+<td>reduce suivant règle 1, passage en état 4</td>
+</tr>
+<tr>
+<td>$0 a2 S4</td>
+<td style="text-align: right">$</td>
+<td>reduce suivant règle 1, passage en état 1</td>
+</tr>
+<tr>
+<td>$0 S1</td>
+<td style="text-align: right">$</td>
+<td><strong>accept</strong></td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h4 id="grammaire-g2">Grammaire G2</h4>
+
+<p>La grammaire est <code>S → a S | ε</code> que l&#39;on transforme en</p>
+
+<pre><code class="hl">0   S&#39; → S $
+1   S  → a S 
+2   S  → ε
+</code></pre>
+
+<p>On peut calculer les PREMIERs et les SUIVANTs </p>
+
+<pre><code class="hl">PREMIER(S)  = { a, ε }    SUIVANT(S) = { $ }
+</code></pre>
+
+<p>On peut donc construire la table </p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>$</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>S</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+<p>La grammaire est donc bien LL(1).</p>
+
+<p>Construisons maintenant les ensembles d&#39;items pour G2:</p>
+
+<pre><code class="hl">I0: S&#39; -&gt; . S         I1
+    S  -&gt; . a S       I2
+    S  -&gt; .           reduce 2
+</code></pre>
+
+<pre><code class="hl">I1: S&#39; -&gt; S .        accept
+</code></pre>
+
+<pre><code class="hl">I2: S -&gt; a . S        I3
+    S -&gt; . a S        I2
+    S -&gt; .            reduce 2
+</code></pre>
+
+<pre><code class="hl">I3: S -&gt; a S .        reduce 1
+</code></pre>
+
+<p>Nous avons donc la table de transitions suivante:</p>
+
+<p><center><img src="G2-LR0-automaton.png"></center></p>
+
+<p>La table LR(0) de cette grammaire est donc:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>$</th>
+<th>S</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>s2<br>r2</strong></td>
+<td>r2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td>accept</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>s2<br>r2</strong></td>
+<td>r2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>r1</td>
+<td>r1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Nous avons deux conflits. Par conséquent, G2 n&#39;est pas LR(0). </p>
+
+<p>Voyons maintenant si G2 est SLR(1). Pour cela on construit la table SLR.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>$</th>
+<th>S</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>s2</td>
+<td>r2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td>accept</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>s2</td>
+<td>r2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td></td>
+<td>r1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>On voit que G2 est donc bien SLR(1).</p>
+
+<p>Finalement, G2 est LL(1) et SLR(1) mais pas LR(0).</p>
+
+<h3 id="grammaire-des-s-expressions">Grammaire des s-expressions</h3>
+
+<h4 id="grammaire-initiale">Grammaire initiale</h4>
+
+<p>On a la grammaire: </p>
+
+<pre><code class="hl">S → atom | ( M ) 
+M → M S | ε
+</code></pre>
+
+<p>On ajoute la règle 
+<code>0  S&#39; → S</code>
+Les ensembles d&#39;items de cette grammaire sont:</p>
+
+<pre><code class="hl">I0: S&#39; → • S            I1
+    S  → • atom         I2
+    S  → • ( M )        I3
+</code></pre>
+
+<pre><code class="hl">I1: S&#39; → S •            accept
+</code></pre>
+
+<pre><code class="hl">I2: S → atom •          reduce 1
+</code></pre>
+
+<pre><code class="hl">I3: S → ( • M )         I4
+    M → • M S           I4
+    M → •               reduce 4
+</code></pre>
+
+<pre><code class="hl">I4: S → ( M • )         I5
+    M → M • S           I6
+    S → • atom          I2
+    S → • ( M )         I3
+</code></pre>
+
+<pre><code class="hl">I5: S → ( M ) •         reduce 2
+</code></pre>
+
+<pre><code class="hl">I6: M → M S •           reduce 3
+</code></pre>
+
+<p>Ce qui correspond au diagramme de transitions suivant (ici <code>&#39;(&#39;</code> et <code>&#39;)&#39;</code> sont dénommés <code>open</code> et <code>close</code>)</p>
+
+<p><center> <img src="sexpr-LR0-automaton.png" width="80%"></center></p>
+
+<p>La table LR(0) associée à cette grammaire est donc:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>atom</th>
+<th>(</th>
+<th>)</th>
+<th>$</th>
+<th>S</th>
+<th>M</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>s2</td>
+<td>s3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td>accept</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>r4</td>
+<td>r4</td>
+<td>r4</td>
+<td>r4</td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>s2</td>
+<td>s3</td>
+<td>s5</td>
+<td></td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>r3</td>
+<td>r3</td>
+<td>r3</td>
+<td>r3</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Comme il n&#39;y a pas de conflit, cette grammaire est LR(0).</p>
+
+<h4 id="grammaire-modifiée">Grammaire modifiée</h4>
+
+<p>Avec la grammaire </p>
+
+<pre><code class="hl">S → atom | ( M ) 
+M → S M | ε
+</code></pre>
+
+<p>On obtient les ensembles d&#39;items suivants (partiellement)</p>
+
+<pre><code class="hl">I0: S&#39; → • S            I1
+    S  → • atom         I2
+    S  → • ( M )        I3
+</code></pre>
+
+<pre><code class="hl">I1: S&#39; → S •            accept
+</code></pre>
+
+<pre><code class="hl">I2: S → atom •          reduce 1
+</code></pre>
+
+<pre><code class="hl">I3: S → ( • M )         I4
+    M → • S M           I5
+    M → •               reduce 4
+    S → • atom          I2
+    S → • ( M )         I3
+</code></pre>
+
+<p>Il est inutile de continuer plus avant. On voit ici que la troisième
+règle provoque une réduction alors que les deux suivantes provoquent
+des décalages. On aura donc  la ligne suivante dans la la table LR(0):</p>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>atom</th>
+<th>(</th>
+<th>)</th>
+<th>$</th>
+<th>S</th>
+<th>M</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>....</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>r4<br>s2</strong></td>
+<td><strong>r4<br>s3</strong></td>
+<td>r4</td>
+<td>r4</td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>La grammaire modifiée n&#39;est donc pas LR(0).</p>
+
+<p><strong>La grammaire modifiée est-elle SLR(1)?</strong><br>
+Pour voir cette grammaire est SLR(1), on a besoin des PREMIERs et des SUIVANTs. 
+Ici on a:</p>
+
+<pre><code class="hl">PREMIER(S) = {atom, &#39;(&#39;}        SUIVANT(S) = { atom, &#39;(&#39;, &#39;)&#39;}
+PREMIER(M) = {atom, &#39;(&#39;, ε}     SUIVANT(M) = { &#39;)&#39; }
+</code></pre>
+
+<p>Pour construire la table SLR(1), à l&#39;état 3, on ne doit faire la
+réduction suivant la règle 4 (M → ε) que pour SUIVANT(M), c&#39;est à dire &#39;)&#39;. 
+La table pour cet état devient donc:</p>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>atom</th>
+<th>(</th>
+<th>)</th>
+<th>$</th>
+<th>S</th>
+<th>M</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>....</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>s2</td>
+<td>s3</td>
+<td>r4</td>
+<td></td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>On voit donc que ce conflit a a disparu. </p>
+
+<p>Le reste de la construction de la table est laissé en exercice (il y a encore une ligne avec des conflits <em>shift/reduce</em> qui se réduisent). 
+Vous devriez trouver que la grammaire modifiée est finalement SLR(1).</p>
+
+<h3 id="affectations">Affectations</h3>
+
+<p>Soit la grammaire Ga:</p>
+
+<pre><code class="hl">1  S  → S ; A
+2  S  → A
+3  A  → E
+4  A  → id := E
+5  E  → E + id
+6  E  → id
+</code></pre>
+
+<p>On ajoute la règle 
+<code>0  S&#39; → S</code>
+Les ensembles d&#39;items de cette grammaire sont:</p>
+
+<pre><code class="hl">I0: S&#39;→ • S               I1
+    S → • S ; A           I1
+    S → • A               I2
+    A → • E               I3
+    A → • id := E         I4
+    E → • E + id          I3
+    E → • id              I4
+</code></pre>
+
+<pre><code class="hl">I1: S&#39; → S •              accept
+    S  → S • ; A          I5
+</code></pre>
+
+<pre><code class="hl">I2: S  -&gt; A •             reduce 2
+</code></pre>
+
+<pre><code class="hl">I3: A → E •               reduce 3
+    E → E • + id          I6
+</code></pre>
+
+<pre><code class="hl">I4: A → id • := E         I7
+    E → id •              reduce 6
+</code></pre>
+
+<pre><code class="hl">I5: S → S ; • A           I8
+    A → • E               I3
+    A → • id := E         I4
+    E → • E + id          I3
+    E → • id              I4
+</code></pre>
+
+<pre><code class="hl">I6: E → E + • id          I9
+</code></pre>
+
+<pre><code class="hl">I7: A → id := • E         I10
+    E → • E + id          I10
+    E → • id              I11         !
+</code></pre>
+
+<pre><code class="hl">I8: S → S ; A •           reduce 1
+</code></pre>
+
+<pre><code class="hl">I9: E → E + id •          reduce 5
+</code></pre>
+
+<pre><code class="hl">I10: A → id := E •        reduce 4
+     E → E • + id         I6
+</code></pre>
+
+<pre><code class="hl">I11: E →  id •            reduce 6
+</code></pre>
+
+<p><strong>Table LR(0) de Ga</strong></p>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>id</strong></th>
+<th><strong>;</strong></th>
+<th><strong>+</strong></th>
+<th><strong>:=</strong></th>
+<th><strong>$</strong></th>
+<th><strong>S</strong></th>
+<th><strong>A</strong></th>
+<th><strong>E</strong></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>s4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td>s5</td>
+<td></td>
+<td></td>
+<td>accept</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td>r2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>r3</td>
+<td>r3</td>
+<td><strong>r3<br>s6</strong></td>
+<td>r3</td>
+<td>r3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>r6</td>
+<td>r6</td>
+<td>r6</td>
+<td><strong>r6<br>s7</strong></td>
+<td>r6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>s4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>s9</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>s11</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td>r1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>r5</td>
+<td>r5</td>
+<td>r5</td>
+<td>r5</td>
+<td>r5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>r4</td>
+<td>r4</td>
+<td><strong>r4<br>s6</strong></td>
+<td>r4</td>
+<td>r4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>r6</td>
+<td>r6</td>
+<td>r6</td>
+<td>r6</td>
+<td>r6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>On voit dans cette table que l&#39;on a 3 conflits <strong>shift/reduce</strong>. La grammaire n&#39;est donc pas LR(0)</p>
+
+<p><strong>Table SLR(1) de G1</strong></p>
+
+<p>Pour construire la table SLR(1) nous devons chercher les SUIVANTs des non-terminaux de la grammaire. 
+Nous avons:</p>
+
+<pre><code class="hl">PREMIER(S) =  { id }         SUIVANT(S) = { &#39;;&#39;, &#39;$&#39; }
+PREMIER(A) =  { id }         SUIVANT(A) = { &#39;;&#39;, &#39;$&#39; }
+PREMIER(E) =  { id }         SUIVANT(E) = { &#39;;&#39;, &#39;+&#39;, &#39;$&#39;}
+</code></pre>
+
+<p>Pour construire la table, seules les lignes où il y des réductions sont modifiées. On obtient:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>id</strong></th>
+<th><strong>;</strong></th>
+<th><strong>+</strong></th>
+<th><strong>:=</strong></th>
+<th><strong>$</strong></th>
+<th><strong>S</strong></th>
+<th><strong>A</strong></th>
+<th><strong>E</strong></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>s4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td></td>
+<td>s5</td>
+<td></td>
+<td></td>
+<td>accept</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td></td>
+<td>r2</td>
+<td></td>
+<td></td>
+<td>r2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td></td>
+<td>r3</td>
+<td>s6</td>
+<td></td>
+<td>r3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td></td>
+<td>r6</td>
+<td>r6</td>
+<td>s7</td>
+<td>r6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>s4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>s9</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>s11</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td></td>
+<td>r1</td>
+<td></td>
+<td></td>
+<td>r1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td></td>
+<td>r5</td>
+<td>r5</td>
+<td></td>
+<td>r5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td></td>
+<td>r4</td>
+<td>s6</td>
+<td></td>
+<td>r4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td></td>
+<td>r6</td>
+<td>r6</td>
+<td></td>
+<td>r6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Ga est donc SLR(1) alors qu&#39;elle n&#39;est pas LR(0).<br>
+Cela veut dire qu&#39;elle est analysable (sans modification) avec un
+analyseur SLR(1),</p>
+      </div>
+    </div>
+
+    <footer> 
+      <div class="w3-container"> &nbsp;</div>
+      <div class="page-footer">
+        <small> 
+          <b>Compilation</b> — Erick Gallesio
+          <span class="pull-right">11-Dec-2017 19:29 (eg)</span>
+        </small>
+      </div>
+    </footer>
+    
+
+    
+    <!--Maths -->
+    <script>
+      renderMathInElement(document.body);
+    </script>
+    
+
+  </body>
+</html>

@@ -1,0 +1,18 @@
+// -*- mode: java -*-
+//
+// fail-read.toy        -- test of read primitive
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 13-Dec-2017 20:25
+// Last file update: 13-Dec-2017 20:27 (eg)
+//
+//ERRORS: 2
+
+int main() {
+    int i, j;
+
+    read(i);
+    readd(i, j);                // undefined
+    read(i, j, i+j);            // syntax
+    return 0;
+}

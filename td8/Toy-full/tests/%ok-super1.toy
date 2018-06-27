@@ -1,0 +1,37 @@
+// -*- mode: java -*-
+//
+// ok-super1.toy      -- Simple test on SUPER
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date:  9-Dec-2015 15:47 (eg)
+// Last file update: 11-Dec-2017 22:26 (eg)
+//
+
+class C  {
+    int x = 10;
+    int foo() {
+        print("In C ", this.x, "\n");
+        return 100;
+    }
+}
+
+class D extends C {
+    int x = 2;
+    int w = super.x;
+
+    int foo() {
+        print("In D\n");
+        print("   this.x = ",  this.x, "\n");
+        // Super on a field
+        print("  super.x = ", super.x, "\n");
+        // Super on a méthod
+        return super.x + super.foo();;
+    }
+}
+
+int main() {
+    D d = new D;
+    print("d.w = ", d.w, "\n");
+    print(d.foo() == 110 ? "SUCCESS\n": "FAILURE\n");
+    return 0;
+}

@@ -1,0 +1,47 @@
+// -*- mode: java -*-
+//
+// fail-method1.toy 	-- Simple methods with inheritance
+//
+//           Author: Erick Gallesio [eg@unice.fr]
+//    Creation date: 21-Jul-2015 08:27 (eg)
+// Last file update: 16-Sep-2015 09:06 (eg)
+//
+// ERRORS: 2
+
+class C {
+    int foo(int n) {
+	return n+1;
+    }
+    C bar() {
+	return new C;
+    }
+}
+
+
+class D extends C {
+    bool foo (int n) {			// return type not compatible with  C::foo
+	return n > 0;
+    }
+
+    D bar() {				// This one is OK
+	return new D;
+    }
+}
+
+class E extends D {
+    C bar() {				// This one is not OK, because of D::bar
+	return new D;
+    }
+}
+
+int main() {
+    C c = new C;
+    D d = new D;
+
+    print("c.foo(10): ", c.foo(10), "\n");
+    print("d.foo(10): ", d.foo(10), "\n");
+    c = d;
+    print("After assignment c.foo(10): ",  c.foo(10), "\n");
+    print(c.foo(1) == 0 ? "SUCCESS\n" : "FAILURE\n");
+    return 0;
+}
